@@ -22,6 +22,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         // Do any additional setup after loading the view.
         //centerMapOnLocation(initialLocation)
         
+        longPressGesture()
+        
         self.locationManager.delegate = self
         
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -31,6 +33,32 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         self.locationManager.startUpdatingLocation()
         
         self.map.showsUserLocation = true
+    }
+    
+    func longPressGesture() -> Void{
+        
+        let lpg = UILongPressGestureRecognizer(target: self, action: "longPressAction:")
+        lpg.minimumPressDuration = 2
+        
+        map.addGestureRecognizer(lpg)
+        
+    }
+    
+    func longPressAction(longPress: UILongPressGestureRecognizer){
+        
+        //Get where the user has clicked and convert it to coordinates
+        let myCGPoint = longPress.locationInView(map)
+        let coordinates:CLLocationCoordinate2D = map.convertPoint(myCGPoint, toCoordinateFromView: map)
+        
+        //Create pin
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinates
+        annotation.title = "Location"
+        annotation.subtitle = "Sol"
+        
+        //Add pin to the pressed point on the map
+        map.addAnnotation(annotation)
+        
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
