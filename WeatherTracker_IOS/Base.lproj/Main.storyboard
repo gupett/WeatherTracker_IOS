@@ -23,16 +23,64 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ciC-5b-Zkf">
+                                <rect key="frame" x="271" y="360.5" width="59" height="30"/>
+                                <state key="normal" title="Hitta Sol"/>
+                                <connections>
+                                    <action selector="getWeather:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gSE-ze-LjG"/>
+                                    <segue destination="UnW-vc-qeb" kind="show" id="Eg7-3Q-DLS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ciC-5b-Zkf" firstAttribute="top" secondItem="BIV-hU-g0o" secondAttribute="bottom" constant="50" id="5lv-vo-Ksk"/>
                             <constraint firstItem="BIV-hU-g0o" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="7EC-94-yQE"/>
+                            <constraint firstItem="ciC-5b-Zkf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8ZA-aA-6Zx"/>
                             <constraint firstItem="BIV-hU-g0o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TD1-AU-EEF"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="weatherLabel" destination="BIV-hU-g0o" id="IPz-Dp-ciK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+        </scene>
+        <!--Map View Controler View Controller-->
+        <scene sceneID="Fy4-mH-AJz">
+            <objects>
+                <viewController id="UnW-vc-qeb" customClass="MapViewControlerViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TVf-jf-qfA"/>
+                        <viewControllerLayoutGuide type="bottom" id="9SA-2V-a5Q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BHR-AN-OKz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="bko-f1-7aJ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="bko-f1-7aJ" secondAttribute="trailing" id="0Oa-Ar-Z2r"/>
+                            <constraint firstItem="bko-f1-7aJ" firstAttribute="top" secondItem="BHR-AN-OKz" secondAttribute="top" id="8FT-oo-dZz"/>
+                            <constraint firstItem="bko-f1-7aJ" firstAttribute="centerX" secondItem="BHR-AN-OKz" secondAttribute="centerX" id="9FI-1F-azQ"/>
+                            <constraint firstItem="9SA-2V-a5Q" firstAttribute="top" secondItem="bko-f1-7aJ" secondAttribute="bottom" id="DVk-2S-dgm"/>
+                            <constraint firstItem="bko-f1-7aJ" firstAttribute="centerY" secondItem="BHR-AN-OKz" secondAttribute="centerY" id="MEM-dz-nwR"/>
+                            <constraint firstItem="bko-f1-7aJ" firstAttribute="leading" secondItem="BHR-AN-OKz" secondAttribute="leading" id="NhL-Oo-Fqa"/>
+                            <constraint firstItem="bko-f1-7aJ" firstAttribute="centerX" secondItem="BHR-AN-OKz" secondAttribute="centerX" id="hzD-T8-FmI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="map" destination="bko-f1-7aJ" id="9Xt-fk-DpH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9j4-Yp-iy7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1299" y="454"/>
         </scene>
     </scenes>
 </document>
