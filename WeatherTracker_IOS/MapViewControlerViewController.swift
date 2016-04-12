@@ -26,6 +26,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         
         self.locationManager.delegate = self
         
+        self.map.delegate = self
+        
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         
         self.locationManager.requestWhenInUseAuthorization()
@@ -91,20 +93,35 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         //Kartans startvy är nu
         map.setRegion(region, animated: true)
         
+        //Create a static pin and place on map
         let annotation = MKPointAnnotation()
         annotation.title = "Karlshamn"
         annotation.subtitle = "SOL!!!!"
         annotation.coordinate = coordinates
         
-        //Create a circle
-        
+        //Create a circle (only coordinates, it will not show on map) MKCircle conforms to MKOverlay
         let circle = MKCircle(centerCoordinate: coordinates, radius: 2000)
         map.addOverlay(circle)
+        
+        
         
         map.addAnnotation(annotation)
         
     }
     
-
+    //To make a MKOverlay show on map, delegate method from MKMapViewDelegate protocol
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        print("mapView delegate")
+        
+        guard let overlayCircle = overlay as? MKCircle else{
+            print ("Error converting circle")
+            return MKPolylineRenderer()
+        }
+        
+        let circleArea = MKCircleRenderer(circle: overlayCircle)
+        circleArea.fillColor = UIColor.blueColor()
+        return circleArea
+    }
 
 }
