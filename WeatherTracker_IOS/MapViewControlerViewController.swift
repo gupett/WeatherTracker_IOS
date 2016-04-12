@@ -14,13 +14,13 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
 
     @IBOutlet weak var map: MKMapView!
     
+    //Variabel to the search baren
+    var resultSearchController: UISearchController? = nil
+    
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        //centerMapOnLocation(initialLocation)
         
         longPressGesture()
         
@@ -28,13 +28,40 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         
         self.map.delegate = self
         
+        showLocation()
+        
+        createSearchBar()
+    }
+    
+    func showLocation(){
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        
         self.locationManager.requestWhenInUseAuthorization()
-        
         self.locationManager.startUpdatingLocation()
-        
         self.map.showsUserLocation = true
+    }
+    
+    func createSearchBar(){
+        //Set up the search bar and corresponding tableview
+        //To access the tableViewController
+        let resultSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: resultSearchTable)
+        resultSearchController?.searchResultsUpdater = resultSearchTable
+        
+        //configures the search bar, and embeds it within the navigation bar
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search"
+        //add the search bar on teh top of the screen
+        navigationItem.titleView = resultSearchController?.searchBar
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.dimsBackgroundDuringPresentation = true
+        
+        //Make sure that the overlay does not cover the searchbar
+        definesPresentationContext = true
+        
+        //Give the LocationSearchTable access to add and modify the map
+        resultSearchTable.map = self.map
     }
     
     func longPressGesture() -> Void{
