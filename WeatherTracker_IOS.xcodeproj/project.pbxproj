@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0ED6721CC4C6E40061B3C1 /* Line.swift */; };
 		6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */; };
+		6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BAEAE1CC2A59400309117 /* DrawView.swift */; };
+		6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE8119F1CC6212D00E23D3A /* DeleteAnnotation.swift */; };
+		6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE811A11CC660CC00E23D3A /* DeleteAnnotationView.swift */; };
 		6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB75991CBB837400C80EBB /* AppDelegate.swift */; };
-		6FEB759C1CBB837400C80EBB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB759B1CBB837400C80EBB /* ViewController.swift */; };
 		6FEB759F1CBB837400C80EBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB759D1CBB837400C80EBB /* Main.storyboard */; };
 		6FEB75A11CBB837400C80EBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB75A01CBB837400C80EBB /* Assets.xcassets */; };
 		6FEB75A41CBB837400C80EBB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FEB75A21CBB837400C80EBB /* LaunchScreen.storyboard */; };
@@ -37,10 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6F0ED6721CC4C6E40061B3C1 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
+		6F8BAEAE1CC2A59400309117 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		6FE8119F1CC6212D00E23D3A /* DeleteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAnnotation.swift; sourceTree = "<group>"; };
+		6FE811A11CC660CC00E23D3A /* DeleteAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAnnotationView.swift; sourceTree = "<group>"; };
 		6FEB75961CBB837400C80EBB /* WeatherTracker_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherTracker_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FEB75991CBB837400C80EBB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6FEB759B1CBB837400C80EBB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6FEB759E1CBB837400C80EBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6FEB75A01CBB837400C80EBB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FEB75A31CBB837400C80EBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -81,6 +87,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F0ED6711CC4C69F0061B3C1 /* Draw */ = {
+			isa = PBXGroup;
+			children = (
+				6F8BAEAE1CC2A59400309117 /* DrawView.swift */,
+				6F0ED6721CC4C6E40061B3C1 /* Line.swift */,
+				6FAE43BD1CC7B18C00A41DFF /* DeleteButton */,
+			);
+			name = Draw;
+			sourceTree = "<group>";
+		};
 		6F8A8A4B1CBCF36D004F9EC0 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +104,23 @@
 				6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */,
 			);
 			name = MapView;
+			sourceTree = "<group>";
+		};
+		6F8A8A881CBD5164004F9EC0 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				6FEB75991CBB837400C80EBB /* AppDelegate.swift */,
+			);
+			name = Delegate;
+			sourceTree = "<group>";
+		};
+		6FAE43BD1CC7B18C00A41DFF /* DeleteButton */ = {
+			isa = PBXGroup;
+			children = (
+				6FE8119F1CC6212D00E23D3A /* DeleteAnnotation.swift */,
+				6FE811A11CC660CC00E23D3A /* DeleteAnnotationView.swift */,
+			);
+			name = DeleteButton;
 			sourceTree = "<group>";
 		};
 		6FEB758D1CBB837400C80EBB = {
@@ -114,9 +147,9 @@
 		6FEB75981CBB837400C80EBB /* WeatherTracker_IOS */ = {
 			isa = PBXGroup;
 			children = (
+				6F8A8A881CBD5164004F9EC0 /* Delegate */,
 				6F8A8A4B1CBCF36D004F9EC0 /* MapView */,
-				6FEB75991CBB837400C80EBB /* AppDelegate.swift */,
-				6FEB759B1CBB837400C80EBB /* ViewController.swift */,
+				6F0ED6711CC4C69F0061B3C1 /* Draw */,
 				6FEB759D1CBB837400C80EBB /* Main.storyboard */,
 				6FEB75A01CBB837400C80EBB /* Assets.xcassets */,
 				6FEB75A21CBB837400C80EBB /* LaunchScreen.storyboard */,
@@ -211,6 +244,7 @@
 				TargetAttributes = {
 					6FEB75951CBB837400C80EBB = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = AQTTH8AH3D;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -279,10 +313,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FEB759C1CBB837400C80EBB /* ViewController.swift in Sources */,
 				6FEB75CA1CBBD5E400C80EBB /* MapViewControlerViewController.swift in Sources */,
 				6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */,
+				6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */,
+				6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */,
+				6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */,
 				6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */,
+				6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,10 +461,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeatherTracker_IOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "weatherTracker.WeatherTracker-IOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -435,10 +476,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = WeatherTracker_IOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "weatherTracker.WeatherTracker-IOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

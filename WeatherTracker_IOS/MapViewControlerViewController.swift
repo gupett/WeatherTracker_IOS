@@ -10,27 +10,52 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GPMapDrawDelegate {
 
     @IBOutlet weak var map: MKMapView!
+    
+    @IBOutlet weak var drawView: DrawView!
+    
+    @IBOutlet weak var showDrawView: UIButton!
     
     //Variabel to the search baren
     var resultSearchController: UISearchController? = nil
     
     let locationManager = CLLocationManager()
     
+    var searchCoordinate: CLLocationCoordinate2D? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        longPressGesture()
-        
+        //this class is the delegate for the locationManager and map
         self.locationManager.delegate = self
-        
         self.map.delegate = self
+        //My custom delegateprotocol for drawView
+        drawView.delegate = self
         
         showLocation()
-        
         createSearchBar()
+        
+        //Set a image to the button
+        if let penImage = UIImage(named: "Pen"){
+            showDrawView.setImage(penImage, forState: .Normal)
+            //set the color of the button to black
+            showDrawView.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if let coordinate: CLLocationCoordinate2D = searchCoordinate {
+            let lat = coordinate.latitude
+            let long = coordinate.longitude
+            searchCoordinate = nil
+            zoom(lat, long: long)
+        }
+    }
+    
+    @IBAction func showDrawView(sender: AnyObject) {
+        drawView.superview?.bringSubviewToFront(drawView)
     }
     
     func showLocation(){
@@ -64,32 +89,10 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         resultSearchTable.map = self.map
     }
     
-    func longPressGesture() -> Void{
-        
-        let lpg = UILongPressGestureRecognizer(target: self, action: "longPressAction:")
-        lpg.minimumPressDuration = 2
-        
-        map.addGestureRecognizer(lpg)
-        
-    }
     
-    func longPressAction(longPress: UILongPressGestureRecognizer){
-        
-        //Get where the user has clicked and convert it to coordinates
-        let myCGPoint = longPress.locationInView(map)
-        let coordinates:CLLocationCoordinate2D = map.convertPoint(myCGPoint, toCoordinateFromView: map)
-        
-        //Create pin
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinates
-        annotation.title = "Location"
-        annotation.subtitle = "Sol"
-        
-        //Add pin to the pressed point on the map
-        map.addAnnotation(annotation)
-        
-    }
+    // MARK: - Get current location
     
+    // Location manager delegate
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last
         
@@ -103,6 +106,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         zoom(56.170303, long: 14.863073)
     }
     
+    // MARK: - zoom to a desired location
     func zoom(lat: CLLocationDegrees, long: CLLocationDegrees) -> Void{
         //Coordinates
         //let lat:CLLocationDegrees = 56.170303
@@ -119,36 +123,89 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         
         //Kartans startvy är nu
         map.setRegion(region, animated: true)
-        
-        //Create a static pin and place on map
-        let annotation = MKPointAnnotation()
-        annotation.title = "Karlshamn"
-        annotation.subtitle = "SOL!!!!"
-        annotation.coordinate = coordinates
-        
-        //Create a circle (only coordinates, it will not show on map) MKCircle conforms to MKOverlay
-        let circle = MKCircle(centerCoordinate: coordinates, radius: 2000)
-        map.addOverlay(circle)
-        
-        
-        
-        map.addAnnotation(annotation)
-        
     }
+    
+    // MARK: - Implementing GPMapDraw functions
+    
+    func dismissDrawView() {
+        map.superview?.bringSubviewToFront(map)
+    }
+    
+    func convertLinesToOverlay(lines: [Line]) {
+        var coordinates: [CLLocationCoordinate2D] = []
+        for line: Line in lines {
+            let coordinate: CLLocationCoordinate2D = map.convertPoint(line.start, toCoordinateFromView: map)
+            coordinates.append(coordinate)
+        }
+        
+        let coordinate : CLLocationCoordinate2D = map.convertPoint(lines[0].start, toCoordinateFromView: map)
+        coordinates.append(coordinate)
+        
+        for coordinate in coordinates {
+            print(coordinate)
+        }
+        
+        showOverlayOnMap(coordinates)
+    }
+    
+    // MARK: - Show annotation and overlay on map
+    
+    //& declare in out variable
+    func showOverlayOnMap(var coordinates: [CLLocationCoordinate2D]){
+        let polygonOverlay = MKPolygon(coordinates: &coordinates, count: coordinates.count)
+        map.addOverlay(polygonOverlay)
+        createCorrespondingDeleteButton(polygonOverlay, startCoordinate: coordinates[0])
+    }
+    
+    
     
     //To make a MKOverlay show on map, delegate method from MKMapViewDelegate protocol
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         
-        print("mapView delegate")
+        if let overlayPolygon: MKPolygon = overlay as? MKPolygon{
+            let polygonArea = MKPolygonRenderer(polygon: overlayPolygon)
+            polygonArea.fillColor = UIColor(colorLiteralRed: 0, green: 0, blue: 1, alpha: 30/256)
+            polygonArea.strokeColor = UIColor(colorLiteralRed: 0, green: 0, blue: 1, alpha: 1)
+            polygonArea.lineWidth = 2
+            return polygonArea
+        }
+        return MKOverlayRenderer()
+    }
+    
+    
+    // MARK: - Show and create delete button
+    
+    //Create the delete button for a specific marked area
+    func createCorrespondingDeleteButton(polygon: MKPolygon, startCoordinate: CLLocationCoordinate2D){
+        let pin = DeleteAnnotation(_coordinates: startCoordinate, with_polygon: polygon)
+        map.addAnnotation(pin)
+    }
+    
+    //To show the custom annotation (DeleteAnnotation), this delegate method will be called when the annotation comes in view
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        guard let overlayCircle = overlay as? MKCircle else{
-            print ("Error converting circle")
-            return MKPolylineRenderer()
+        //Check if the annotation actually is a DeleteAnnotation
+        if let button = annotation as? DeleteAnnotation{
+            let deleteButton = DeleteAnnotationView(annotation: button, reuseIdentifier: "deleteButton", deleteAnnotation: button)
+            
+            deleteButton.image = UIImage(named: "RoundDeleteButton")
+            
+            return deleteButton
         }
         
-        let circleArea = MKCircleRenderer(circle: overlayCircle)
-        circleArea.fillColor = UIColor.blueColor()
-        return circleArea
+        return MKAnnotationView()
     }
+    
+    // If a annotation is selected this delegate method will be called
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        
+        //Check if the selected annotation actually is a DeleteAnnotationView
+        if let deleteAnnotationView = view as? DeleteAnnotationView {
+            let overlayPolygon = deleteAnnotationView.deleteAnnotation?.polygon
+            map.removeOverlay(overlayPolygon!)
+            map.removeAnnotation(deleteAnnotationView.deleteAnnotation!)
+        }
 
+    }
+    
 }

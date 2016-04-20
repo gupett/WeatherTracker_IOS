@@ -32,7 +32,6 @@ class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
         let search = MKLocalSearch(request: request)
         search.startWithCompletionHandler({ (response, _)
             in
-            print("inside closure")
             guard let responseData = response else {
                 print("Error no response data received")
                 return
@@ -146,14 +145,35 @@ class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "showMap") {
+            if let indexpath = self.tableView.indexPathForSelectedRow {
+                let mapItem: MKMapItem = matchingItems[indexpath.row]
+                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! MapViewControlerViewController
+                controller.searchCoordinate = mapItem.placemark.coordinate
+            }
+        }
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
+    
+    /*
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "showDetail" {
+    if let indexPath = self.tableView.indexPathForSelectedRow {
+    let object = objects[indexPath.row] as! NSDate
+    let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+    controller.detailItem = object
+    controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+    controller.navigationItem.leftItemsSupplementBackButton = true
+    }
+    }
+    }
+
     */
 
 }
