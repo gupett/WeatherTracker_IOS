@@ -56,6 +56,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     @IBAction func showDrawView(sender: AnyObject) {
         drawView.superview?.bringSubviewToFront(drawView)
+        showDrawView.superview?.sendSubviewToBack(showDrawView)
     }
     
     func showLocation(){
@@ -129,6 +130,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     func dismissDrawView() {
         map.superview?.bringSubviewToFront(map)
+        showDrawView.superview?.bringSubviewToFront(showDrawView)
     }
     
     func convertLinesToOverlay(lines: [Line]) {
@@ -146,6 +148,10 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         }
         
         showOverlayOnMap(coordinates)
+    }
+    
+    func presentAlertController(alretController: UIAlertController) {
+        presentViewController(alretController, animated: true, completion: nil)
     }
     
     // MARK: - Show annotation and overlay on map
@@ -207,5 +213,6 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         }
 
     }
+    
     
 }

@@ -18,41 +18,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffB-k9-PAa" customClass="DrawView" customModule="WeatherTracker_IOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="320" height="415"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BCI-K7-Zo8">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sN9-n4-cKa">
-                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem title="Item" id="m7T-4P-tO2"/>
-                                </items>
-                            </toolbar>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d82-J0-E1T">
-                                <rect key="frame" x="15" y="488" width="36" height="30"/>
+                                <rect key="frame" x="145" y="269" width="30" height="30"/>
                                 <connections>
                                     <action selector="showDrawView:" destination="qDp-nO-vNb" eventType="touchUpInside" id="eDc-Ck-BB2"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffB-k9-PAa" customClass="DrawView" customModule="WeatherTracker_IOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="320" height="439"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ffB-k9-PAa" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" id="0dQ-pn-4Ba"/>
+                            <constraint firstItem="ffB-k9-PAa" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leadingMargin" constant="-20" id="14E-Ex-k1r"/>
                             <constraint firstItem="BCI-K7-Zo8" firstAttribute="top" secondItem="GJa-YL-Pvh" secondAttribute="bottom" id="2jH-cX-tqa"/>
-                            <constraint firstItem="d82-J0-E1T" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leadingMargin" id="3ZC-Vc-qww"/>
-                            <constraint firstItem="ffB-k9-PAa" firstAttribute="top" secondItem="GJa-YL-Pvh" secondAttribute="bottom" id="4fH-NY-62X"/>
-                            <constraint firstItem="QfT-4s-1aq" firstAttribute="top" secondItem="sN9-n4-cKa" secondAttribute="bottom" id="5ca-Bq-7ce"/>
-                            <constraint firstAttribute="trailing" secondItem="ffB-k9-PAa" secondAttribute="trailing" id="CL1-Zi-E7C"/>
-                            <constraint firstItem="sN9-n4-cKa" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" id="GYD-va-kyf"/>
-                            <constraint firstItem="d82-J0-E1T" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" constant="10" id="IKB-HI-Ph8"/>
+                            <constraint firstItem="d82-J0-E1T" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" constant="20" id="C0I-c6-YX7"/>
+                            <constraint firstAttribute="trailing" secondItem="ffB-k9-PAa" secondAttribute="trailing" id="IKF-6Q-4W1"/>
+                            <constraint firstItem="QfT-4s-1aq" firstAttribute="top" secondItem="ffB-k9-PAa" secondAttribute="bottom" constant="65" id="aQF-2E-UEO"/>
                             <constraint firstAttribute="trailing" secondItem="BCI-K7-Zo8" secondAttribute="trailing" id="fdn-la-U8X"/>
+                            <constraint firstItem="ffB-k9-PAa" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" id="fl2-xY-Lzw"/>
                             <constraint firstItem="BCI-K7-Zo8" firstAttribute="bottom" secondItem="QfT-4s-1aq" secondAttribute="top" id="gQN-8V-zcq"/>
-                            <constraint firstItem="sN9-n4-cKa" firstAttribute="top" secondItem="ffB-k9-PAa" secondAttribute="bottom" constant="45" id="jXY-Rf-Nlu"/>
-                            <constraint firstItem="sN9-n4-cKa" firstAttribute="top" secondItem="d82-J0-E1T" secondAttribute="bottom" constant="6" id="nJn-va-SBi"/>
-                            <constraint firstAttribute="trailing" secondItem="sN9-n4-cKa" secondAttribute="trailing" id="xoW-CH-Z4V"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ffB-k9-PAa" secondAttribute="trailing" constant="-20" id="s6U-dr-CFW"/>
+                            <constraint firstItem="ffB-k9-PAa" firstAttribute="top" secondItem="GJa-YL-Pvh" secondAttribute="bottom" id="tHQ-pY-7CZ"/>
+                            <constraint firstItem="ffB-k9-PAa" firstAttribute="top" secondItem="GJa-YL-Pvh" secondAttribute="bottom" id="uNB-W1-U1V"/>
+                            <constraint firstItem="QfT-4s-1aq" firstAttribute="top" secondItem="d82-J0-E1T" secondAttribute="bottom" constant="30" id="xdK-Nd-Kj2"/>
                             <constraint firstItem="BCI-K7-Zo8" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" id="yfx-qw-vKN"/>
                         </constraints>
                     </view>

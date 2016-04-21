@@ -11,6 +11,7 @@ import UIKit
 protocol GPMapDrawDelegate {
     func dismissDrawView()
     func convertLinesToOverlay(lines: [Line])
+    func presentAlertController(alretController: UIAlertController)
 }
 
 class DrawView: UIView {
@@ -52,18 +53,33 @@ class DrawView: UIView {
             return
         }
         
+        if lines.isEmpty {
+            delegate?.dismissDrawView()
+            //Create an AnlertController
+            let alertController = UIAlertController(title: "No Area Selected", message: "You have to draw the desired area", preferredStyle: .ActionSheet)
+            let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
+            alertController.addAction(defaultAction)
+            //tels the delegate to show the AlertController
+            delegate?.presentAlertController(alertController)
+            
+            return
+        }
+        
         guard let firstLine: Line = lines[0] else {
             return
         }
         
         lines.append(Line(_start: touch.locationInView(self), _end: firstLine.start))
         
-        self.setNeedsDisplay()
-        
         //Go back to mapView and use Lines to create an overlay based on map coordinates
         delegate?.dismissDrawView()
         
         delegate?.convertLinesToOverlay(lines)
+        
+        lines.removeAll()
+        
+        //Print out the lines in the empty lines array, to make sure the context is empty
+        self.setNeedsDisplay()
     }
 
     
