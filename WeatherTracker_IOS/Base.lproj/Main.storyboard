@@ -74,7 +74,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fBE-JS-Igi">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fBE-JS-Igi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </scrollView>
                         </subviews>
@@ -83,12 +83,12 @@
                     <navigationItem key="navigationItem" id="PUa-5e-jze">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ye3-O6-Kyr">
-                            <rect key="frame" x="69" y="7" width="182" height="30"/>
+                            <rect key="frame" x="42" y="7" width="236" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="First"/>
-                                <segment title="Second"/>
-                                <segment title=""/>
+                                <segment title="Enkel"/>
+                                <segment title="Avancerad"/>
+                                <segment title="NYI"/>
                             </segments>
                             <connections>
                                 <action selector="segmentAction:" destination="SBh-k2-d3b" eventType="valueChanged" id="n3e-mF-bH6"/>

@@ -13,7 +13,6 @@ class ScrollViewController: UIViewController ,UIScrollViewDelegate{
     
     @IBOutlet weak var Segment: UISegmentedControl!
     @IBOutlet weak var ScrollView: UIScrollView!
-    
     @IBAction func segmentAction(sender: AnyObject) {
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width
