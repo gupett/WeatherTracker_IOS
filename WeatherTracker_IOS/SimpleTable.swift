@@ -75,7 +75,7 @@ class SimpleTable: UITableViewController {
             tempSlider.maximumValue = 3
             tempSlider.addTarget(self, action:#selector(self.cloudSlider), forControlEvents:UIControlEvents.ValueChanged)
             let molnLable = UILabel(frame: CGRectMake(cell.frame.width/2, 0, 50, 12))
-            molnLable.text = "inget"
+            molnLable.text = "ingen"
             molnLable.font = molnLable.font.fontWithSize(10)
             molnLabelRef = molnLable
             cell.addSubview(molnLable)
@@ -89,7 +89,7 @@ class SimpleTable: UITableViewController {
             tempSlider.maximumValue = 3
             tempSlider.addTarget(self, action:#selector(self.windSlider), forControlEvents:UIControlEvents.ValueChanged)
             let vindLable = UILabel(frame: CGRectMake(cell.frame.width/2, 0, 50, 12))
-            vindLable.text = "av"
+            vindLable.text = "ingen"
             vindLable.font = vindLable.font.fontWithSize(10)
             vindLabelRef = vindLable
             cell.addSubview(vindLable)
@@ -247,7 +247,7 @@ class SimpleTable: UITableViewController {
         sender.setValue(Float(lroundf(sender.value)), animated: true)
         switch sender.value {
         case 0:
-            molnLabelRef.text = "inget"
+            molnLabelRef.text = "ingen"
         case 1:
             molnLabelRef.text = "lite"
         case 2:
@@ -262,7 +262,7 @@ class SimpleTable: UITableViewController {
         sender.setValue(Float(lroundf(sender.value)), animated: true)
         switch sender.value {
         case 0:
-            vindLabelRef.text = "inget"
+            vindLabelRef.text = "ingen"
         case 1:
             vindLabelRef.text = "lite"
         case 2:

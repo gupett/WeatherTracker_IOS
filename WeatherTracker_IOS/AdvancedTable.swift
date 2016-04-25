@@ -35,7 +35,7 @@ class AdvancedTable: UITableViewController {
         let comp = NSDateComponents()
         comp.day = +10
         maxDate = calender!.dateByAddingComponents(comp, toDate: NSDate(), options: NSCalendarOptions(rawValue:0))!
-        self.tv.scrollEnabled = false
+        //self.tv.scrollEnabled = true
         self.tv.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tv.dataSource = self
     }
@@ -76,7 +76,7 @@ class AdvancedTable: UITableViewController {
             tempSlider.maximumValue = 3
             tempSlider.addTarget(self, action:#selector(self.cloudSlider), forControlEvents:UIControlEvents.ValueChanged)
             let molnLable = UILabel(frame: CGRectMake(cell.frame.width/2, 0, 50, 12))
-            molnLable.text = "inget"
+            molnLable.text = "ingen"
             molnLable.font = molnLable.font.fontWithSize(10)
             molnLabelRef = molnLable
             cell.addSubview(molnLable)
@@ -114,7 +114,7 @@ class AdvancedTable: UITableViewController {
                                                 target: view, action: #selector(UIView.endEditing(_:)))
             keyboardToolbar.items = [flexBarButton, doneBarButton]
             startGradTextField.inputAccessoryView = keyboardToolbar
-            startGradTextField.keyboardType = UIKeyboardType.NumberPad
+            startGradTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
             cell.addSubview(startGradTextField)
             startGradRef = startGradTextField
             let endGradTextField = UITextField(frame: CGRectMake((self.view.frame.width/2)-100, 10, 100, 30))
@@ -124,7 +124,7 @@ class AdvancedTable: UITableViewController {
             endGradTextField.borderStyle = UITextBorderStyle.RoundedRect
             endGradTextField.autocorrectionType = UITextAutocorrectionType.No
             endGradTextField.returnKeyType = UIReturnKeyType.Done
-            endGradTextField.keyboardType = UIKeyboardType.NumberPad
+            endGradTextField.keyboardType = UIKeyboardType.NumbersAndPunctuation
             endGradTextField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
             
             cell.addSubview(endGradTextField)
@@ -282,7 +282,7 @@ class AdvancedTable: UITableViewController {
         sender.setValue(Float(lroundf(sender.value)), animated: true)
         switch sender.value {
         case 0:
-            molnLabelRef.text = "inget"
+            molnLabelRef.text = "ingen"
         case 1:
             molnLabelRef.text = "lite"
         case 2:
