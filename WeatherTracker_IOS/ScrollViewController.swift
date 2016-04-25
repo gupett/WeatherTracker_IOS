@@ -44,6 +44,7 @@ class ScrollViewController: UIViewController ,UIScrollViewDelegate{
     }
     
     override func viewDidLoad() {
+        self.ScrollView.scrollEnabled = false//ingen skroll
         super.viewDidLoad()
         ScrollView.delegate = self
         let simpleTableController = SimpleTable(nibName: "SimpleTable", bundle: nil)
@@ -61,7 +62,7 @@ class ScrollViewController: UIViewController ,UIScrollViewDelegate{
         self.ScrollView.addSubview(advancedTableController.view)
         advancedTableController.didMoveToParentViewController(self)
         
-        self.ScrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height-66)
+        self.ScrollView.contentSize = CGSizeMake(self.view.frame.size.width*2, self.view.frame.size.height)
         
     }
     override func didReceiveMemoryWarning() {

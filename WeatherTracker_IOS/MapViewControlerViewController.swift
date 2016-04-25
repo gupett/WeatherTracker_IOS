@@ -11,7 +11,6 @@ import MapKit
 import CoreLocation
 
 class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GPMapDrawDelegate {
-
     @IBOutlet weak var map: MKMapView!
     
     @IBOutlet weak var drawView: DrawView!
@@ -27,7 +26,6 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         //this class is the delegate for the locationManager and map
         self.locationManager.delegate = self
         self.map.delegate = self

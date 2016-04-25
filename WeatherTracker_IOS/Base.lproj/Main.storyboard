@@ -102,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ysa-Uo-fvX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1178" y="825"/>
+            <point key="canvasLocation" x="1003" y="928"/>
         </scene>
         <!--Location Search Table-->
         <scene sceneID="4gk-fl-QC4">
@@ -155,7 +155,7 @@
         <!--Navigation Controller-->
         <scene sceneID="j8n-9E-wFd">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FDE-yZ-DpS" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="map" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FDE-yZ-DpS" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yRF-Qw-r0U">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
