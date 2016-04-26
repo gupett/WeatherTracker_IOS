@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="FDE-yZ-DpS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zHv-zp-air">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controler View Controller-->
+        <!--Title-->
         <scene sceneID="RC1-FR-m9E">
             <objects>
-                <viewController id="qDp-nO-vNb" customClass="MapViewControlerViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapView" id="qDp-nO-vNb" customClass="MapViewControlerViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GJa-YL-Pvh"/>
                         <viewControllerLayoutGuide type="bottom" id="QfT-4s-1aq"/>
@@ -18,16 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BCI-K7-Zo8">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="BCI-K7-Zo8">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d82-J0-E1T">
-                                <rect key="frame" x="145" y="269" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d82-J0-E1T">
+                                <rect key="frame" x="20" y="508" width="30" height="30"/>
                                 <connections>
                                     <action selector="showDrawView:" destination="qDp-nO-vNb" eventType="touchUpInside" id="eDc-Ck-BB2"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ffB-k9-PAa" customClass="DrawView" customModule="WeatherTracker_IOS" customModuleProvider="target">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffB-k9-PAa" customClass="DrawView" customModule="WeatherTracker_IOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="320" height="439"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -49,9 +49,7 @@
                             <constraint firstItem="BCI-K7-Zo8" firstAttribute="leading" secondItem="dpD-BB-97A" secondAttribute="leading" id="yfx-qw-vKN"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="J57-LO-ld0">
-                        <nil key="title"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Title" id="2mz-42-2b4"/>
                     <connections>
                         <outlet property="drawView" destination="ffB-k9-PAa" id="q81-Qu-8eG"/>
                         <outlet property="map" destination="BCI-K7-Zo8" id="MCM-GR-BZo"/>
@@ -60,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="as1-Fv-szf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1206.9333333333334" y="193.12"/>
+            <point key="canvasLocation" x="1756" y="-676"/>
         </scene>
         <!--Location Search Table-->
         <scene sceneID="4gk-fl-QC4">
@@ -94,9 +92,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="FDE-yZ-DpS" kind="modal" identifier="showMap" id="bxI-Jb-MJu"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -108,25 +103,73 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rqR-pl-L4W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1080.5333333333333" y="911.63999999999999"/>
+            <point key="canvasLocation" x="2214" y="-676"/>
+        </scene>
+        <!--Activity Collection View Controller-->
+        <scene sceneID="lvs-ob-wvL">
+            <objects>
+                <collectionViewController id="J8b-v6-gSX" customClass="ActivityCollectionViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="OpE-1i-pqT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fdW-Ce-fmK">
+                            <size key="itemSize" width="155" height="138"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="FhE-TD-C68">
+                                <rect key="frame" x="0.0" y="64" width="155" height="138"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="155" height="138"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40g-5F-k7h">
+                                            <rect key="frame" x="8" y="43" width="110" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="40g-5F-k7h" firstAttribute="centerX" secondItem="FhE-TD-C68" secondAttribute="centerX" id="Ks3-2T-tGz"/>
+                                    <constraint firstItem="40g-5F-k7h" firstAttribute="centerY" secondItem="FhE-TD-C68" secondAttribute="centerY" id="r3r-mn-KM9"/>
+                                </constraints>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="J8b-v6-gSX" id="V3T-vI-M69"/>
+                            <outlet property="delegate" destination="J8b-v6-gSX" id="71j-ck-xCE"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="DP3-8S-4mi"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Auq-Pa-BLc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1279" y="-676"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="j8n-9E-wFd">
+        <scene sceneID="wMD-IZ-3ge">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FDE-yZ-DpS" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zHv-zp-air" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yRF-Qw-r0U">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="x5n-Ec-p8w">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="qDp-nO-vNb" kind="relationship" relationship="rootViewController" id="coN-f9-yZG"/>
+                        <segue destination="J8b-v6-gSX" kind="relationship" relationship="rootViewController" id="0c8-tz-7bK"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xcd-YM-6XG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gZw-Q6-mPD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="773.86666666666667" y="193.12"/>
+            <point key="canvasLocation" x="713" y="-676"/>
         </scene>
     </scenes>
 </document>

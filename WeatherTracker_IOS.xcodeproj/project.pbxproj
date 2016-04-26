@@ -10,6 +10,8 @@
 		6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0ED6721CC4C6E40061B3C1 /* Line.swift */; };
 		6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */; };
 		6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BAEAE1CC2A59400309117 /* DrawView.swift */; };
+		6FCAE8691CC8FE55009F2D6A /* ActivityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAE8681CC8FE55009F2D6A /* ActivityCollectionViewController.swift */; };
+		6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAE86B1CC903B0009F2D6A /* Activity.swift */; };
 		6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE8119F1CC6212D00E23D3A /* DeleteAnnotation.swift */; };
 		6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE811A11CC660CC00E23D3A /* DeleteAnnotationView.swift */; };
 		6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB75991CBB837400C80EBB /* AppDelegate.swift */; };
@@ -43,6 +45,8 @@
 		6F0ED6721CC4C6E40061B3C1 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		6F8BAEAE1CC2A59400309117 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		6FCAE8681CC8FE55009F2D6A /* ActivityCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewController.swift; sourceTree = "<group>"; };
+		6FCAE86B1CC903B0009F2D6A /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		6FE8119F1CC6212D00E23D3A /* DeleteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAnnotation.swift; sourceTree = "<group>"; };
 		6FE811A11CC660CC00E23D3A /* DeleteAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAnnotationView.swift; sourceTree = "<group>"; };
 		6FEB75961CBB837400C80EBB /* WeatherTracker_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherTracker_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +127,15 @@
 			name = DeleteButton;
 			sourceTree = "<group>";
 		};
+		6FCAE86A1CC8FE5B009F2D6A /* ActivityView */ = {
+			isa = PBXGroup;
+			children = (
+				6FCAE8681CC8FE55009F2D6A /* ActivityCollectionViewController.swift */,
+				6FCAE86B1CC903B0009F2D6A /* Activity.swift */,
+			);
+			name = ActivityView;
+			sourceTree = "<group>";
+		};
 		6FEB758D1CBB837400C80EBB = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +160,7 @@
 		6FEB75981CBB837400C80EBB /* WeatherTracker_IOS */ = {
 			isa = PBXGroup;
 			children = (
+				6FCAE86A1CC8FE5B009F2D6A /* ActivityView */,
 				6F8A8A881CBD5164004F9EC0 /* Delegate */,
 				6F8A8A4B1CBCF36D004F9EC0 /* MapView */,
 				6F0ED6711CC4C69F0061B3C1 /* Draw */,
@@ -314,10 +328,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FEB75CA1CBBD5E400C80EBB /* MapViewControlerViewController.swift in Sources */,
+				6FCAE8691CC8FE55009F2D6A /* ActivityCollectionViewController.swift in Sources */,
 				6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */,
 				6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */,
 				6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */,
 				6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */,
+				6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */,
 				6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */,
 				6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */,
 			);

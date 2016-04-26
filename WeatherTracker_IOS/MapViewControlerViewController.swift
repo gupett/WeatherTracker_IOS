@@ -27,12 +27,17 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //remove back button from navigationcontroller, should be done befoure the view is shown in prepare for segue
+        self.navigationItem.setHidesBackButton(true, animated: false)
+
         //this class is the delegate for the locationManager and map
         self.locationManager.delegate = self
         self.map.delegate = self
         //My custom delegateprotocol for drawView
         drawView.delegate = self
+        //let label = cell.viewWithTag(1) as! UILabel
+        let button = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBack")
+        self.navigationItem.rightBarButtonItem = button
         
         showLocation()
         createSearchBar()
@@ -41,8 +46,18 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         if let penImage = UIImage(named: "Pen"){
             showDrawView.setImage(penImage, forState: .Normal)
             //set the color of the button to black
-            showDrawView.tintColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+            showDrawView.tintColor = UIColor(colorLiteralRed: 1, green: 152/256, blue: 0, alpha: 1)
         }
+        
+        
+        //Configuer navigationbar
+        self.navigationController?.navigationBar.barTintColor = UIColor(colorLiteralRed: 25/256, green: 118/256, blue: 210/256, alpha: 1)
+        
+        self.navigationController?.navigationBar.backgroundColor = UIColor(colorLiteralRed: 25/256, green: 118/256, blue: 210/256, alpha: 1)
+    }
+    
+    func goBack(){
+        print("was called4")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -69,6 +84,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     func createSearchBar(){
         //Set up the search bar and corresponding tableview
         //To access the tableViewController
+        
         let resultSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: resultSearchTable)
         resultSearchController?.searchResultsUpdater = resultSearchTable
