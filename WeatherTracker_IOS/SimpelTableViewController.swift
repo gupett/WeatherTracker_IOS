@@ -10,6 +10,11 @@ import UIKit
 
 class SimpelTableViewController: UITableViewController {
     //temp start
+    var datePickRef:UIDatePicker = UIDatePicker()
+    var enddatePickRef:UIDatePicker = UIDatePicker()
+    var overlayRef:UIView = UIView()
+    var minDate:NSDate = NSDate()
+    var maxDate:NSDate = NSDate()
     @IBOutlet weak var tempSlider: UISlider!
     @IBOutlet weak var tempLabel: UILabel!
     @IBAction func tempSliderAction(sender: AnyObject) {
@@ -64,12 +69,104 @@ class SimpelTableViewController: UITableViewController {
     //date start
     @IBOutlet weak var startDateTextField: UITextField!
     @IBOutlet weak var endDateTextFild: UITextField!
-    @IBAction func startDateAction(sender: AnyObject) {
-        //andreas fixa
+    @IBAction func startDateAction(sender: UITextField!) {
+        let btnView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 240))
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let overlayBlur = UIVisualEffectView(effect: blurEffect)
+        overlayBlur.frame = self.view.bounds
+        overlayBlur.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        overlayBlur.userInteractionEnabled = false
+        self.navigationController?.navigationBarHidden = true
+        overlayRef = overlayBlur
+        self.view.addSubview(overlayBlur)
+        
+        let datePicker : UIDatePicker = UIDatePicker(frame: CGRectMake(0, 40, 0, 0))
+        datePicker.datePickerMode = UIDatePickerMode.Date
+        datePicker.minimumDate = NSDate()
+        datePicker.maximumDate = maxDate
+        datePickRef = datePicker
+        btnView.addSubview(datePicker)
+        let avbrytBtn = UIButton(frame: CGRectMake(0, 0, 100, 50))
+        avbrytBtn.setTitle("avbryt", forState: .Normal)
+        btnView.addSubview(avbrytBtn)
+        let valjBtn = UIButton(frame: CGRectMake((self.view.frame.size.width/1.5), 0, 100, 50))
+        valjBtn.setTitle("välj", forState: .Normal)
+        btnView.addSubview(valjBtn)
+        sender.inputView = btnView
+        
+        valjBtn.addTarget(self, action:"startChoose", forControlEvents: UIControlEvents.TouchUpInside)
+        avbrytBtn.addTarget(self, action:"abort", forControlEvents: UIControlEvents.TouchUpInside)
+        
         
     }
-    @IBAction func endDateAction(sender: AnyObject) {
-        //andreas fixa
+    func startChoose(sender: UIButton){
+        let DateString = NSDateFormatter()
+        DateString.dateFormat = "dd-MM-yyyy"
+        let DatePicked = DateString.stringFromDate(datePickRef.date)
+        
+        startDateTextField.text = DatePicked
+        minDate = datePickRef.date
+        self.navigationController?.navigationBarHidden = false
+        overlayRef.removeFromSuperview()
+        startDateTextField.resignFirstResponder()
+    }
+    @IBAction func endDateAction(sender: UITextField) {
+        let btnView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 240))
+        
+        
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.Dark)
+        let overlayBlur = UIVisualEffectView(effect: blurEffect)
+        overlayBlur.frame = self.view.bounds
+        overlayBlur.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        overlayBlur.userInteractionEnabled = false
+        self.navigationController?.navigationBarHidden = true
+        overlayRef = overlayBlur
+        self.view.addSubview(overlayBlur)
+        
+        
+        
+        let datePicker : UIDatePicker = UIDatePicker(frame: CGRectMake(0, 40, 0, 0))
+        datePicker.datePickerMode = UIDatePickerMode.Date
+        datePicker.minimumDate = minDate
+        let calender = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        let comp = NSDateComponents()
+        comp.day = +10
+        datePicker.maximumDate = calender!.dateByAddingComponents(comp, toDate: NSDate(), options: NSCalendarOptions(rawValue:0))!
+        
+        datePickRef = datePicker
+        btnView.addSubview(datePicker)
+        
+        
+        
+        let avbrytBtn = UIButton(frame: CGRectMake(0, 0, 100, 50))
+        avbrytBtn.setTitle("avbryt", forState: .Normal)
+        btnView.addSubview(avbrytBtn)
+        let valjBtn = UIButton(frame: CGRectMake((self.view.frame.size.width/1.5), 0, 100, 50))
+        valjBtn.setTitle("välj", forState: .Normal)
+        btnView.addSubview(valjBtn)
+        
+        sender.inputView = btnView
+        
+        valjBtn.addTarget(self, action:"endChoose", forControlEvents: UIControlEvents.TouchUpInside)
+        avbrytBtn.addTarget(self, action:"abort", forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    func endChoose(sender: UIButton){
+        let DateString = NSDateFormatter()
+        DateString.dateFormat = "dd-MM-yyyy"
+        let DatePicked = DateString.stringFromDate(datePickRef.date)
+        self.navigationController?.navigationBarHidden = false
+        endDateTextFild.text = DatePicked
+        maxDate = datePickRef.date
+        overlayRef.removeFromSuperview()
+        endDateTextFild.resignFirstResponder()
+    }
+    
+    func abort(sender: UIButton){
+        self.navigationController?.navigationBarHidden = false
+        overlayRef.removeFromSuperview()
+        endDateTextFild.resignFirstResponder()
+        startDateTextField.resignFirstResponder()
     }
     //button start
     @IBOutlet weak var mapButton: UIButton!
