@@ -102,6 +102,8 @@ class SimpelTableViewController: UITableViewController {
             print("no")
         }
     }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
@@ -117,7 +119,11 @@ class SimpelTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        segmentOutlet.selectedSegmentIndex = 1
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

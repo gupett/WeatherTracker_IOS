@@ -38,6 +38,7 @@ class advancedTableViewController: UITableViewController {
             print("no")
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
@@ -45,6 +46,11 @@ class advancedTableViewController: UITableViewController {
         segmentOutlet.tintColor = orange
         segmentOutlet.selectedSegmentIndex = 2
         
+        
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        segmentOutlet.selectedSegmentIndex = 2
         
     }
     
