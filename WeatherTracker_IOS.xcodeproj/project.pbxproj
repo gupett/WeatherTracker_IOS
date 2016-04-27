@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		485BEFCA1CD0A6B500A18550 /* advancedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485BEFC91CD0A6B500A18550 /* advancedTableViewController.swift */; };
+		487134951CCF67A6000E62EA /* SimpelTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487134931CCF67A6000E62EA /* SimpelTableViewController.swift */; };
 		6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0ED6721CC4C6E40061B3C1 /* Line.swift */; };
 		6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */; };
 		6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BAEAE1CC2A59400309117 /* DrawView.swift */; };
@@ -42,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		485BEFC91CD0A6B500A18550 /* advancedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = advancedTableViewController.swift; sourceTree = "<group>"; };
+		487134931CCF67A6000E62EA /* SimpelTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpelTableViewController.swift; sourceTree = "<group>"; };
 		6F0ED6721CC4C6E40061B3C1 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		6F8BAEAE1CC2A59400309117 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
@@ -91,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4871348B1CCF4D9B000E62EA /* tabels */ = {
+			isa = PBXGroup;
+			children = (
+				485BEFC91CD0A6B500A18550 /* advancedTableViewController.swift */,
+				487134931CCF67A6000E62EA /* SimpelTableViewController.swift */,
+			);
+			name = tabels;
+			sourceTree = "<group>";
+		};
 		6F0ED6711CC4C69F0061B3C1 /* Draw */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +173,7 @@
 		6FEB75981CBB837400C80EBB /* WeatherTracker_IOS */ = {
 			isa = PBXGroup;
 			children = (
+				4871348B1CCF4D9B000E62EA /* tabels */,
 				6FCAE86A1CC8FE5B009F2D6A /* ActivityView */,
 				6F8A8A881CBD5164004F9EC0 /* Delegate */,
 				6F8A8A4B1CBCF36D004F9EC0 /* MapView */,
@@ -330,10 +344,12 @@
 				6FEB75CA1CBBD5E400C80EBB /* MapViewControlerViewController.swift in Sources */,
 				6FCAE8691CC8FE55009F2D6A /* ActivityCollectionViewController.swift in Sources */,
 				6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */,
+				485BEFCA1CD0A6B500A18550 /* advancedTableViewController.swift in Sources */,
 				6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */,
 				6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */,
 				6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */,
 				6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */,
+				487134951CCF67A6000E62EA /* SimpelTableViewController.swift in Sources */,
 				6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */,
 				6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */,
 			);

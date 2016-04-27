@@ -11,12 +11,42 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ActivityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
-    
     var activities: [Activity] = [Activity(_image: UIImage(named: "Kite")!, _name: "Kitesurfing"), Activity(_image: UIImage(named: "Skiing")!, _name: "Skidåkning"), Activity(_image: UIImage(named: "Running")!, _name: "Löpning"), Activity(_image: UIImage(named: "Sailing")!, _name: "Segling"), Activity(_image: UIImage(named: "Biking")!, _name: "Cykling"), Activity(_image: UIImage(named: "Beach")!, _name: "Bada")]
-
+    
+    
+    @IBOutlet weak var viewSegmentOutlet: UISegmentedControl!
+    @IBAction func viewControleSegment(sender: AnyObject) {
+        switch viewSegmentOutlet.selectedSegmentIndex {
+        case 1:
+            
+            let nextView = self.storyboard!.instantiateViewControllerWithIdentifier("simpelTable")
+            for view in (self.navigationController?.viewControllers)! {
+                if(view.isKindOfClass(SimpelTableViewController)){
+                    self.navigationController?.popToViewController(view, animated: false)
+                }
+            }
+            
+            self.navigationController?.pushViewController(nextView, animated: false)
+            
+        case 2:
+            let nextView = self.storyboard!.instantiateViewControllerWithIdentifier("advancedTabel")
+            for view in (self.navigationController?.viewControllers)! {
+                if(view.isKindOfClass(advancedTableViewController)){
+                    self.navigationController?.popToViewController(view, animated: false)
+                }
+            }
+            
+            self.navigationController?.pushViewController(nextView, animated: false)
+        default:
+            print("defoult")
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.hidesBackButton = true
+        let orange =  UIColor(red: 1.0, green: 158.0/255.0, blue: 0, alpha: 1.0)
+        viewSegmentOutlet.tintColor = orange
+    
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -28,6 +58,11 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         //cellLayout()
         
         configureNavigationBar()
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated);
+        viewSegmentOutlet.selectedSegmentIndex = 0
+        
     }
     
     // Have to worke with "must register a nib or a class for the identifier or connect a prototype cell in a storyboard"
