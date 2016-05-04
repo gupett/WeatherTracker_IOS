@@ -25,10 +25,16 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     var searchCoordinate: CLLocationCoordinate2D? = nil
     
+    //Nytt för algoritmen
+    //List of delete buttons wich contains references to coresponding polygon
+    var buttonList: [DeleteAnnotation] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //remove back button from navigationcontroller, should be done befoure the view is shown in prepare for segue
-        self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        //tog bort kod för att gömma default back-btn
+        //self.navigationItem.setHidesBackButton(true, animated: false)
 
         //this class is the delegate for the locationManager and map
         self.locationManager.delegate = self
@@ -36,8 +42,14 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         //My custom delegateprotocol for drawView
         drawView.delegate = self
         //let label = cell.viewWithTag(1) as! UILabel
+        
+        
+        
+        //BORTTAGEN KOD FÖR EGEN BAKÅT KNAPP
+        /*
         let button = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBack")
         self.navigationItem.rightBarButtonItem = button
+         */
         
         showLocation()
         createSearchBar()
@@ -150,6 +162,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     }
     
     func convertLinesToOverlay(lines: [Line]) {
+        print(lines.count, " coordinater i listan")
         var coordinates: [CLLocationCoordinate2D] = []
         for line: Line in lines {
             let coordinate: CLLocationCoordinate2D = map.convertPoint(line.start, toCoordinateFromView: map)
@@ -159,24 +172,54 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         let coordinate : CLLocationCoordinate2D = map.convertPoint(lines[0].start, toCoordinateFromView: map)
         coordinates.append(coordinate)
         
-        for coordinate in coordinates {
-            print(coordinate)
-        }
-        
         showOverlayOnMap(coordinates)
+        print(lines.count, " coordinater i listan")
     }
     
     func presentAlertController(alretController: UIAlertController) {
         presentViewController(alretController, animated: true, completion: nil)
     }
     
-    // MARK: - Show annotation and overlay on map
+    // MARK: - test to show annotations on map
+    func showAnnotationsInsidePolygon(polygonCoordinates: [CLLocationCoordinate2D]){
+        print("show annotations inside")
+        //Hämta mittpunkterna på de små kvadraterna
+        let coordinates = ContainsCoordinate().coordinatesForSubSquaresOfPolygon(polygonCoordinates, map: self.map, view: self.view)
+        //se om mittpunkterna ligger innanför polygonen
+        
+        for coordinate in coordinates {
+            print(String(coordinate), " kdhfhjdskölgfdg")
+            if (ContainsCoordinate().insidePolygonCalculatedWithCoordinates(polygonCoordinates, coordinate: coordinate, map: self.map, view: self.view)){
+                print("kör i if")
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinate
+                annotation.title = String(coordinate)
+                self.map.addAnnotation(annotation)
+            }
+        }
+        
+        let cornerCoordinates = ContainsCoordinate().maxCoordiantesOfPolygon(polygonCoordinates)
+        
+        let c1 = CornerAnnotation(_coordinate: cornerCoordinates.0)
+        let c2 = CornerAnnotation(_coordinate: cornerCoordinates.1)
+        let c3 = CornerAnnotation(_coordinate: cornerCoordinates.2)
+        let c4 = CornerAnnotation(_coordinate: cornerCoordinates.3)
+        
+        map.addAnnotation(c1)
+        map.addAnnotation(c2)
+        map.addAnnotation(c3)
+        map.addAnnotation(c4)
+        
+    }
     
+    // MARK: - Show annotation and overlay on map
+    //Nytt sen algoritm
     //& declare in out variable
     func showOverlayOnMap(var coordinates: [CLLocationCoordinate2D]){
         let polygonOverlay = MKPolygon(coordinates: &coordinates, count: coordinates.count)
         map.addOverlay(polygonOverlay)
-        createCorrespondingDeleteButton(polygonOverlay, startCoordinate: coordinates[0])
+        //Nytt sen algoritm med argumentet för polylinje coordinaterna
+        createCorrespondingDeleteButton(polygonOverlay, startCoordinate: coordinates[0], polygonCoordinates: coordinates)
     }
     
     
@@ -196,16 +239,38 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     
     // MARK: - Show and create delete button
-    
+    //Nytt från algoritm att funktionen tar in lista med polygon koordinater
     //Create the delete button for a specific marked area
-    func createCorrespondingDeleteButton(polygon: MKPolygon, startCoordinate: CLLocationCoordinate2D){
-        let pin = DeleteAnnotation(_coordinates: startCoordinate, with_polygon: polygon)
+    func createCorrespondingDeleteButton(polygon: MKPolygon, startCoordinate: CLLocationCoordinate2D, polygonCoordinates: [CLLocationCoordinate2D]){
+        //Nytt från algoritm att DeleteAnnotation tar in polygon koordinater för att kunna ha punkter att dra linjer mellan för att kunna
+        //se om koordinat befinnersig innanför polygon
+        let pin = DeleteAnnotation(_coordinates: startCoordinate, with_polygon: polygon, and_PolygonCoordinates: polygonCoordinates)
         map.addAnnotation(pin)
+        //lägg till pins i overlayen
+        showAnnotationsInsidePolygon(polygonCoordinates)
+        
+        //List to holding reference to all deleteButtons
+        buttonList.append(pin)
     }
     
     //To show the custom annotation (DeleteAnnotation), this delegate method will be called when the annotation comes in view
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
+        //Om vanlig standard annotation
+        if annotation is MKPointAnnotation{
+            let pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+            print("Should show annotation")
+            return pinView
+        }
+        
+        if annotation is CornerAnnotation{
+            let corner = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "corner")
+            corner.pinColor = MKPinAnnotationColor.Green
+            return corner
+        }
+        
+        
+        //måste implementera reuseidentifier
         //Check if the annotation actually is a DeleteAnnotation
         if let button = annotation as? DeleteAnnotation{
             let deleteButton = DeleteAnnotationView(annotation: button, reuseIdentifier: "deleteButton", deleteAnnotation: button)
@@ -218,6 +283,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         return MKAnnotationView()
     }
     
+    
+    // MARK: - Ändrat i och med algoritm
     // If a annotation is selected this delegate method will be called
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         
@@ -226,6 +293,21 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
             let overlayPolygon = deleteAnnotationView.deleteAnnotation?.polygon
             map.removeOverlay(overlayPolygon!)
             map.removeAnnotation(deleteAnnotationView.deleteAnnotation!)
+            
+            //Nytt för algoritmen
+            //se if deleteAnnotation exists for deleteAnnotationView and if it does see if it is inside the list and if so filter it from list
+            if let deleteAnnotation = deleteAnnotationView.deleteAnnotation{
+                if buttonList.contains(deleteAnnotation){
+                    buttonList = buttonList.filter({$0 != deleteAnnotationView.deleteAnnotation})
+                }
+            }
+            
+        }
+        
+        //test för att se om deleteAnnotations försvinner från listan
+        var i = 1
+        for _ in buttonList{
+            print(i++)
         }
 
     }

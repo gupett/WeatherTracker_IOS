@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Set the color of status bar (batery and watch), applies for the entire app
         UIApplication.sharedApplication().statusBarStyle =  UIStatusBarStyle.LightContent
+        UINavigationBar.appearance().tintColor = UIColor.lightTextColor()
+        
         
         
         return true

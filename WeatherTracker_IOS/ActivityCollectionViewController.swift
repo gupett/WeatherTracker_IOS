@@ -83,8 +83,10 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
     
         // Configure the cell
+        
         let activity = activities[indexPath.row]
-        cell.backgroundView = UIImageView(image: activity.image)
+        let imageView = cell.viewWithTag(2) as! UIImageView
+        imageView.image = activity.image
         let label = cell.viewWithTag(1) as! UILabel
         label.text = activity.name
         label.textColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
@@ -108,7 +110,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let cellWith = (screenSize.width/2) - 15
-        return CGSize(width: cellWith, height: cellWith)
+        return CGSize(width: cellWith, height: cellWith + 15)
     }
     
     // Set the outer boundaries for the cell to the top, bottom and sides
@@ -124,7 +126,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         
         let mapView: MapViewControlerViewController = storyBoard.instantiateViewControllerWithIdentifier("MapView") as! MapViewControlerViewController
         
-        self.navigationController?.pushViewController(mapView, animated: true)
+        self.navigationController?.pushViewController(mapView, animated: false)
     }
     
     /*
