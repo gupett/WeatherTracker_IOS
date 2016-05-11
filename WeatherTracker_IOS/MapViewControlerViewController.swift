@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GPMapDrawDelegate {
+class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, GPMapDrawDelegate, WeatherResultDelegate{
 
     @IBOutlet weak var map: MKMapView!
     
@@ -18,43 +18,47 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     @IBOutlet weak var showDrawView: UIButton!
     
-    //Variabel to the search baren
+    @IBOutlet weak var searchButton: UIButton!
+    
+    @IBOutlet weak var loadingMonitor: UIActivityIndicatorView!
+    
+    @IBOutlet weak var loadingBackground: UIView!
+    
+    //reference to the searchbar
     var resultSearchController: UISearchController? = nil
     
     let locationManager = CLLocationManager()
     
     var searchCoordinate: CLLocationCoordinate2D? = nil
     
+    var searchParams = [String: Double]()
+    
+    var searchDates: [String] = []
+    
     //Nytt för algoritmen
     //List of delete buttons wich contains references to coresponding polygon
     var buttonList: [DeleteAnnotation] = []
     
+    //reference that will hold the search results the parameters will be passed in by the ParseJson object
+    //Will hold different lists for different keys. The key for the overall top three is "best" and the other keys are the stringform of the day "yyyy-mm-dd"
+    var resultDictionary = [String: [WeatherContainer]]()
+    
+    // Reference to all ResultAnnotations showing on map
+    var resultAnnotationsCurrentlyOnMap: [ResultAnnotation] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //remove back button from navigationcontroller, should be done befoure the view is shown in prepare for segue
-        
-        //tog bort kod för att gömma default back-btn
-        //self.navigationItem.setHidesBackButton(true, animated: false)
 
         //this class is the delegate for the locationManager and map
         self.locationManager.delegate = self
         self.map.delegate = self
         //My custom delegateprotocol for drawView
         drawView.delegate = self
-        //let label = cell.viewWithTag(1) as! UILabel
-        
-        
-        
-        //BORTTAGEN KOD FÖR EGEN BAKÅT KNAPP
-        /*
-        let button = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: "goBack")
-        self.navigationItem.rightBarButtonItem = button
-         */
         
         showLocation()
         createSearchBar()
         
-        //Set a image to the button
+        //Set an image to the button
         if let penImage = UIImage(named: "Pen"){
             showDrawView.setImage(penImage, forState: .Normal)
             //set the color of the button to black
@@ -68,22 +72,59 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         self.navigationController?.navigationBar.backgroundColor = UIColor(colorLiteralRed: 25/256, green: 118/256, blue: 210/256, alpha: 1)
     }
     
-    func goBack(){
-        print("was called4")
-    }
-    
     override func viewDidAppear(animated: Bool) {
+        //zoom in to location every time map opens, maby change?
         if let coordinate: CLLocationCoordinate2D = searchCoordinate {
             let lat = coordinate.latitude
             let long = coordinate.longitude
             searchCoordinate = nil
             zoom(lat, long: long)
         }
+        print("\(searchParams) sök parametrer")
+        print("\(searchDates) sök dagar")
     }
     
+    //Action triggered by pressing the pen button
     @IBAction func showDrawView(sender: AnyObject) {
         drawView.superview?.bringSubviewToFront(drawView)
         showDrawView.superview?.sendSubviewToBack(showDrawView)
+    }
+
+    // MARK: - Search weather
+    @IBAction func searchWeather(sender: AnyObject) {
+        
+        //Do some changes with the appearance of the mapview
+        self.map.superview?.bringSubviewToFront(map)
+        self.loadingBackground.superview?.bringSubviewToFront(loadingBackground)
+        self.loadingMonitor.superview?.bringSubviewToFront(loadingMonitor)
+        self.loadingMonitor.startAnimating()
+        
+        
+        //The list that will contain all the coordinates that we wish to compare weather for
+        var coordinatesToSearchList : [[CLLocationCoordinate2D]] = []
+        //The object which will take out the coordiantes inside the polygons
+        let polygonSearcher = ContainsCoordinate()
+        
+        //För att senare kunna veta när de asynkrona uppgifterna är klara
+        var numberOFSearchCoordinates = 0
+        
+        //use deletebutton list to access all the overlays on screen and fill the coordinatesToSearch list with them
+        for button in buttonList{
+            //Temporary stores the lines of the polygon which we are looking at the moment
+            let tempPolygonLines = button.polygonCoordinates
+            //performe the search and see which coordinates lies inside the polygon
+            let coordinatesForPolygon = polygonSearcher.getCoordinatesIsidePolygon(tempPolygonLines)
+            //Extend the newly fetched coordinates to the complete coordinates list
+            numberOFSearchCoordinates += coordinatesForPolygon.count
+            coordinatesToSearchList.append(coordinatesForPolygon)
+        }
+
+        print("Antalet intressanta polygoner är: \(coordinatesToSearchList.count) och coordinater är \(numberOFSearchCoordinates)  fndlksajtjeltlsdajdlsjfldsgjködslakgdslöagkdöskagldskagöldksg")
+        
+        //Performe the folowing task in a seperate thread
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
+            ParseJson(_numOfLocations: numberOFSearchCoordinates, _dateList: self.searchDates, _params: self.searchParams, _delegate: self).getWeatherForList(coordinatesToSearchList)
+            })
     }
     
     func showLocation(){
@@ -154,64 +195,6 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         map.setRegion(region, animated: true)
     }
     
-    // MARK: - Implementing GPMapDraw functions
-    
-    func dismissDrawView() {
-        map.superview?.bringSubviewToFront(map)
-        showDrawView.superview?.bringSubviewToFront(showDrawView)
-    }
-    
-    func convertLinesToOverlay(lines: [Line]) {
-        print(lines.count, " coordinater i listan")
-        var coordinates: [CLLocationCoordinate2D] = []
-        for line: Line in lines {
-            let coordinate: CLLocationCoordinate2D = map.convertPoint(line.start, toCoordinateFromView: map)
-            coordinates.append(coordinate)
-        }
-        
-        let coordinate : CLLocationCoordinate2D = map.convertPoint(lines[0].start, toCoordinateFromView: map)
-        coordinates.append(coordinate)
-        
-        showOverlayOnMap(coordinates)
-        print(lines.count, " coordinater i listan")
-    }
-    
-    func presentAlertController(alretController: UIAlertController) {
-        presentViewController(alretController, animated: true, completion: nil)
-    }
-    
-    // MARK: - test to show annotations on map
-    func showAnnotationsInsidePolygon(polygonCoordinates: [CLLocationCoordinate2D]){
-        print("show annotations inside")
-        //Hämta mittpunkterna på de små kvadraterna
-        let coordinates = ContainsCoordinate().coordinatesForSubSquaresOfPolygon(polygonCoordinates, map: self.map, view: self.view)
-        //se om mittpunkterna ligger innanför polygonen
-        
-        for coordinate in coordinates {
-            print(String(coordinate), " kdhfhjdskölgfdg")
-            if (ContainsCoordinate().insidePolygonCalculatedWithCoordinates(polygonCoordinates, coordinate: coordinate, map: self.map, view: self.view)){
-                print("kör i if")
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = coordinate
-                annotation.title = String(coordinate)
-                self.map.addAnnotation(annotation)
-            }
-        }
-        
-        let cornerCoordinates = ContainsCoordinate().maxCoordiantesOfPolygon(polygonCoordinates)
-        
-        let c1 = CornerAnnotation(_coordinate: cornerCoordinates.0)
-        let c2 = CornerAnnotation(_coordinate: cornerCoordinates.1)
-        let c3 = CornerAnnotation(_coordinate: cornerCoordinates.2)
-        let c4 = CornerAnnotation(_coordinate: cornerCoordinates.3)
-        
-        map.addAnnotation(c1)
-        map.addAnnotation(c2)
-        map.addAnnotation(c3)
-        map.addAnnotation(c4)
-        
-    }
-    
     // MARK: - Show annotation and overlay on map
     //Nytt sen algoritm
     //& declare in out variable
@@ -237,24 +220,18 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         return MKOverlayRenderer()
     }
     
-    
-    // MARK: - Show and create delete button
-    //Nytt från algoritm att funktionen tar in lista med polygon koordinater
-    //Create the delete button for a specific marked area
-    func createCorrespondingDeleteButton(polygon: MKPolygon, startCoordinate: CLLocationCoordinate2D, polygonCoordinates: [CLLocationCoordinate2D]){
-        //Nytt från algoritm att DeleteAnnotation tar in polygon koordinater för att kunna ha punkter att dra linjer mellan för att kunna
-        //se om koordinat befinnersig innanför polygon
-        let pin = DeleteAnnotation(_coordinates: startCoordinate, with_polygon: polygon, and_PolygonCoordinates: polygonCoordinates)
-        map.addAnnotation(pin)
-        //lägg till pins i overlayen
-        showAnnotationsInsidePolygon(polygonCoordinates)
-        
-        //List to holding reference to all deleteButtons
-        buttonList.append(pin)
-    }
-    
     //To show the custom annotation (DeleteAnnotation), this delegate method will be called when the annotation comes in view
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        //Om det är en annotation som sak visa upp resultat ska den konfigureras på följande sätt
+        if annotation is ResultAnnotation{
+            let resultAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "ResultAnnotation")
+            //lila färg
+            resultAnnotation.pinColor = MKPinAnnotationColor.Green
+            resultAnnotation.canShowCallout = true
+
+            return resultAnnotation
+        }
         
         //Om vanlig standard annotation
         if annotation is MKPointAnnotation{
@@ -268,7 +245,6 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
             corner.pinColor = MKPinAnnotationColor.Green
             return corner
         }
-        
         
         //måste implementera reuseidentifier
         //Check if the annotation actually is a DeleteAnnotation
@@ -307,7 +283,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         //test för att se om deleteAnnotations försvinner från listan
         var i = 1
         for _ in buttonList{
-            print(i++)
+            print(i)
+            i += 1
         }
 
     }

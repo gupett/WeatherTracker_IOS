@@ -8,8 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0ED6721CC4C6E40061B3C1 /* Line.swift */; };
+		6F7ACA961CDC8C41007DCA94 /* DataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7ACA951CDC8C41007DCA94 /* DataHandler.swift */; };
+		6F7ACA981CDC8C5C007DCA94 /* Data_Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7ACA971CDC8C5C007DCA94 /* Data_Request.swift */; };
+		6F7ACA9A1CDC8D0C007DCA94 /* WeatherContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7ACA991CDC8D0C007DCA94 /* WeatherContainer.swift */; };
+		6F7ACA9C1CDC8D2C007DCA94 /* ScoringSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7ACA9B1CDC8D2C007DCA94 /* ScoringSystem.swift */; };
+		6F7ACA9F1CDCC960007DCA94 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7ACA9E1CDCC960007DCA94 /* NavigationController.swift */; };
 		6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */; };
 		6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8BAEAE1CC2A59400309117 /* DrawView.swift */; };
+		6FA808B71CDE0C9C002DAEFF /* ResultAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808B61CDE0C9C002DAEFF /* ResultAnnotation.swift */; };
+		6FA808B91CDF13D7002DAEFF /* Map Result Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808B81CDF13D7002DAEFF /* Map Result Extension.swift */; };
+		6FA808BB1CDF15E4002DAEFF /* Map Draw Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808BA1CDF15E4002DAEFF /* Map Draw Extension.swift */; };
+		6FA808BE1CDF1721002DAEFF /* Map Test Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA808BD1CDF1721002DAEFF /* Map Test Extension.swift */; };
 		6FADA8B21CD111FA0005E1C0 /* CornerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FADA8B11CD111FA0005E1C0 /* CornerAnnotation.swift */; };
 		6FCAE8691CC8FE55009F2D6A /* ActivityCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAE8681CC8FE55009F2D6A /* ActivityCollectionViewController.swift */; };
 		6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAE86B1CC903B0009F2D6A /* Activity.swift */; };
@@ -50,8 +59,17 @@
 
 /* Begin PBXFileReference section */
 		6F0ED6721CC4C6E40061B3C1 /* Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		6F7ACA951CDC8C41007DCA94 /* DataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHandler.swift; sourceTree = "<group>"; };
+		6F7ACA971CDC8C5C007DCA94 /* Data_Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data_Request.swift; sourceTree = "<group>"; };
+		6F7ACA991CDC8D0C007DCA94 /* WeatherContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherContainer.swift; sourceTree = "<group>"; };
+		6F7ACA9B1CDC8D2C007DCA94 /* ScoringSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoringSystem.swift; sourceTree = "<group>"; };
+		6F7ACA9E1CDCC960007DCA94 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		6F8A8A491CBCF35A004F9EC0 /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		6F8BAEAE1CC2A59400309117 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		6FA808B61CDE0C9C002DAEFF /* ResultAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultAnnotation.swift; sourceTree = "<group>"; };
+		6FA808B81CDF13D7002DAEFF /* Map Result Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Map Result Extension.swift"; sourceTree = "<group>"; };
+		6FA808BA1CDF15E4002DAEFF /* Map Draw Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Map Draw Extension.swift"; sourceTree = "<group>"; };
+		6FA808BD1CDF1721002DAEFF /* Map Test Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Map Test Extension.swift"; sourceTree = "<group>"; };
 		6FADA8B11CD111FA0005E1C0 /* CornerAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerAnnotation.swift; sourceTree = "<group>"; };
 		6FCAE8681CC8FE55009F2D6A /* ActivityCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCollectionViewController.swift; sourceTree = "<group>"; };
 		6FCAE86B1CC903B0009F2D6A /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -109,10 +127,28 @@
 			isa = PBXGroup;
 			children = (
 				6F8BAEAE1CC2A59400309117 /* DrawView.swift */,
+				6FA808BA1CDF15E4002DAEFF /* Map Draw Extension.swift */,
 				6F0ED6721CC4C6E40061B3C1 /* Line.swift */,
 				6FAE43BD1CC7B18C00A41DFF /* DeleteButton */,
 			);
 			name = Draw;
+			sourceTree = "<group>";
+		};
+		6F7ACA941CDC8BF3007DCA94 /* Web Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				6F7ACA951CDC8C41007DCA94 /* DataHandler.swift */,
+				6F7ACA971CDC8C5C007DCA94 /* Data_Request.swift */,
+			);
+			name = "Web Tasks";
+			sourceTree = "<group>";
+		};
+		6F7ACA9D1CDCC929007DCA94 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				6F7ACA9E1CDCC960007DCA94 /* NavigationController.swift */,
+			);
+			name = Navigation;
 			sourceTree = "<group>";
 		};
 		6F8A8A4B1CBCF36D004F9EC0 /* MapView */ = {
@@ -130,6 +166,23 @@
 				6FEB75991CBB837400C80EBB /* AppDelegate.swift */,
 			);
 			name = Delegate;
+			sourceTree = "<group>";
+		};
+		6FA808B31CDE078D002DAEFF /* Result View */ = {
+			isa = PBXGroup;
+			children = (
+				6FA808B61CDE0C9C002DAEFF /* ResultAnnotation.swift */,
+				6FA808B81CDF13D7002DAEFF /* Map Result Extension.swift */,
+			);
+			name = "Result View";
+			sourceTree = "<group>";
+		};
+		6FA808BC1CDF16C1002DAEFF /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6FA808BD1CDF1721002DAEFF /* Map Test Extension.swift */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		6FAE43BD1CC7B18C00A41DFF /* DeleteButton */ = {
@@ -194,9 +247,13 @@
 		6FEB75981CBB837400C80EBB /* WeatherTracker_IOS */ = {
 			isa = PBXGroup;
 			children = (
+				6FA808BC1CDF16C1002DAEFF /* Tests */,
+				6FA808B31CDE078D002DAEFF /* Result View */,
+				6F7ACA9D1CDCC929007DCA94 /* Navigation */,
+				6F7ACA941CDC8BF3007DCA94 /* Web Tasks */,
+				6FFED5061CD0A80300C76E00 /* Algorithms */,
 				6FCFFD521CD382F9003E6509 /* Avancerad View */,
 				6FCFFD511CD382EC003E6509 /* Enkel View */,
-				6FFED5061CD0A80300C76E00 /* Algorithms */,
 				6FCAE86A1CC8FE5B009F2D6A /* ActivityView */,
 				6F8A8A881CBD5164004F9EC0 /* Delegate */,
 				6F8A8A4B1CBCF36D004F9EC0 /* MapView */,
@@ -231,6 +288,8 @@
 			isa = PBXGroup;
 			children = (
 				6FFED5071CD0A83C00C76E00 /* ContainsCoordinate.swift */,
+				6F7ACA991CDC8D0C007DCA94 /* WeatherContainer.swift */,
+				6F7ACA9B1CDC8D2C007DCA94 /* ScoringSystem.swift */,
 			);
 			name = Algorithms;
 			sourceTree = "<group>";
@@ -373,20 +432,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FEB75CA1CBBD5E400C80EBB /* MapViewControlerViewController.swift in Sources */,
+				6FA808B71CDE0C9C002DAEFF /* ResultAnnotation.swift in Sources */,
+				6F7ACA981CDC8C5C007DCA94 /* Data_Request.swift in Sources */,
+				6FA808B91CDF13D7002DAEFF /* Map Result Extension.swift in Sources */,
+				6FA808BB1CDF15E4002DAEFF /* Map Draw Extension.swift in Sources */,
 				6FCFFD541CD38327003E6509 /* AdvancedController.swift in Sources */,
 				E14216591CD783230017B5CA /* DateViewController.swift in Sources */,
 				6FCAE8691CC8FE55009F2D6A /* ActivityCollectionViewController.swift in Sources */,
 				6FADA8B21CD111FA0005E1C0 /* CornerAnnotation.swift in Sources */,
 				6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */,
 				6F8BAEAF1CC2A59400309117 /* DrawView.swift in Sources */,
+				6F7ACA961CDC8C41007DCA94 /* DataHandler.swift in Sources */,
 				6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */,
 				6FFED5081CD0A83C00C76E00 /* ContainsCoordinate.swift in Sources */,
 				6FCFFD561CD38340003E6509 /* SimpleController.swift in Sources */,
+				6F7ACA9C1CDC8D2C007DCA94 /* ScoringSystem.swift in Sources */,
 				6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */,
 				6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */,
 				E1C153CD1CDA08DF00255663 /* AdvancedDateViewController.swift in Sources */,
+				6F7ACA9A1CDC8D0C007DCA94 /* WeatherContainer.swift in Sources */,
 				6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */,
 				6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */,
+				6F7ACA9F1CDCC960007DCA94 /* NavigationController.swift in Sources */,
+				6FA808BE1CDF1721002DAEFF /* Map Test Extension.swift in Sources */,
 				E142165B1CD7840B0017B5CA /* SlideMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

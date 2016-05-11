@@ -114,7 +114,7 @@ class SimpleController: UIViewController {
         //skapar lista för datum och formaterar datum till sträng
         var days: [String] = []
         let DateString = NSDateFormatter()
-        DateString.dateFormat = "yyyyMMdd"
+        DateString.dateFormat = "yyyy-MM-dd"
         var tempDate = startDate
         let calender = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
        let endDatestr = DateString.stringFromDate(endDate)
@@ -187,12 +187,31 @@ class SimpleController: UIViewController {
             }
             
             //anropa funktion med days lista av dagar och paramteras som är key value pairs
-            print(days)
-            print(paramters)
+            
+            
+            //Get the reference to the NavigationController which holds a reference to the map
+            guard let navController: NavigationController = self.view.window?.rootViewController as? NavigationController else{
+                print ("jag fick ingen navigation controller")
+                return
+            }
+            
+            
+            //if top navigationController does not have a reference to a map then a new map will be created
+            // else the current reference to a map will be used
+            if navController.mapView == nil{
+                print("reference = nil")
+                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+                
+                navController.mapView = storyBoard.instantiateViewControllerWithIdentifier("MapView") as? MapViewControlerViewController
+            }
+            
+            navController.mapView!.searchParams = paramters
+            navController.mapView!.searchDates = days
+            
+            self.navigationController?.pushViewController(navController.mapView!, animated: false)
+
 
         }
-        
-
     }
     // MARK: - Navigation
 

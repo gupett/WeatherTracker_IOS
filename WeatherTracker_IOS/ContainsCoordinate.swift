@@ -7,7 +7,6 @@
 //
 
 import UIKit
-
 import MapKit
 
 
@@ -92,7 +91,7 @@ class ContainsCoordinate {
             
         }
         
-    
+        
         if (point.y < minY || point.y > maxY){
             
             return false
@@ -284,7 +283,7 @@ class ContainsCoordinate {
     }
     
     func createSubSquaresForPolygon(coordinates: [CLLocationCoordinate2D], map: MKMapView, view: UIView) -> ([CGPoint], [CLLocationCoordinate2D]){
-       
+        
         let maxCoordinates = maxCoordiantesOfPolygon(coordinates)
         
         print("ihfgljk" + String(maxCoordinates.0),String(maxCoordinates.1),String(maxCoordinates.2),String(maxCoordinates.3))
@@ -299,8 +298,8 @@ class ContainsCoordinate {
         print("minX ", minX, " miny ", minY)
         print("MaxX ", maxX, " MaxY ", maxY)
         
-        let xHopp: Double = Double(maxX - minX)/16
-        let yHopp: Double = Double(maxY - minY)/16
+        let xHopp: Double = Double(maxX - minX)/10
+        let yHopp: Double = Double(maxY - minY)/10
         
         print(xHopp, " xHopp ", yHopp, " yHopp")
         
@@ -330,15 +329,15 @@ class ContainsCoordinate {
         return (pointList, mapCoordinates)
     }
     
-    
-    func coordinatesForSubSquaresOfPolygon(coordinates: [CLLocationCoordinate2D], map: MKMapView, view: UIView) -> [CLLocationCoordinate2D]{
+    // MARK: - samma funktioner som ovan men för koordinater
+    // Funktionen som används
+    func coordinatesForSubSquaresOfPolygon(coordinates: [CLLocationCoordinate2D]) -> [CLLocationCoordinate2D]{
         
         let maxCoordinates = maxCoordiantesOfPolygon(coordinates)
         
         print("ihfgljk" + String(maxCoordinates.0),String(maxCoordinates.1),String(maxCoordinates.2),String(maxCoordinates.3))
         
         
-        //Byter platts på minX och maxX
         let minX = maxCoordinates.0.latitude
         let maxX = maxCoordinates.1.latitude
         let minY = maxCoordinates.2.longitude
@@ -347,8 +346,8 @@ class ContainsCoordinate {
         print("minX ", minX, " miny ", minY)
         print("MaxX ", maxX, " MaxY ", maxY)
         
-        let xHopp: Double = Double(maxX - minX)/16
-        let yHopp: Double = Double(maxY - minY)/16
+        let xHopp: Double = Double(maxX - minX)/10
+        let yHopp: Double = Double(maxY - minY)/10
         
         print(xHopp, " xHopp ", yHopp, " yHopp")
         
@@ -369,142 +368,77 @@ class ContainsCoordinate {
             }
             y = y + yHopp
         }
-        
-
-        
         return mapCoordinates
     }
     
     func intersectCoordinates(point1: CLLocationCoordinate2D, point2: CLLocationCoordinate2D, intersectingPoints point3: CLLocationCoordinate2D, point4: CLLocationCoordinate2D) -> (Int){
         
-        
         //skapar en ekvation från p1 och p2 för att se om p3 och p4 hamnar på olika sidor
-        
         //om de hamnar på olika sidor kan det potentialt vara så att linjerna skär varandra
-        
         var funcParam = returnFunctionForCoordinates(point1, point2: point2)
-        
         var a = funcParam.0
-        
         var b = funcParam.1
-        
         var c = funcParam.2
         
-        
-        
         var t1: Double = a * Double(point3.latitude) + b * Double(point3.longitude) + c
-        
         var t2: Double = a * Double(point4.latitude) + b * Double(point4.longitude) + c
         
-        
-        
         if(t1 < 0 && t2 < 0){
-            
             print("Not intersecting")
-            
             return 0
-            
         }
         
         if(t1 > 0 && t2 > 0){
-            
             print("Not intersecting")
-            
             return 0
-            
         }
-        
         
         //utför test igen fast nu från andra hållet
-        
         funcParam = returnFunctionForCoordinates(point3, point2: point4)
         
-        
         a = funcParam.0
-        
         b = funcParam.1
-        
         c = funcParam.2
         
-        
-        
         t1 = a * Double(point1.latitude) + b * Double(point1.longitude) + c
-        
         t2 = a * Double(point2.latitude) + b * Double(point2.longitude) + c
         
-        
-        
         if(t1 < 0 && t2 < 0){
-            
             print("Not intersecting")
-            
             return 0
-            
         }
         
         if(t1 > 0 && t2 > 0){
-            
             print("Not intersecting")
-            
             return 0
-            
         }
         
-        
-        
         print("lines intersecting")
-        
         return 1
-        
     }
-
+    
     func returnFunctionForCoordinates(point1: CLLocationCoordinate2D, point2: CLLocationCoordinate2D) -> (Double, Double, Double){
         
         let x1 = point1.latitude
-        
         let y1 = point1.longitude
-        
         let x2 = point2.latitude
-        
         let y2 = point2.longitude
         
-        
-        
         // aX + bY + c = 0
-        
         // Y = ((y1-y2)/(x1-x2))X + m
-        
         // Y(x1-x2) = (x1-x2)X + d
-        
         // Y(x1-x2) + (x2-x1)X = d
-        
         // c = -d = Y(x1-x2) + (x2-x1)X
-        
         let a: Double = Double(y2 - y1)
-        
         let b: Double = Double(x1 - x2)
-        
         let c: Double = -((a * Double(x1)) + (b * Double(y1)))
         
-        
-        
         return (a,b,c)
-        
     }
-
-    func insidePolygonCalculatedWithCoordinates(lines: [CLLocationCoordinate2D], coordinate: CLLocationCoordinate2D, map: MKMapView, view: UIView) -> (Bool){
-        
-        
+    
+    func insidePolygonCalculatedWithCoordinates(lines: [CLLocationCoordinate2D], coordinate: CLLocationCoordinate2D) -> (Bool){
         
         let maxCoordinates = maxCoordiantesOfPolygon(lines)
-        
-        //Testar så att punkt befinner sig innanför koordinat
-        
-        /*if !(insideSquare(coordinate, map: map, view: view, maxCoordinates: maxCoordinates)){
-            
-            return false
-            
-        }*/
         
         let tempLat = maxCoordinates.0.latitude - 1
         let templong = maxCoordinates.0.longitude + 1
@@ -516,25 +450,33 @@ class ContainsCoordinate {
         while(i < max){
             
             //let coordinate : CLLocationCoordinate2D = map.convertPoint(lines[0].start, toCoordinateFromView: map)
-            
             let p1 = lines[i]
-            
             let p2 = lines[i+1]
-
-            numOfIntersections = numOfIntersections + intersectCoordinates(p1, point2: p2, intersectingPoints: outsidePoint, point4: coordinate)
             
+            numOfIntersections = numOfIntersections + intersectCoordinates(p1, point2: p2, intersectingPoints: outsidePoint, point4: coordinate)
             i = i + 1
         }
-        
         //om rayen skär udda antal linjer ligger punkten i polygonen annars inte.
-        
         if (numOfIntersections % 2 == 1){
-            
             return true
-            
         }
-        
         return false
+    }
+    
+    func getCoordinatesIsidePolygon(polygonCoordinates: [CLLocationCoordinate2D]) -> ([CLLocationCoordinate2D]){
         
+        var coordinatesInside: [CLLocationCoordinate2D] = []
+        
+        //Ta ut potentiella punkter som skulle kunna ligga i polygonen
+        let coordinates = coordinatesForSubSquaresOfPolygon(polygonCoordinates)
+        
+        //se om mittpunkterna ligger innanför polygonen
+        for coordinate in coordinates {
+            print(String(coordinate), " kdhfhjdskölgfdg")
+            if (insidePolygonCalculatedWithCoordinates(polygonCoordinates, coordinate: coordinate)){
+                coordinatesInside.append(coordinate)
+            }
+        }
+        return coordinatesInside
     }
 }

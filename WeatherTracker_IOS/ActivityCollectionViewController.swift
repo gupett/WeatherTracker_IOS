@@ -14,6 +14,8 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     
     var activities: [Activity] = [Activity(_image: UIImage(named: "Kite")!, _name: "Kitesurfing"), Activity(_image: UIImage(named: "Skiing")!, _name: "Skidåkning"), Activity(_image: UIImage(named: "Running")!, _name: "Löpning"), Activity(_image: UIImage(named: "Sailing")!, _name: "Segling"), Activity(_image: UIImage(named: "Biking")!, _name: "Cykling"), Activity(_image: UIImage(named: "Beach")!, _name: "Bada")]
 
+    var mapView: MapViewControlerViewController? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -115,18 +117,32 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     
     // Set the outer boundaries for the cell to the top, bottom and sides
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        //bottom input ändrad så att man kan se även hela den undre cellen
+        return UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
     }
     
 
     // MARK: UICollectionViewDelegate
-
+    // will be called if cell is selected
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
-        let mapView: MapViewControlerViewController = storyBoard.instantiateViewControllerWithIdentifier("MapView") as! MapViewControlerViewController
+        //Get the reference to the NavigationController which holds a reference to the map
+        guard let navController: NavigationController = self.view.window?.rootViewController as? NavigationController else{
+            print ("jag fick ingen navigation controller")
+            return
+        }
         
-        self.navigationController?.pushViewController(mapView, animated: false)
+        
+        //if top navigationController does not have a reference to a map then a new map will be created
+        // else the current reference to a map will be used
+        if navController.mapView == nil{
+            print("reference = nil")
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            
+            navController.mapView = storyBoard.instantiateViewControllerWithIdentifier("MapView") as? MapViewControlerViewController
+        }
+        
+        self.navigationController?.pushViewController(navController.mapView!, animated: false)
     }
     
     /*
