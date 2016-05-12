@@ -33,6 +33,8 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
         PickerView.dataSource = self
         PickerView.delegate = self
         ParameterTxtData.text = "Kallast"
+        ParameterSlider.minimumValue = 0
+        ParameterSlider.maximumValue = 1
         
         // Do any additional setup after loading the view.
     }
@@ -52,11 +54,13 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
         return pickerdata.count
     }
     //MARK: Delegates
-    //Delegerar datan till pickerview
+    //Delegerar datan till pickerview, skapar rader
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerdata[row]
     }
     
+    //Vid val av vissa rad (element i pickern) så kopplas slidern och parametertexten till diverse case som,
+    //stämmer överens med motsvarande parameter.
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         pickerView.showsSelectionIndicator = true
         switch pickerdata[row]
@@ -96,7 +100,7 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
                 }, completion: nil)
             break
         case "Vind":
-            Func_Changer = 1
+            Func_Changer = 2
             ParameterTxtData.text = "Lite"
             ParameterSlider.maximumValue = 2
              ParameterSlider.setValue(0, animated: false)
@@ -112,7 +116,7 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
                 }, completion: nil)
             break
         case "Nederbörd":
-            Func_Changer = 2
+            Func_Changer = 3
             ParameterTxtData.text = "Av"
             ParameterSlider.maximumValue = 1
              ParameterSlider.setValue(0, animated: false)
@@ -163,8 +167,21 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
             default:
                 break
             }
-            break
         case 2:
+            switch ParameterSlider.value
+            {
+            case 0:
+                ParameterTxtData.text = "Lite"
+            case 1:
+                ParameterTxtData.text = "Mellan"
+            case 2:
+                ParameterTxtData.text = "Mycket"
+            default:
+                break
+            }
+
+            break
+        case 3:
             switch ParameterSlider.value
             {
             case 0:
@@ -267,41 +284,53 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
             //behöver lägga till sista datumet eftersom vi avbryter när datum blir lika
             days.append(DateString.stringFromDate(tempDate))
             
-            /*
+            
              var paramters: [String: Double] = [String: Double]()
              //lägger in värden ifrån slides till paramters dictionary
-             if(TempSlide.value == 1){
-             paramters["t"] = -31
-             }
-             else if(TempSlide.value == 2){
-             paramters["t"] = 31
-             }
+            
+            switch Func_Changer {
+            case 0:
+                if(ParameterSlider.value == 0){
+                    paramters["t"] = -100
+                }
+                else if(ParameterSlider.value == 1){
+                    paramters["t"] = 100
+                }
+            case 1:
+                if(ParameterSlider.value == 0){
+                    paramters["tcc_mean"] = 0
+                }
+                else if(ParameterSlider.value == 1){
+                    paramters["tcc_mean"] = 4
+                }
+                else if(ParameterSlider.value == 2){
+                    paramters["tcc_mean"] = 8
+                }
+                
+            case 2:
+                if(ParameterSlider.value == 0){
+                    paramters["ws"] = 3
+                }
+                else if(ParameterSlider.value == 1){
+                    paramters["ws"] = 6
+                }
+                else if(ParameterSlider.value == 2){
+                    paramters["ws"] = 10
+                }
+
+            case 3:
+                break
+            default:
+                break
+            }
+            
              
-             
-             if(WindSlide.value == 1){
-             paramters["ws"] = 3
-             }
-             else if(WindSlide.value == 2){
-             paramters["ws"] = 6
-             }
-             else if(WindSlide.value == 3){
-             paramters["ws"] = 10
-             }
-             
-             if(cloudSlide.value == 1){
-             paramters["tcc_mean"] = 0
-             }
-             else if(cloudSlide.value == 2){
-             paramters["tcc_mean"] = 4
-             }
-             else if(cloudSlide.value == 3){
-             paramters["tcc_mean"] = 8
-             }
-             
+            
+            
              //anropa funktion med days lista av dagar och paramteras som är key value pairs
              print(days)
              print(paramters)
-             */
+            
             
         }
         
