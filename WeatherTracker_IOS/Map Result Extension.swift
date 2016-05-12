@@ -40,6 +40,7 @@ extension MapViewControlerViewController{
             var subtitle = ""
             for (key, value) in wc.paramDictionary{
                 subtitle = "\(subtitle)\(key): \(value), "
+               
             }
             resultAnnotation.subtitle = subtitle
             map.addAnnotation(resultAnnotation)

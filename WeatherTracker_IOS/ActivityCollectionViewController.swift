@@ -12,7 +12,7 @@ private let reuseIdentifier = "Cell"
 
 class ActivityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
-    var activities: [Activity] = [Activity(_image: UIImage(named: "Kite")!, _name: "Kitesurfing"), Activity(_image: UIImage(named: "Skiing")!, _name: "Skidåkning"), Activity(_image: UIImage(named: "Running")!, _name: "Löpning"), Activity(_image: UIImage(named: "Sailing")!, _name: "Segling"), Activity(_image: UIImage(named: "Biking")!, _name: "Cykling"), Activity(_image: UIImage(named: "Beach")!, _name: "Bada")]
+    var activities: [Activity] = [Activity(_image: UIImage(named: "ic_sunny")!, _name: "Sol, Klar Himmel"), Activity(_image: UIImage(named: "ic_rain")!, _name: "Mycket Regn"), Activity(_image: UIImage(named: "ic_mostly_cloudy")!, _name: "Mycket Molnighet"), Activity(_image: UIImage(named: "ic_slight_rain")!, _name: "Lätt Regn"), Activity(_image: UIImage(named: "ic_haze")!, _name: "Disigt"), Activity(_image: UIImage(named: "ic_cloudy")!, _name: "Lätt Molnighet")]
 
     var mapView: MapViewControlerViewController? = nil
     
@@ -100,7 +100,20 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let cellWith = (screenSize.width/2) - 20
         //Place the cell frame in the wished lokation
-        cell.frame = CGRectMake(cell.frame.origin.x + 10, cell.frame.origin.y + 10, cellWith, cellWith)*/
+        cell.frame = CGRectMake(cell.frame.origin.x + 10, cell.frame.origin.y + 10, cellWith, 
+         cellWith)*/
+        cell.contentView.layer.cornerRadius = 10.0;
+        cell.contentView.layer.borderWidth = 2.0;
+        cell.contentView.layer.borderColor = UIColor.clearColor().CGColor;
+        cell.contentView.layer.masksToBounds = true;
+        
+        cell.layer.shadowColor = UIColor.grayColor().CGColor;
+        cell.layer.shadowOffset = CGSizeMake(0, 2.0);
+        cell.layer.shadowRadius = 2.0;
+        cell.layer.shadowOpacity = 1.0;
+        cell.layer.masksToBounds = false;
+        cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).CGPath;
+
         
         return cell
     }

@@ -23,10 +23,9 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    //Temperatur parametrar och kontroller
     @IBOutlet weak var TempSlide: UISlider!
-
     @IBOutlet weak var TempSwitch: UISwitch!
-    
     @IBOutlet weak var Temptxt: UILabel!
     
     @IBAction func TempSwitchChange(sender: AnyObject) {
@@ -61,8 +60,71 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         }
     }
     
-    @IBOutlet weak var Windtxt: UILabel!
+   
+    //Kodstycke som limiterar textfältens storlek
+    @IBOutlet weak var WindDirFrom: UITextField!
+    @IBOutlet weak var WindDirTo: UITextField!
     
+    
+    let limitLength = 3
+    
+    @IBAction func WindFromLimit(sender: AnyObject) {
+        
+        if(Int((WindDirFrom.text?.characters.count)!) > limitLength)
+        {
+            
+            WindDirFrom.deleteBackward()
+        }
+        else if(Int(WindDirFrom.text!) > 360 || Int(WindDirFrom.text!) < 0)
+        {
+            UIView.animateWithDuration(1.0, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                
+                self.WindDirFrom!.alpha = 0.0
+                }, completion: nil)
+            UIView.animateWithDuration(1.0, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                
+                self.WindDirFrom!.alpha = 1.0
+                }, completion: nil)
+            
+           WindDirFrom.deleteBackward()
+        }
+
+
+    }
+    @IBAction func WindToLimit(sender: AnyObject) {
+        
+        if(Int((WindDirTo.text?.characters.count)!) > limitLength)
+        {
+        
+            WindDirTo.deleteBackward()
+        }
+        else if(Int(WindDirTo.text!) > 360 || Int(WindDirTo.text!) < 0)
+        {
+            UIView.animateWithDuration(1.0, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.WindDirTo!.alpha = 0.0
+                
+                }, completion: nil)
+            UIView.animateWithDuration(1.0, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+               
+                self.WindDirTo!.alpha = 1.0
+                }, completion: nil)
+            
+            
+           WindDirTo.deleteBackward()
+        }
+        
+
+
+    }
+   
+    
+    
+     //Vindparametrar och kontroller
+    @IBOutlet weak var Windtxt: UILabel!
     @IBOutlet weak var WindSwitch: UISwitch!
     @IBOutlet weak var WindSlide: UISlider!
     
@@ -93,6 +155,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
             Windtxt.text = String(WindSlide.value)+"m/s"
         }
     }
+    
     @IBOutlet weak var cloudTxt: UILabel!
     
     @IBOutlet weak var cloudSlide: UISlider!
@@ -117,19 +180,17 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
     }
     @IBOutlet weak var WindDirSwitch: UISwitch!
     
-    @IBOutlet weak var WindDirFrom: UITextField!
-    
-    @IBOutlet weak var WindDirTo: UITextField!
+
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return false
     }
     func textFieldDidBeginEditing(textField: UITextField) {
-        ScrollView.setContentOffset(CGPoint(x: 0, y: 250), animated: true)
+        ScrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: true)
         
     }
     func textFieldDidEndEditing(textField: UITextField) {
-        ScrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        ScrollView.setContentOffset(CGPoint(x: 0, y: -70), animated: true)
     }
     @IBOutlet weak var ScrollView: UIScrollView!
     @IBAction func WindDireSwitchChange(sender: AnyObject) {
@@ -147,7 +208,6 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
     var startDate:NSDate = NSDate()
     var endDate:NSDate = NSDate()
     var startOrEnd = ""
-    
     
     
     @IBOutlet weak var endDateBtn: UIButton!
