@@ -12,19 +12,27 @@ private let reuseIdentifier = "Cell"
 
 class ActivityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
-    var activities: [Activity] = [Activity(_image: UIImage(named: "Kite")!, _name: "Kitesurfing"), Activity(_image: UIImage(named: "Skiing")!, _name: "Skidåkning"), Activity(_image: UIImage(named: "Running")!, _name: "Löpning"), Activity(_image: UIImage(named: "Sailing")!, _name: "Segling"), Activity(_image: UIImage(named: "Biking")!, _name: "Cykling"), Activity(_image: UIImage(named: "Beach")!, _name: "Bada")]
-
+    var activities: [Activity] =
+        [Activity(_image: UIImage(named: "ic_sunny")!, _name: "Sol, Klar Himmel"),
+         Activity(_image: UIImage(named: "ic_mostly_cloudy")!, _name: "Sol, Molnighet"),
+         Activity(_image: UIImage(named: "ic_haze")!, _name: "Sol, Disigt"),
+         Activity(_image: UIImage(named: "ic_cloudy")!, _name: "Molnigt"),
+         Activity(_image: UIImage(named: "ic_slight_rain")!, _name: "Sol, Lätt Regn"),
+         Activity(_image: UIImage(named: "ic_rain")!, _name: "Mycket Regn"),
+         Activity(_image: UIImage(named: "ic_thunderstorms")!, _name: "Åska"),
+         Activity(_image: UIImage(named: "ic_snow")!, _name: "Snö")]
+    
     var mapView: MapViewControlerViewController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Register cell classes
         /*self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)*/
-
+        
         // Do any additional setup after loading the view.
         
         //cellLayout()
@@ -34,12 +42,12 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     
     // Have to worke with "must register a nib or a class for the identifier or connect a prototype cell in a storyboard"
     /*func cellLayout(){
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-    }*/
+     let layout = UICollectionViewFlowLayout()
+     layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
+     layout.minimumInteritemSpacing = 0
+     layout.minimumLineSpacing = 0
+     collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+     }*/
     
     //Set the appearance of the navigationcontroler
     func configureNavigationBar(){
@@ -52,38 +60,38 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         let dictColor = [NSForegroundColorAttributeName: UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)]
         self.navigationController?.navigationBar.titleTextAttributes = dictColor
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using [segue destinationViewController].
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     // MARK: UICollectionViewDataSource
-
+    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
-
+    
+    
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return activities.count
     }
-
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-    
+        
         // Configure the cell
         
         let activity = activities[indexPath.row]
@@ -94,13 +102,26 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         label.textColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
         
         /*//cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, 108)
-        //cell.frame = CGRectMake(<#T##x: CGFloat##CGFloat#>, <#T##y: CGFloat##CGFloat#>, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>)
+         //cell.frame = CGRectMake(<#T##x: CGFloat##CGFloat#>, <#T##y: CGFloat##CGFloat#>, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>)
+         
+         //Get the properties of the screen
+         let screenSize: CGRect = UIScreen.mainScreen().bounds
+         let cellWith = (screenSize.width/2) - 20
+         //Place the cell frame in the wished lokation
+         cell.frame = CGRectMake(cell.frame.origin.x + 10, cell.frame.origin.y + 10, cellWith,
+         cellWith)*/
+        cell.contentView.layer.cornerRadius = 10.0;
+        cell.contentView.layer.borderWidth = 2.0;
+        cell.contentView.layer.borderColor = UIColor.clearColor().CGColor;
+        cell.contentView.layer.masksToBounds = true;
         
-        //Get the properties of the screen
-        let screenSize: CGRect = UIScreen.mainScreen().bounds
-        let cellWith = (screenSize.width/2) - 20
-        //Place the cell frame in the wished lokation
-        cell.frame = CGRectMake(cell.frame.origin.x + 10, cell.frame.origin.y + 10, cellWith, cellWith)*/
+        cell.layer.shadowColor = UIColor.grayColor().CGColor;
+        cell.layer.shadowOffset = CGSizeMake(0, 2.0);
+        cell.layer.shadowRadius = 2.0;
+        cell.layer.shadowOpacity = 1.0;
+        cell.layer.masksToBounds = false;
+        cell.layer.shadowPath = UIBezierPath(roundedRect:cell.bounds, cornerRadius:cell.contentView.layer.cornerRadius).CGPath;
+        
         
         return cell
     }
@@ -121,7 +142,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         return UIEdgeInsets(top: 10, left: 10, bottom: 50, right: 10)
     }
     
-
+    
     // MARK: UICollectionViewDelegate
     // will be called if cell is selected
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -146,32 +167,32 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     }
     
     /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+     // Uncomment this method to specify if the specified item should be highlighted during tracking
+     override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+     return true
+     }
+     */
     
-    }
-    */
-
+    /*
+     // Uncomment this method to specify if the specified item should be selected
+     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+     return true
+     }
+     */
+    
+    /*
+     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+     override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+     return false
+     }
+     
+     override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
+     return false
+     }
+     
+     override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
+     
+     }
+     */
+    
 }

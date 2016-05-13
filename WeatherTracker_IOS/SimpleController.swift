@@ -8,80 +8,204 @@
 
 import UIKit
 
-class SimpleController: UIViewController {
+class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
     var DatePickMenu = SlideMenu()
+    
+    //Referens till vår PickerView (alternativ extra label)
+    @IBOutlet weak var PickerView: UIPickerView!
+    
+    
+    
+    //Slider referens och textdata referens
+    
+    @IBOutlet weak var ParameterSlider: UISlider!
+    @IBOutlet weak var ParameterTxtData: UILabel!
+    
+    var Func_Changer = 0
+    
+    
+    
+    //Strängdata som skall snurra på hjulet i picker.
+    let pickerdata = ["Temperatur","Molnighet", "Vind", "Nederbörd"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        PickerView.dataSource = self
+        PickerView.delegate = self
+        ParameterTxtData.text = "Kallast"
+        ParameterSlider.minimumValue = 0
+        ParameterSlider.maximumValue = 1
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //MARK: - Delegates and data sources
+    //MARK: Data Sources
+    // definerar källdatan som ska in i pickerview.
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerdata.count
+    }
+    //MARK: Delegates
+    //Delegerar datan till pickerview, skapar rader
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerdata[row]
+    }
+    
+    //Vid val av vissa rad (element i pickern) så kopplas slidern och parametertexten till diverse case som,
+    //stämmer överens med motsvarande parameter.
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerView.showsSelectionIndicator = true
+        switch pickerdata[row]
+        {
+        case "Temperatur":
+            Func_Changer = 0
+            ParameterTxtData.text = "Kallast"
+            ParameterSlider.minimumValue = 0
+            ParameterSlider.maximumValue = 1
+            ParameterSlider.setValue(0, animated: false)
+            UIView.animateWithDuration(1.5, delay: 0.0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 0.0
+                self.ParameterTxtData!.alpha = 0.0
+                }, completion: nil)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 1.0
+                self.ParameterTxtData!.alpha = 1.0
+                }, completion: nil)
+            
+            break
+        case "Molnighet":
+            Func_Changer = 1
+            ParameterTxtData.text = "Lite"
+            ParameterSlider.maximumValue = 2
+            ParameterSlider.setValue(0, animated: false)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 0.0
+                self.ParameterTxtData!.alpha = 0.0
+                }, completion: nil)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 1.0
+                self.ParameterTxtData!.alpha = 1.0
+                }, completion: nil)
+            break
+        case "Vind":
+            Func_Changer = 2
+            ParameterTxtData.text = "Lite"
+            ParameterSlider.maximumValue = 2
+            ParameterSlider.setValue(0, animated: false)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 0.0
+                self.ParameterTxtData!.alpha = 0.0
+                }, completion: nil)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 1.0
+                self.ParameterTxtData!.alpha = 1.0
+                }, completion: nil)
+            break
+        case "Nederbörd":
+            Func_Changer = 3
+            ParameterTxtData.text = "Av"
+            ParameterSlider.maximumValue = 1
+            ParameterSlider.setValue(0, animated: false)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 0.0
+                self.ParameterTxtData!.alpha = 0.0
+                }, completion: nil)
+            UIView.animateWithDuration(1.5, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
+                
+                self.ParameterSlider!.alpha = 1.0
+                self.ParameterTxtData!.alpha = 1.0
+                }, completion: nil)
+            break
+        default:
+            break
+        }
+        
+        
+    }
+    
+    @IBAction func SliderValueChanged(sender: AnyObject) {
 
-    
-    
-    @IBOutlet weak var TempSlide: UISlider!
-    
-    
-    @IBOutlet weak var Temptxt: UILabel!
-    @IBAction func chooseTemp(sender: AnyObject) {
-        TempSlide.setValue(Float(lroundf(sender.value)), animated: false)
-        switch TempSlide.value {
+        
+        ParameterSlider.setValue(Float(lroundf(sender.value)), animated: false)
+        switch Func_Changer
+        {
         case 0:
-            Temptxt.text = "Av"
+            switch ParameterSlider.value
+            {
+            case 0:
+                ParameterTxtData.text = "Kallast"
+            case 1:
+                ParameterTxtData.text = "Varmast"
+            default:
+                break
+            }
+            break
+            
         case 1:
-            Temptxt.text = "Kallast"
+            switch ParameterSlider.value
+            {
+            case 0:
+                ParameterTxtData.text = "Lite"
+            case 1:
+                ParameterTxtData.text = "Mellan"
+            case 2:
+                ParameterTxtData.text = "Mycket"
+            default:
+                break
+            }
         case 2:
-            Temptxt.text = "Varmast"
-        default:
-            Temptxt.text = nil
-        }
-    }
-    
-    @IBOutlet weak var WindTxt: UILabel!
-    
-    @IBOutlet weak var WindSlide: UISlider!
-    @IBAction func chooseWind(sender: AnyObject) {
-        WindSlide.setValue(Float(lroundf(sender.value)), animated: false)
-        switch WindSlide.value {
-        case 0:
-            WindTxt.text = "Av"
-        case 1:
-            WindTxt.text = "Lite"
-        case 2:
-            WindTxt.text = "Mellan"
+            switch ParameterSlider.value
+            {
+            case 0:
+                ParameterTxtData.text = "Lite"
+            case 1:
+                ParameterTxtData.text = "Mellan"
+            case 2:
+                ParameterTxtData.text = "Mycket"
+            default:
+                break
+            }
+            
+            break
         case 3:
-            WindTxt.text = "Mycket"
+            switch ParameterSlider.value
+            {
+            case 0:
+                ParameterTxtData.text = "Av"
+            case 1:
+                ParameterTxtData.text = "På"
+            default:
+                break
+            }
+            break
+            
+            
         default:
-            WindTxt.text = nil
+            break
+            
         }
+        
+        
+        
     }
     
-    @IBOutlet weak var cloudTxt: UILabel!
-  
-    @IBOutlet weak var cloudSlide: UISlider!
-   
-    @IBAction func chooseCloud(sender: AnyObject) {
-        cloudSlide.setValue(Float(lroundf(sender.value)), animated: false)
-        switch cloudSlide.value {
-        case 0:
-            cloudTxt.text = "av"
-        case 1:
-            cloudTxt.text = "Lite"
-        case 2:
-            cloudTxt.text = "Mellan"
-        case 3:
-            cloudTxt.text = "Mycket"
-        default:
-            cloudTxt.text = nil
-        }
-    }
     
-    @IBOutlet weak var chooseRain: UISwitch!
     var startDate:NSDate = NSDate()
     var endDate:NSDate = NSDate()
     var startOrEnd = ""
@@ -158,32 +282,41 @@ class SimpleController: UIViewController {
             days.append(DateString.stringFromDate(tempDate))
             var paramters: [String: Double] = [String: Double]()
             //lägger in värden ifrån slides till paramters dictionary
-            if(TempSlide.value == 1){
-                paramters["t"] = -31
-            }
-            else if(TempSlide.value == 2){
-                paramters["t"] = 31
-            }
-
             
-            if(WindSlide.value == 1){
-                paramters["ws"] = 3
-            }
-            else if(WindSlide.value == 2){
-                paramters["ws"] = 6
-            }
-            else if(WindSlide.value == 3){
-                paramters["ws"] = 10
-            }
-            
-            if(cloudSlide.value == 1){
-                paramters["tcc_mean"] = 0
-            }
-            else if(cloudSlide.value == 2){
-                paramters["tcc_mean"] = 4
-            }
-            else if(cloudSlide.value == 3){
-                paramters["tcc_mean"] = 8
+            switch Func_Changer {
+            case 0:
+                if(ParameterSlider.value == 0){
+                    paramters["t"] = -31
+                }
+                else if(ParameterSlider.value == 1){
+                    paramters["t"] = 31
+                }
+            case 1:
+                if(ParameterSlider.value == 0){
+                    paramters["tcc_mean"] = 0
+                }
+                else if(ParameterSlider.value == 1){
+                    paramters["tcc_mean"] = 4
+                }
+                else if(ParameterSlider.value == 2){
+                    paramters["tcc_mean"] = 8
+                }
+                
+            case 2:
+                if(ParameterSlider.value == 0){
+                    paramters["ws"] = 3
+                }
+                else if(ParameterSlider.value == 1){
+                    paramters["ws"] = 6
+                }
+                else if(ParameterSlider.value == 2){
+                    paramters["ws"] = 10
+                }
+                
+            case 3:
+                break
+            default:
+                break
             }
             
             //anropa funktion med days lista av dagar och paramteras som är key value pairs
