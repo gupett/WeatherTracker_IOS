@@ -179,8 +179,13 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     // MARK: - zoom to a desired location
     func zoom(lat: CLLocationDegrees, long: CLLocationDegrees) -> Void{
         //Coordinates
+        
+        
         let lat:CLLocationDegrees = 56.170303
         let long:CLLocationDegrees = 14.863073
+        
+        
+       
         let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: long)
         
         //Span

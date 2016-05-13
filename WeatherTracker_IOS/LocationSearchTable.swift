@@ -64,6 +64,7 @@ class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
             // state
             selectedItem.administrativeArea ?? ""
         )
+        print(addressLine)
         return addressLine
     }
 

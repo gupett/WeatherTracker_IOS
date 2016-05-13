@@ -36,10 +36,35 @@ extension MapViewControlerViewController{
             }
             let resultAnnotation = ResultAnnotation(_coordinate: coordinate, _weatherContainer: wc)
             //configurera callouten
-            resultAnnotation.title = "Stad"
+            let showcity = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            CLGeocoder().reverseGeocodeLocation(showcity){
+                (MyPlace, MyError) -> Void in
+                if(MyError != nil)
+                {
+                    
+                    //handle error
+                }
+                if let MyPlace = MyPlace?.first
+                {
+                    resultAnnotation.title = MyPlace.locality
+                    
+                }
+            }
+            
+            
+            
             var subtitle = ""
             for (key, value) in wc.paramDictionary{
-                subtitle = "\(subtitle)\(key): \(value), "
+                let val : String = String(value)
+                subtitle.appendContentsOf(key)
+                subtitle.appendContentsOf(":")
+                subtitle.appendContentsOf(val)
+                subtitle.appendContentsOf(" ")
+                
+                print(subtitle)
+                
+                
+                
             }
             resultAnnotation.subtitle = subtitle
             map.addAnnotation(resultAnnotation)

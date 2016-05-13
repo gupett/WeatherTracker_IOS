@@ -20,9 +20,27 @@ class WeatherContainer{
     let coordinate: CLLocationCoordinate2D?
     
     init(date: String, _score: Double, _jsonObject: [String: AnyObject]){
-        paramDictionary["date"] = date
+        paramDictionary["Datum"] = date
         self.score = _score
         self.jsonObject = _jsonObject
+        
+        
+        for (key , value) in _jsonObject
+        {
+            switch key
+            {
+            case "t":
+                paramDictionary["Temperatur"] = value
+            case "ws":
+                paramDictionary["Vindhastighet"] = value
+            case "tcc_mean":
+                paramDictionary["Molnighet"] = value
+            default:
+                break
+            }
+        }
+ 
+        
         
         //Potentially wrong in the parsing
         //asigning the coordinate of the data to the object

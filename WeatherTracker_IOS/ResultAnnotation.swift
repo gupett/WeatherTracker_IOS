@@ -26,4 +26,5 @@ class ResultAnnotation: MKPointAnnotation {
     func calloutSubtitle(_subTitle: String){
         super.subtitle = _subTitle
     }
+    
 }

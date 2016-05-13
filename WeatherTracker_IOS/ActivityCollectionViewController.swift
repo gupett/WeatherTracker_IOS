@@ -12,15 +12,16 @@ private let reuseIdentifier = "Cell"
 
 class ActivityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
     
+    //Definera datan som skall finnas i varje cell. Väder kopplas till parametrar i sista inputparameter
     var activities: [Activity] =
-        [Activity(_image: UIImage(named: "ic_sunny")!, _name: "Sol, Klar Himmel"),
-         Activity(_image: UIImage(named: "ic_mostly_cloudy")!, _name: "Sol, Molnighet"),
-         Activity(_image: UIImage(named: "ic_haze")!, _name: "Sol, Disigt"),
-         Activity(_image: UIImage(named: "ic_cloudy")!, _name: "Molnigt"),
-         Activity(_image: UIImage(named: "ic_slight_rain")!, _name: "Sol, Lätt Regn"),
-         Activity(_image: UIImage(named: "ic_rain")!, _name: "Mycket Regn"),
-         Activity(_image: UIImage(named: "ic_thunderstorms")!, _name: "Åska"),
-         Activity(_image: UIImage(named: "ic_snow")!, _name: "Snö")]
+        [Activity(_image: UIImage(named: "ic_sunny")!, _name: "Sol, Klar Himmel",_param: ["t" : 20, "tcc_mean" : 0]),
+         Activity(_image: UIImage(named: "ic_mostly_cloudy")!, _name: "Sol, Molnighet",_param: ["t" : 20, "tcc_mean" : 3]),
+         Activity(_image: UIImage(named: "ic_haze")!, _name: "Sol, Disigt",_param: ["t" : 31, "tcc_mean" : 6]),
+         Activity(_image: UIImage(named: "ic_cloudy")!, _name: "Molnigt",_param: ["tcc_mean" : 8]),
+         Activity(_image: UIImage(named: "ic_slight_rain")!, _name: "Sol, Lätt Regn",_param: ["tcc_mean" : 4]),
+         Activity(_image: UIImage(named: "ic_rain")!, _name: "Mycket Regn",_param: ["t" : 31, "tcc_mean" : 8]),
+         Activity(_image: UIImage(named: "ic_thunderstorms")!, _name: "Åska",_param: ["t" : 31, "tcc_mean" : 4, "ws" : 3]),
+         Activity(_image: UIImage(named: "ic_snow")!, _name: "Snö",_param: ["t" : -5, "tcc_mean" : 3])]
     
     var mapView: MapViewControlerViewController? = nil
     
@@ -101,6 +102,9 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         label.text = activity.name
         label.textColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
         
+        
+        
+        
         /*//cell.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, 108)
          //cell.frame = CGRectMake(<#T##x: CGFloat##CGFloat#>, <#T##y: CGFloat##CGFloat#>, <#T##width: CGFloat##CGFloat#>, <#T##height: CGFloat##CGFloat#>)
          
@@ -162,6 +166,10 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
             
             navController.mapView = storyBoard.instantiateViewControllerWithIdentifier("MapView") as? MapViewControlerViewController
         }
+        
+        
+        navController.mapView!.searchParams = self.activities[indexPath.row].param
+        navController.mapView!.searchDates = ["2016-05-13"]
         
         self.navigationController?.pushViewController(navController.mapView!, animated: false)
     }
