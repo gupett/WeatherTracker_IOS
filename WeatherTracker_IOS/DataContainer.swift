@@ -27,7 +27,7 @@ class DataContainer
     var Parameters: [String : Double]?
     var Dates: [String]?
     var ResultAnnotations: [ResultAnnotation]?
-    var show : Bool?
+    var show: Bool?
     
 }
 

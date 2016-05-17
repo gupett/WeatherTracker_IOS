@@ -185,6 +185,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         
         navController.resView?.ShowHide()
         
+        
         for annotation in self.map.annotations
         {
             if annotation is ResultAnnotation
@@ -192,6 +193,11 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
                 self.map.removeAnnotation(annotation)
             }
         }
+        
+        resultAnnotationsCurrentlyOnMap.removeAll()
+        DataContainer.sharedDataContainer.ResultAnnotations?.removeAll()
+       
+        
         
         //Ändringar för kartvyn när sökning sker/har skett
         
@@ -228,6 +234,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
             ParseJson(_numOfLocations: numberOFSearchCoordinates, _dateList: self.searchDates, _params: self.searchParams, _delegate: self).getWeatherForList(coordinatesToSearchList)
             })
+        
             }
     
     func showLocation(){

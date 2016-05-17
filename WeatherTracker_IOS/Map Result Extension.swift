@@ -17,6 +17,7 @@ extension MapViewControlerViewController{
         self.loadingMonitor.stopAnimating()
         self.map.superview?.bringSubviewToFront(map)
         
+        
         //Add annotations for day one in mapView
         guard let bestAnnotations = resultDic["best"] else{
             print("Inga best values i listan")
@@ -29,6 +30,7 @@ extension MapViewControlerViewController{
     }
     
     func createResultAnnotations(listOfWCs: [WeatherContainer]){
+      
         for wc in listOfWCs{
             guard let coordinate = wc.coordinate else{
                 print("no coordiante for the weatherContainer object")
@@ -63,6 +65,9 @@ extension MapViewControlerViewController{
             map.addAnnotation(resultAnnotation)
             resultAnnotationsCurrentlyOnMap.append(resultAnnotation)
         }
+        DataContainer.sharedDataContainer.ResultAnnotations = resultAnnotationsCurrentlyOnMap
+       
     }
+    
     
 }

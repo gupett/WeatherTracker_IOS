@@ -171,7 +171,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         navController.mapView!.searchParams = self.activities[indexPath.row].param
         */
         DataContainer.sharedDataContainer.Parameters = self.activities[indexPath.row].param
-        DataContainer.sharedDataContainer.Dates = ["2016-05-17"]
+        DataContainer.sharedDataContainer.Dates = ["2016-05-18"]
         DataContainer.sharedDataContainer.show = false
         navController.resView?.ShowHide()
         
