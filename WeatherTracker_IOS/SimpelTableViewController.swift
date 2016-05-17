@@ -153,7 +153,7 @@ class SimpelTableViewController: UITableViewController {
     }
     func endChoose(sender: UIButton){
         let DateString = NSDateFormatter()
-        DateString.dateFormat = "dd-MM-yyyy"
+        DateString.dateFormat = "yyyy-MM-dd"
         let DatePicked = DateString.stringFromDate(datePickRef.date)
         self.navigationController?.navigationBarHidden = false
         endDateTextFild.text = DatePicked
