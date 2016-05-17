@@ -351,7 +351,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
      DataContainer.sharedDataContainer.show = false
      navController.resView!.ShowHide()
     
-    self.navigationController?.pushViewController(navController.resView!, animated: false)
+    self.navigationController?.pushViewController(navController.resView!, animated: true)
     
     }
 

@@ -349,7 +349,7 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
             navController.resView!.ShowHide()
             
             
-            self.navigationController?.pushViewController(navController.resView!, animated: false)
+            self.navigationController?.pushViewController(navController.resView!, animated: true)
 
 
         }
