@@ -15,7 +15,7 @@ class WeatherContainer{
     
     let score: Double
     
-    let jsonObject: [String: AnyObject]
+    var jsonObject: [String: AnyObject]
     
     let coordinate: CLLocationCoordinate2D?
     
@@ -23,23 +23,7 @@ class WeatherContainer{
         paramDictionary["Datum"] = date
         self.score = _score
         self.jsonObject = _jsonObject
-        
-        
-        for (key , value) in _jsonObject
-        {
-            switch key
-            {
-            case "t":
-                paramDictionary["Temperatur"] = value
-            case "ws":
-                paramDictionary["Vindhastighet"] = value
-            case "tcc_mean":
-                paramDictionary["Molnighet"] = value
-            default:
-                break
-            }
-        }
- 
+         
         
         
         //Potentially wrong in the parsing

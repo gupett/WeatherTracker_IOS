@@ -102,8 +102,10 @@ class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
         
         //Fetching the data received in the API call earlier and creating a placemark object
         //Placemark data includes information such as the country, state, city, and street address associated with the specified coordinate
+        
         let cellItem = matchingItems[indexPath.row].placemark
         //Configuring the cell
+        
         cell.textLabel?.text = cellItem.name
         cell.detailTextLabel?.text = parseAddress(cellItem)
 

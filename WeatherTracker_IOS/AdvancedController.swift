@@ -236,7 +236,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         //skapar lista för datum och formaterar datum till sträng
         var days: [String] = []
         let DateString = NSDateFormatter()
-        DateString.dateFormat = "yyyyMMdd"
+        DateString.dateFormat = "yyyy-MM-dd"
         var tempDate = startDate
         let calender = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let endDatestr = DateString.stringFromDate(endDate)
@@ -291,11 +291,14 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
                 paramters["tcc_mean"] = Double(cloudSlide.value)
             }
             
-            
-            //anropa funktion med days lista av dagar och paramteras som är key value pairs
-            
+            showMapHiddenResults(paramters, days: days)
             print(paramters)
             print(days)
+
+            //anropa funktion med days lista av dagar och paramteras som är key value pairs
+            
+            
+        
             
         }
     }
@@ -323,6 +326,35 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
             
         }
     }
+    func showMapHiddenResults(parameters: [String: Double], days: [String])
+    {
+    //Get the reference to the NavigationController which holds a reference to the map
+    guard let navController: NavigationController = self.view.window?.rootViewController as? NavigationController else{
+    print ("jag fick ingen navigation controller")
+    return
+    }
+    
+    
+    //if top navigationController does not have a reference to a map then a new map will be created
+    // else the current reference to a map will be used
+        if navController.resView == nil{
+            print("reference = resnil")
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            navController.resView = storyBoard.instantiateViewControllerWithIdentifier("ResView") as? CustomTabControllerViewController
+                
+        }
+    
+    
+     DataContainer.sharedDataContainer.Parameters = parameters
+     DataContainer.sharedDataContainer.Dates = days
+     DataContainer.sharedDataContainer.show = false
+     navController.resView!.ShowHide()
+    
+    self.navigationController?.pushViewController(navController.resView!, animated: false)
+    
+    }
+
     
     
     

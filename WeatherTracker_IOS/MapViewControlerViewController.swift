@@ -24,16 +24,22 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     @IBOutlet weak var loadingBackground: UIView!
     
+    /*
     //reference to the searchbar
     var resultSearchController: UISearchController? = nil
+   */
     
     let locationManager = CLLocationManager()
     
     var searchCoordinate: CLLocationCoordinate2D? = nil
     
+    
     var searchParams = [String: Double]()
     
     var searchDates: [String] = []
+    
+    var navController: NavigationController!
+    
     
     //Nytt för algoritmen
     //List of delete buttons wich contains references to coresponding polygon
@@ -46,8 +52,21 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     // Reference to all ResultAnnotations showing on map
     var resultAnnotationsCurrentlyOnMap: [ResultAnnotation] = []
     
+    
+    
+    // Referens till ResultatTabBar så vi kan komma åt funktioner för att visa och dölja den.
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        searchParams = DataContainer.sharedDataContainer.Parameters!
+        searchDates = DataContainer.sharedDataContainer.Dates!
+        
+        print("\(searchParams) sök parametrer")
+        print("\(searchDates) sök dagar")
 
         //this class is the delegate for the locationManager and map
         self.locationManager.delegate = self
@@ -55,8 +74,12 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         //My custom delegateprotocol for drawView
         drawView.delegate = self
         
+        
         showLocation()
-        createSearchBar()
+        
+        //createSearchBar()
+        
+        showDrawView.superview?.bringSubviewToFront(showDrawView)
         
         //Set an image to the button
         if let penImage = UIImage(named: "Pen"){
@@ -74,22 +97,59 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     override func viewDidAppear(animated: Bool) {
         //zoom in to location every time map opens, maby change?
-        if let coordinate: CLLocationCoordinate2D = searchCoordinate {
+        if let coordinate: CLLocationCoordinate2D = searchCoordinate
+        {
             let lat = coordinate.latitude
             let long = coordinate.longitude
             searchCoordinate = nil
             zoom(lat, long: long)
+            
         }
+        
+        
+        // Visa Searchbar och DrawView överst
+        //navigationItem.titleView?.hidden = false
+        showDrawView.superview?.bringSubviewToFront(showDrawView)
+        print("showdrawview to front")
+
+       
+        //Sätt Parametrar och Datum utifrån Globala DataPassingContainer
+        searchParams = DataContainer.sharedDataContainer.Parameters!
+        searchDates = DataContainer.sharedDataContainer.Dates!
         print("\(searchParams) sök parametrer")
         print("\(searchDates) sök dagar")
+        
+        // SKapa en referens till ResultatTabVyn så att vi kan visa/dölja den
+        guard let navController = self.view.window?.rootViewController as? NavigationController else
+        {
+            print ("jag fick ingen navigation controller")
+            return
+        }
+        
+        
+        if navController.resView == nil{
+            print("reference = nil")
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            
+            navController.resView = storyBoard.instantiateViewControllerWithIdentifier("ResView") as? CustomTabControllerViewController
+            
+        }
+
+        navController.resView?.ShowHide()
+
+        
     }
     
     //Action triggered by pressing the pen button
     @IBAction func showDrawView(sender: AnyObject) {
         drawView.superview?.bringSubviewToFront(drawView)
         showDrawView.superview?.sendSubviewToBack(showDrawView)
+         print("DRAWVIEW to front")
+        
+        
     }
 
+    
     // MARK: - Search weather
     @IBAction func searchWeather(sender: AnyObject) {
         
@@ -98,6 +158,49 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         self.loadingBackground.superview?.bringSubviewToFront(loadingBackground)
         self.loadingMonitor.superview?.bringSubviewToFront(loadingMonitor)
         self.loadingMonitor.startAnimating()
+        
+        
+        
+        DataContainer.sharedDataContainer.show = true
+        searchParams = DataContainer.sharedDataContainer.Parameters!
+        searchDates = DataContainer.sharedDataContainer.Dates!
+        print("\(searchParams) sök parametrer")
+        print("\(searchDates) sök dagar")
+        
+        // SKapa en referens till ResultatTabVyn så att vi kan visa/dölja den
+        guard let navController = self.view.window?.rootViewController as? NavigationController else
+        {
+            print ("jag fick ingen navigation controller")
+            return
+        }
+        
+        
+        if navController.resView == nil{
+            print("reference = nil")
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            
+            navController.resView = storyBoard.instantiateViewControllerWithIdentifier("ResView") as? CustomTabControllerViewController
+            
+        }
+        
+        navController.resView?.ShowHide()
+        
+        for annotation in self.map.annotations
+        {
+            if annotation is ResultAnnotation
+            {
+                self.map.removeAnnotation(annotation)
+            }
+        }
+        
+        //Ändringar för kartvyn när sökning sker/har skett
+        
+        /*
+        navigationItem.titleView?.hidden = true
+        navigationItem.title = "Resultat"
+        */
+        
+        
         
         
         //The list that will contain all the coordinates that we wish to compare weather for
@@ -119,13 +222,13 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
             coordinatesToSearchList.append(coordinatesForPolygon)
         }
 
-        print("Antalet intressanta polygoner är: \(coordinatesToSearchList.count) och coordinater är \(numberOFSearchCoordinates)  fndlksajtjeltlsdajdlsjfldsgjködslakgdslöagkdöskagldskagöldksg")
+        //print("Antalet intressanta polygoner är: \(coordinatesToSearchList.count) och coordinater är \(numberOFSearchCoordinates)  Text")
         
         //Performe the folowing task in a seperate thread
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
             ParseJson(_numOfLocations: numberOFSearchCoordinates, _dateList: self.searchDates, _params: self.searchParams, _delegate: self).getWeatherForList(coordinatesToSearchList)
             })
-    }
+            }
     
     func showLocation(){
         self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -133,7 +236,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         self.locationManager.startUpdatingLocation()
         self.map.showsUserLocation = true
     }
-    
+
+    /*
     func createSearchBar(){
         //Set up the search bar and corresponding tableview
         //To access the tableViewController
@@ -148,6 +252,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         searchBar.placeholder = "Search"
         //add the search bar on teh top of the screen
         navigationItem.titleView = resultSearchController?.searchBar
+        navigationItem.titleView?.hidden = false
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.dimsBackgroundDuringPresentation = true
@@ -158,6 +263,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         //Give the LocationSearchTable access to add and modify the map
         resultSearchTable.map = self.map
     }
+ */
     
     
     // MARK: - Get current location
@@ -231,7 +337,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         //Om det är en annotation som sak visa upp resultat ska den konfigureras på följande sätt
         if annotation is ResultAnnotation{
             let resultAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "ResultAnnotation")
-            //lila färg
+            //grön färg
             resultAnnotation.pinColor = MKPinAnnotationColor.Green
             resultAnnotation.canShowCallout = true
 
@@ -260,9 +366,9 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
             
             return deleteButton
         }
-        
-        return MKAnnotationView()
+                return MKAnnotationView()
     }
+    
     
     
     // MARK: - Ändrat i och med algoritm
@@ -274,6 +380,9 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
             let overlayPolygon = deleteAnnotationView.deleteAnnotation?.polygon
             map.removeOverlay(overlayPolygon!)
             map.removeAnnotation(deleteAnnotationView.deleteAnnotation!)
+            
+            //Brings back DrawView om området tas bort?
+            showDrawView.superview?.bringSubviewToFront(showDrawView)
             
             //Nytt för algoritmen
             //se if deleteAnnotation exists for deleteAnnotationView and if it does see if it is inside the list and if so filter it from list
@@ -293,6 +402,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         }
 
     }
+    
+
     
     
 }

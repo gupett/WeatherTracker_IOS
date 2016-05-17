@@ -150,9 +150,9 @@ class ParseJson: WeatherDataDelegate{
                 
                 resultDic[date]! = sortList(resultDic[date]!)
                 
-                print("\(bestListOfDate.count) resultatlistan för dagen är nu 111")
+                //print("\(bestListOfDate.count) resultatlistan för dagen är nu 111")
             }else{
-                print("ingenting läggs ändras för denna plats oidsajgkjgåopjglöägadjgkljfdljfähjalä")
+                //print("ingenting läggs ändras för denna plats oidsajgkjgåopjglöägadjgkljfdljfähjalä")
             }
         }
         self.i = i-1
@@ -183,7 +183,7 @@ class ParseJson: WeatherDataDelegate{
         var j = sortedList.count - 2
         
         while(j >= 0 && sortedList[j+1].score > sortedList[j].score){
-            print("lägger in mer lämpliga förslag")
+            //print("lägger in mer lämpliga förslag")
             let temp = sortedList[j+1]
             sortedList[j+1] = sortedList[j]
             sortedList[j] = temp

@@ -142,8 +142,8 @@ class ContainsCoordinate {
                 
             }
             
-            print("minX ", minX, " miny ", minY)
-            print("MaxX ", maxX, " MaxY ", maxY)
+            //print("minX ", minX, " miny ", minY)
+            //print("MaxX ", maxX, " MaxY ", maxY)
             
             let upperLeft = CLLocationCoordinate2D(latitude: minX, longitude: maxY)
             
@@ -188,7 +188,7 @@ class ContainsCoordinate {
         
         if(t1 < 0 && t2 < 0){
             
-            print("Not intersecting")
+            //print("Not intersecting")
             
             return 0
             
@@ -196,7 +196,7 @@ class ContainsCoordinate {
         
         if(t1 > 0 && t2 > 0){
             
-            print("Not intersecting")
+            //print("Not intersecting")
             
             return 0
             
@@ -224,7 +224,7 @@ class ContainsCoordinate {
         
         if(t1 < 0 && t2 < 0){
             
-            print("Not intersecting")
+            //print("Not intersecting")
             
             return 0
             
@@ -232,7 +232,7 @@ class ContainsCoordinate {
         
         if(t1 > 0 && t2 > 0){
             
-            print("Not intersecting")
+            //print("Not intersecting")
             
             return 0
             
@@ -240,7 +240,7 @@ class ContainsCoordinate {
         
         
         
-        print("lines intersecting")
+        //print("lines intersecting")
         
         return 1
         
@@ -286,7 +286,7 @@ class ContainsCoordinate {
         
         let maxCoordinates = maxCoordiantesOfPolygon(coordinates)
         
-        print("ihfgljk" + String(maxCoordinates.0),String(maxCoordinates.1),String(maxCoordinates.2),String(maxCoordinates.3))
+        //print("ihfgljk" + String(maxCoordinates.0),String(maxCoordinates.1),String(maxCoordinates.2),String(maxCoordinates.3))
         
         
         //Byter platts på minX och maxX
@@ -295,13 +295,13 @@ class ContainsCoordinate {
         let minY = Double(map.convertCoordinate(maxCoordinates.2, toPointToView: view).y)
         let maxY = Double(map.convertCoordinate(maxCoordinates.0, toPointToView: view).y)
         
-        print("minX ", minX, " miny ", minY)
-        print("MaxX ", maxX, " MaxY ", maxY)
+        //print("minX ", minX, " miny ", minY)
+        //print("MaxX ", maxX, " MaxY ", maxY)
         
         let xHopp: Double = Double(maxX - minX)/10
         let yHopp: Double = Double(maxY - minY)/10
         
-        print(xHopp, " xHopp ", yHopp, " yHopp")
+        //print(xHopp, " xHopp ", yHopp, " yHopp")
         
         var y: Double = minY + yHopp
         var x: Double = minX + xHopp
@@ -309,9 +309,9 @@ class ContainsCoordinate {
         var pointList: [CGPoint] = []
         
         while(y < maxY){
-            print("i y läget")
+            //print("i y läget")
             while (x < maxX) {
-                print("i x läget")
+                //print("i x läget")
                 pointList.append(CGPoint(x: x, y: y))
                 x = x + xHopp
             }
@@ -322,7 +322,7 @@ class ContainsCoordinate {
         
         for point in pointList{
             mapCoordinates.append(map.convertPoint(point, toCoordinateFromView: view))
-            print(String(map.convertPoint(point, toCoordinateFromView: view)))
+            //print(String(map.convertPoint(point, toCoordinateFromView: view)))
         }
         
         
@@ -335,7 +335,7 @@ class ContainsCoordinate {
         
         let maxCoordinates = maxCoordiantesOfPolygon(coordinates)
         
-        print("ihfgljk" + String(maxCoordinates.0),String(maxCoordinates.1),String(maxCoordinates.2),String(maxCoordinates.3))
+        //print("ihfgljk" + String(maxCoordinates.0),String(maxCoordinates.1),String(maxCoordinates.2),String(maxCoordinates.3))
         
         
         let minX = maxCoordinates.0.latitude
@@ -343,13 +343,13 @@ class ContainsCoordinate {
         let minY = maxCoordinates.2.longitude
         let maxY = maxCoordinates.0.longitude
         
-        print("minX ", minX, " miny ", minY)
-        print("MaxX ", maxX, " MaxY ", maxY)
+        //print("minX ", minX, " miny ", minY)
+        //print("MaxX ", maxX, " MaxY ", maxY)
         
         let xHopp: Double = Double(maxX - minX)/10
         let yHopp: Double = Double(maxY - minY)/10
         
-        print(xHopp, " xHopp ", yHopp, " yHopp")
+        //print(xHopp, " xHopp ", yHopp, " yHopp")
         
         var y: Double = minY + yHopp
         var x: Double = minX + xHopp
@@ -357,12 +357,12 @@ class ContainsCoordinate {
         var mapCoordinates: [CLLocationCoordinate2D] = []
         
         while(y < maxY){
-            print("i y läget")
+            //print("i y läget")
             x = minX + xHopp
             while (x < maxX) {
-                print("i x läget")
+                //print("i x läget")
                 let coordinate = CLLocationCoordinate2D(latitude: x, longitude: y)
-                print(String(coordinate))
+                //print(String(coordinate))
                 mapCoordinates.append(coordinate)
                 x = x + xHopp
             }
@@ -384,12 +384,12 @@ class ContainsCoordinate {
         var t2: Double = a * Double(point4.latitude) + b * Double(point4.longitude) + c
         
         if(t1 < 0 && t2 < 0){
-            print("Not intersecting")
+            //print("Not intersecting")
             return 0
         }
         
         if(t1 > 0 && t2 > 0){
-            print("Not intersecting")
+            //print("Not intersecting")
             return 0
         }
         
@@ -404,16 +404,16 @@ class ContainsCoordinate {
         t2 = a * Double(point2.latitude) + b * Double(point2.longitude) + c
         
         if(t1 < 0 && t2 < 0){
-            print("Not intersecting")
+            //print("Not intersecting")
             return 0
         }
         
         if(t1 > 0 && t2 > 0){
-            print("Not intersecting")
+            //print("Not intersecting")
             return 0
         }
         
-        print("lines intersecting")
+        //print("lines intersecting")
         return 1
     }
     
@@ -472,7 +472,7 @@ class ContainsCoordinate {
         
         //se om mittpunkterna ligger innanför polygonen
         for coordinate in coordinates {
-            print(String(coordinate), " kdhfhjdskölgfdg")
+            //print(String(coordinate), " kdhfhjdskölgfdg")
             if (insidePolygonCalculatedWithCoordinates(polygonCoordinates, coordinate: coordinate)){
                 coordinatesInside.append(coordinate)
             }

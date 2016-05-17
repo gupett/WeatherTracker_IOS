@@ -160,18 +160,23 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         
         //if top navigationController does not have a reference to a map then a new map will be created
         // else the current reference to a map will be used
-        if navController.mapView == nil{
+        if navController.resView == nil{
             print("reference = nil")
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             
-            navController.mapView = storyBoard.instantiateViewControllerWithIdentifier("MapView") as? MapViewControlerViewController
+            navController.resView = storyBoard.instantiateViewControllerWithIdentifier("ResView") as? CustomTabControllerViewController
         }
         
-        
+        /*
         navController.mapView!.searchParams = self.activities[indexPath.row].param
-        navController.mapView!.searchDates = ["2016-05-13"]
+        */
+        DataContainer.sharedDataContainer.Parameters = self.activities[indexPath.row].param
+        DataContainer.sharedDataContainer.Dates = ["2016-05-17"]
+        DataContainer.sharedDataContainer.show = false
+        navController.resView?.ShowHide()
         
-        self.navigationController?.pushViewController(navController.mapView!, animated: false)
+        
+        self.navigationController?.pushViewController(navController.resView!, animated: true)
     }
     
     /*

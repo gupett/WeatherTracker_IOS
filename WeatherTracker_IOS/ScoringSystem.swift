@@ -20,6 +20,7 @@ class ScoringSystem {
             let delta = getDelta(key)
             if let value = getValueForKeyOfJSON(jsonDayObject, key: key){
                 totalScore += (1 - (abs(valueForKey - value) / delta)) * 1000
+                
             }
         }
         return totalScore

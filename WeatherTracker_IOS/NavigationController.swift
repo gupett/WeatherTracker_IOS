@@ -12,6 +12,7 @@ import MapKit
 class NavigationController: UINavigationController {
     
     var mapView: MapViewControlerViewController? = nil
+    var resView : CustomTabControllerViewController? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -35,6 +35,8 @@
 		6FEB75C81CBBD15400C80EBB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FEB75C71CBBD15400C80EBB /* MapKit.framework */; };
 		6FEB75CA1CBBD5E400C80EBB /* MapViewControlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB75C91CBBD5E400C80EBB /* MapViewControlerViewController.swift */; };
 		6FFED5081CD0A83C00C76E00 /* ContainsCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFED5071CD0A83C00C76E00 /* ContainsCoordinate.swift */; };
+		D5731A9E1CEAFCC6007C437F /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5731A9D1CEAFCC6007C437F /* DataContainer.swift */; };
+		D5731AA01CEB0950007C437F /* CustomTabControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5731A9F1CEB0950007C437F /* CustomTabControllerViewController.swift */; };
 		E14216591CD783230017B5CA /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14216581CD783230017B5CA /* DateViewController.swift */; };
 		E142165B1CD7840B0017B5CA /* SlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142165A1CD7840B0017B5CA /* SlideMenu.swift */; };
 		E1C153CD1CDA08DF00255663 /* AdvancedDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C153CC1CDA08DF00255663 /* AdvancedDateViewController.swift */; };
@@ -92,6 +94,8 @@
 		6FEB75C71CBBD15400C80EBB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6FEB75C91CBBD5E400C80EBB /* MapViewControlerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewControlerViewController.swift; sourceTree = "<group>"; };
 		6FFED5071CD0A83C00C76E00 /* ContainsCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainsCoordinate.swift; sourceTree = "<group>"; };
+		D5731A9D1CEAFCC6007C437F /* DataContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
+		D5731A9F1CEB0950007C437F /* CustomTabControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabControllerViewController.swift; sourceTree = "<group>"; };
 		E14216581CD783230017B5CA /* DateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		E142165A1CD7840B0017B5CA /* SlideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenu.swift; sourceTree = "<group>"; };
 		E1C153CC1CDA08DF00255663 /* AdvancedDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedDateViewController.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 		6FEB75981CBB837400C80EBB /* WeatherTracker_IOS */ = {
 			isa = PBXGroup;
 			children = (
+				D5731A9C1CEAFC82007C437F /* Datashare_Container */,
 				6FA808BC1CDF16C1002DAEFF /* Tests */,
 				6FA808B31CDE078D002DAEFF /* Result View */,
 				6F7ACA9D1CDCC929007DCA94 /* Navigation */,
@@ -292,6 +297,15 @@
 				6F7ACA9B1CDC8D2C007DCA94 /* ScoringSystem.swift */,
 			);
 			name = Algorithms;
+			sourceTree = "<group>";
+		};
+		D5731A9C1CEAFC82007C437F /* Datashare_Container */ = {
+			isa = PBXGroup;
+			children = (
+				D5731A9D1CEAFCC6007C437F /* DataContainer.swift */,
+				D5731A9F1CEB0950007C437F /* CustomTabControllerViewController.swift */,
+			);
+			name = Datashare_Container;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -450,10 +464,12 @@
 				6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */,
 				6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */,
 				E1C153CD1CDA08DF00255663 /* AdvancedDateViewController.swift in Sources */,
+				D5731A9E1CEAFCC6007C437F /* DataContainer.swift in Sources */,
 				6F7ACA9A1CDC8D0C007DCA94 /* WeatherContainer.swift in Sources */,
 				6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */,
 				6F0ED6731CC4C6E40061B3C1 /* Line.swift in Sources */,
 				6F7ACA9F1CDCC960007DCA94 /* NavigationController.swift in Sources */,
+				D5731AA01CEB0950007C437F /* CustomTabControllerViewController.swift in Sources */,
 				6FA808BE1CDF1721002DAEFF /* Map Test Extension.swift in Sources */,
 				E142165B1CD7840B0017B5CA /* SlideMenu.swift in Sources */,
 			);

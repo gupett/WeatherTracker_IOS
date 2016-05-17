@@ -34,7 +34,10 @@ extension MapViewControlerViewController{
                 print("no coordiante for the weatherContainer object")
                 return
             }
+            
+            
             let resultAnnotation = ResultAnnotation(_coordinate: coordinate, _weatherContainer: wc)
+            
             //configurera callouten
             let showcity = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
             CLGeocoder().reverseGeocodeLocation(showcity){
@@ -51,21 +54,11 @@ extension MapViewControlerViewController{
                 }
             }
             
+            let date : String = wc.paramDictionary["Datum"] as! String
+            let subtitle = "Datum: " + date
             
-            
-            var subtitle = ""
-            for (key, value) in wc.paramDictionary{
-                let val : String = String(value)
-                subtitle.appendContentsOf(key)
-                subtitle.appendContentsOf(":")
-                subtitle.appendContentsOf(val)
-                subtitle.appendContentsOf(" ")
-                
-                print(subtitle)
-                
-                
-                
-            }
+            print(date)
+         
             resultAnnotation.subtitle = subtitle
             map.addAnnotation(resultAnnotation)
             resultAnnotationsCurrentlyOnMap.append(resultAnnotation)
