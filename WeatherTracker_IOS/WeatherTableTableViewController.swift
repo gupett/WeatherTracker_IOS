@@ -28,6 +28,8 @@ class WeatherTableViewController: UITableViewController {
         tableView.reloadData()
     }
     override func viewDidAppear(animated: Bool) {
+        //HIDE BACK BUTTON
+        self.tabBarController?.navigationItem.hidesBackButton = true
         weathers = DataContainer.sharedDataContainer.ResultAnnotations
         filterweathers = DataContainer.sharedDataContainer.ResultAnnotations
         print("tittade in")
@@ -44,7 +46,6 @@ class WeatherTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

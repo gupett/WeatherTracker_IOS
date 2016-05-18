@@ -24,9 +24,7 @@ class CustomTabControllerViewController: UITabBarController {
     }
     override func viewDidAppear(animated: Bool)
     {
-        
         resultSearchController?.navigationItem.backBarButtonItem?.title = "Bakåt"
-        
     }
     
 

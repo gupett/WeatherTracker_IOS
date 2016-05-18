@@ -16,7 +16,7 @@ extension MapViewControlerViewController{
         print("return result from data handler")
         self.loadingMonitor.stopAnimating()
         self.map.superview?.bringSubviewToFront(map)
-        
+        self.resultDictionary = resultDic
         
         //Add annotations for day one in mapView
         guard let bestAnnotations = resultDic["best"] else{
@@ -56,7 +56,8 @@ extension MapViewControlerViewController{
                 }
             }
             
-            let date : String = wc.paramDictionary["Datum"] as! String
+            let date: String = wc.date
+          
             let subtitle = "Datum: " + date
             
             print(date)
@@ -66,8 +67,42 @@ extension MapViewControlerViewController{
             resultAnnotationsCurrentlyOnMap.append(resultAnnotation)
         }
         DataContainer.sharedDataContainer.ResultAnnotations = resultAnnotationsCurrentlyOnMap
-       
     }
     
-    
+    func imageForCallout(weatherSymbol: Double) -> UIImage?{
+        switch weatherSymbol {
+        case 1...2:
+            let image = UIImage(named: "ic_sunny")
+            return image
+        case 3...4:
+            let image = UIImage(named: "ic_mostly_cloudy")
+            return image
+        case 5...6:
+            let image = UIImage(named: "ic_cloudy")
+            return image
+        case 7:
+            let image = UIImage(named: "ic_haze")
+            return image
+        case 8:
+            let image = UIImage(named: "ic_slight_rain")
+            return image
+        case 9:
+            let image = UIImage(named: "ic_thunderstorms")
+            return image
+        case 10...11:
+            let image = UIImage(named: "ic_snow")
+            return image
+        case 12:
+            let image = UIImage(named: "ic_rain")
+            return image
+        case 13:
+            let image = UIImage(named: "ic_thunderstorms")
+            return image
+        case 14...15:
+            let image = UIImage(named: "ic_snow")
+            return image
+        default:
+            return nil
+        }
+    }
 }

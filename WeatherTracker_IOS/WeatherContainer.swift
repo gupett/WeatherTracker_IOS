@@ -11,20 +11,25 @@ import MapKit
 
 class WeatherContainer{
     
-    var paramDictionary = [String: AnyObject]()
+    let weatherSymbol: Double
+    
+    var paramDictionary = [String: Double]()
     
     let score: Double
     
-    var jsonObject: [String: AnyObject]
+    let jsonObject: [String: AnyObject]
     
     let coordinate: CLLocationCoordinate2D?
     
-    init(date: String, _score: Double, _jsonObject: [String: AnyObject]){
-        paramDictionary["Datum"] = date
+    let date: String
+    
+    init(_date: String, _score: Double, _jsonObject: [String: AnyObject],
+         _paramDicForDay: [String: Double], _weatherSymbol: Double){
+        self.date = _date
+        paramDictionary = _paramDicForDay
         self.score = _score
         self.jsonObject = _jsonObject
-         
-        
+        self.weatherSymbol = _weatherSymbol
         
         //Potentially wrong in the parsing
         //asigning the coordinate of the data to the object

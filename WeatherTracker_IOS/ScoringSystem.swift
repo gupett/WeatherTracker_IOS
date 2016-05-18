@@ -12,18 +12,26 @@ class ScoringSystem {
     
     //Send the "timeSeries" object the score should be calculated for,
     //"timeSeries" is a key word inside the SMHI JSON object which holds the weather data for different days/ times of day
-    func calculatetotalScoreForJSONData(jsonDayObject: [[String: AnyObject]], params: [String: Double]) -> (Double){
+    func calculatetotalScoreForJSONData(jsonDayObject: [[String: AnyObject]], params: [String: Double]) -> (Double, [String: Double], Double){
         
         var totalScore: Double = 0
+        
+        var paramDictionaryForDay = [String: Double]()
         
         for (key, valueForKey) in params {
             let delta = getDelta(key)
             if let value = getValueForKeyOfJSON(jsonDayObject, key: key){
                 totalScore += (1 - (abs(valueForKey - value) / delta)) * 1000
-                
+                paramDictionaryForDay[key] = value
             }
         }
-        return totalScore
+        
+        if let weatherSymbol: Double = getValueForKeyOfJSON(jsonDayObject, key: "Wsymb")!{
+            print("Weather symbol \(weatherSymbol)")
+            return (totalScore, paramDictionaryForDay, weatherSymbol)
+        }
+        
+        return (totalScore, paramDictionaryForDay, -1)
     }
     
     //Få ut värdet för keyen som önskas ur SMHIJson för dagen

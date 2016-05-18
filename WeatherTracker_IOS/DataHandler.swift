@@ -125,12 +125,12 @@ class ParseJson: WeatherDataDelegate{
             }
             
             //poäng för plats koordinat för dag date
-            let score = ScoringSystem().calculatetotalScoreForJSONData(parameters, params: self.params)
+            let (score, paramDicforDay, weatherSymbol)  = ScoringSystem().calculatetotalScoreForJSONData(parameters, params: self.params)
             
             //se om det finns någon lista för dagen, annars skapa en och lägg till WeatherContainer objekt
             guard let bestListOfDate = self.resultDic[date] else{
                 print("resultat lista tom för vald dag")
-                let weatherContainer = [WeatherContainer(date: date, _score: score, _jsonObject: jsonObject)]
+                let weatherContainer = [WeatherContainer(_date: date, _score: score, _jsonObject: jsonObject, _paramDicForDay: paramDicforDay, _weatherSymbol: weatherSymbol)]
                 self.resultDic[date] = weatherContainer
                 self.i = i-1
                 return
@@ -142,7 +142,7 @@ class ParseJson: WeatherDataDelegate{
             
             if (self.resultDic[date]!.count < 3 || score > self.resultDic[date]![j].score){
                 
-                let weatherContainer = WeatherContainer(date: date, _score: score, _jsonObject: jsonObject)
+                let weatherContainer = WeatherContainer(_date: date, _score: score, _jsonObject: jsonObject, _paramDicForDay: paramDicforDay, _weatherSymbol: weatherSymbol)
                 
                 addToThreeBest(weatherContainer)
                 
@@ -170,6 +170,7 @@ class ParseJson: WeatherDataDelegate{
             for (key, list) in resultDic{
                 for weather in list{
                     print("\(weather.score) är scoren för det bäta vädret för \(key)")
+                    print("paramerer för dagen är \(weather.paramDictionary)")
                 }
             }
             

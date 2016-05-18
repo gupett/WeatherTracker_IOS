@@ -61,7 +61,6 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         searchParams = DataContainer.sharedDataContainer.Parameters!
         searchDates = DataContainer.sharedDataContainer.Dates!
         
@@ -96,6 +95,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     }
     
     override func viewDidAppear(animated: Bool) {
+        //För att se Back button
+        self.tabBarController?.navigationItem.hidesBackButton = false
         //zoom in to location every time map opens, maby change?
         if let coordinate: CLLocationCoordinate2D = searchCoordinate
         {
@@ -152,6 +153,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     // MARK: - Search weather
     @IBAction func searchWeather(sender: AnyObject) {
+        
+        
         
         //Do some changes with the appearance of the mapview
         self.map.superview?.bringSubviewToFront(map)
@@ -342,14 +345,21 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
         //Om det är en annotation som sak visa upp resultat ska den konfigureras på följande sätt
-        if annotation is ResultAnnotation{
-            let resultAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "ResultAnnotation")
-            //grön färg
-            resultAnnotation.pinColor = MKPinAnnotationColor.Green
-            resultAnnotation.canShowCallout = true
-
-            return resultAnnotation
+        if let resultAnnotation = annotation as? ResultAnnotation{
+            let resultPinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "ResultAnnotation")
+            //lila färg
+            resultPinAnnotation.pinColor = MKPinAnnotationColor.Green
+            let weatherSymbol = resultAnnotation.weatherContainer.weatherSymbol
+            print("weather Symbol is now \(weatherSymbol)")
+            let image = imageForCallout(weatherSymbol)
+            let viewWithImage = UIImageView(frame: CGRectMake(0, 0, 45, 45))
+            viewWithImage.image = image
+            resultPinAnnotation.leftCalloutAccessoryView = viewWithImage
+            resultPinAnnotation.canShowCallout = true
+            
+            return resultPinAnnotation
         }
+
         
         //Om vanlig standard annotation
         if annotation is MKPointAnnotation{
