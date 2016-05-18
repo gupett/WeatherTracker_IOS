@@ -8,25 +8,59 @@
 
 import UIKit
 
-class CustomTabControllerViewController: UITabBarController {
+class CustomTabControllerViewController: UITabBarController{
 
     @IBOutlet weak var TabBar: UITabBar!
+    
+    var mapRef : MapViewControlerViewController? = nil
+    var navController: NavigationController!
     
     //reference to the searchbar
     var resultSearchController: UISearchController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createSearchBar()
+    
+    
+        
+        
+        
+        resultSearchController?.navigationItem.backBarButtonItem?.title = "Bakåt"
         
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(animated: Bool)
+    {
+        print("dissapearing")
+        DataContainer.sharedDataContainer.show = false
+    }
     override func viewDidAppear(animated: Bool)
     {
-        resultSearchController?.navigationItem.backBarButtonItem?.title = "Bakåt"
+        guard let navController = self.view.window?.rootViewController as? NavigationController else
+        {
+            print ("jag fick ingen navigation controller")
+            print("inne i tabbar")
+            return
+        }
+        
+        
+        if navController.mapView == nil{
+            print("reference = nil")
+            
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            
+            navController.mapView = storyBoard.instantiateViewControllerWithIdentifier("MapView") as? MapViewControlerViewController
+            
+            
+        }
+        createSearchBar(navController.mapView!)
+        
+
+
     }
-    
+        
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -37,25 +71,24 @@ class CustomTabControllerViewController: UITabBarController {
         if(DataContainer.sharedDataContainer.show == true)
         {
             
-            resultSearchController?.navigationItem.title = "Resultat"
+            navigationItem.title = "Resultat"
             resultSearchController?.searchBar.hidden = true
             TabBar.hidden = false
         }
         else
         {
-            resultSearchController?.navigationItem.title = nil
+            navigationItem.title = nil
             resultSearchController?.searchBar.hidden = false
             TabBar.hidden = true
         }
 
         
     }
-    func createSearchBar(){
+    func createSearchBar(mapView : MapViewControlerViewController){
         //Set up the search bar and corresponding tableview
         //To access the tableViewController
         
-        let map = storyboard!.instantiateViewControllerWithIdentifier("MapView") as! MapViewControlerViewController
-        let mapView = map.map
+        let mapView = mapView.map
         let resultSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: resultSearchTable)
         resultSearchController?.searchResultsUpdater = resultSearchTable

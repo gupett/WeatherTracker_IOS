@@ -54,6 +54,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     
     
+    
     // Referens till ResultatTabBar så vi kan komma åt funktioner för att visa och dölja den.
     
     
@@ -94,7 +95,38 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         self.navigationController?.navigationBar.backgroundColor = UIColor(colorLiteralRed: 25/256, green: 118/256, blue: 210/256, alpha: 1)
     }
     
+    override func viewDidDisappear(animated: Bool)
+    {
+        
+        
+        if(DataContainer.sharedDataContainer.show == false)
+        {
+            print("do stuff")
+        for annotation in self.map.annotations
+        {
+            
+                
+                self.map.removeAnnotation(annotation)
+            
+        }
+        
+        resultAnnotationsCurrentlyOnMap.removeAll()
+            for button in buttonList
+            {
+                map.removeOverlay(button.polygon)
+            }
+            buttonList.removeAll()
+            
+        }
+        
+        
+        
+    }
+    
+
     override func viewDidAppear(animated: Bool) {
+        
+        
         //För att se Back button
         self.tabBarController?.navigationItem.hidesBackButton = false
         //zoom in to location every time map opens, maby change?
@@ -193,6 +225,7 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         {
             if annotation is ResultAnnotation
             {
+                
                 self.map.removeAnnotation(annotation)
             }
         }

@@ -36,6 +36,7 @@ class WeatherTableViewController: UITableViewController {
         tableView.reloadData()
     }
     override func viewDidDisappear(animated: Bool) {
+        self.tabBarController?.navigationItem.setHidesBackButton(false, animated: true)
         weathers?.removeAll()
         print("försvann")
         
