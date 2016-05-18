@@ -55,6 +55,10 @@ class WeatherContainer{
             let clLong = CLLocationDegrees(long)
             let clLat = CLLocationDegrees(lat)
             coordinate = CLLocationCoordinate2D(latitude: clLat, longitude: clLong)
+            
+            
+            
+            
             return
         }
         coordinate = nil

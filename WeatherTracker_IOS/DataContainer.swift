@@ -17,6 +17,8 @@ struct DefaultKeys
     static let Dates : [String] = []
     static let ResultAnnotations : [ResultAnnotation] = []
     static let show : Bool = false
+    static let resultDic: [String : [WeatherContainer]]? = [:]
+    
 }
 
 class DataContainer
@@ -24,6 +26,7 @@ class DataContainer
     static let sharedDataContainer = DataContainer()
     
     //Definera vad som du vill dela inom applikationen
+    var resultDic: [String : [WeatherContainer]]?
     var Parameters: [String : Double]?
     var Dates: [String]?
     var ResultAnnotations: [ResultAnnotation]?

@@ -12,7 +12,7 @@ class SlideMenu: NSObject,UIViewControllerAnimatedTransitioning,UIViewController
     //skapar variabler så vi kan ändra hur stor menyn ska vara
     var height:CGFloat = 0.0
     var isPresenting = false
-    
+    var moved:CGFloat = 0.0
     var snap:UIView?
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.5
@@ -24,7 +24,7 @@ class SlideMenu: NSObject,UIViewControllerAnimatedTransitioning,UIViewController
         let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
         //sätter höjd för hur menyn ska visas
         let container = transitionContext.containerView()
-        let moveDown = CGAffineTransformMakeTranslation(0,-250)
+        let moveDown = CGAffineTransformMakeTranslation(0,moved)
         let moveUp = CGAffineTransformMakeTranslation(0, height)
         //visar menyn och tar screencap av förra veiw för att visa
         if isPresenting{

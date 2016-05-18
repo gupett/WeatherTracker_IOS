@@ -18,6 +18,9 @@ extension MapViewControlerViewController{
         self.map.superview?.bringSubviewToFront(map)
         self.resultDictionary = resultDic
         
+        //gör så att man nå resultaten ifrån alla ställen
+        DataContainer.sharedDataContainer.resultDic = resultDic
+        print(DataContainer.sharedDataContainer.resultDic)
         //Add annotations for day one in mapView
         guard let bestAnnotations = resultDic["best"] else{
             print("Inga best values i listan")
@@ -60,7 +63,6 @@ extension MapViewControlerViewController{
           
             let subtitle = "Datum: " + date
             
-            print(date)
          
             resultAnnotation.subtitle = subtitle
             map.addAnnotation(resultAnnotation)

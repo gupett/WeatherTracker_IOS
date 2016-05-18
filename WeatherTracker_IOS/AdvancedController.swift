@@ -242,11 +242,9 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         let endDatestr = DateString.stringFromDate(endDate)
         var startDatestr = DateString.stringFromDate(startDate)
         //om start är efter slut datum gå ej vidare
-        if (startDate.compare(endDate) == NSComparisonResult.OrderedDescending){
-            print("no")
-        }
+        
             //om man inte har valet ett värde på datum gå ej vidare och knapp blinkar
-        else if(startDateBtn.titleLabel?.text == "Start Datum"){
+        if(startDateBtn.titleLabel?.text == "Start Datum"){
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
                 
                 self.startDateBtn!.alpha = 0.0
@@ -267,7 +265,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
                 }, completion: nil)
         }
             
-        else{
+        else if (startDate.compare(endDate) == NSComparisonResult.OrderedAscending || endDatestr == startDatestr){
             // gå igenom alla datum jämför strängarna
             while endDatestr != startDatestr {
                 
@@ -301,6 +299,9 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         
             
         }
+        else{
+            print("no")
+        }
     }
     // MARK: - Navigation
     
@@ -309,6 +310,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         if(segue.identifier == "chooseStartDate"){
             
             self.DatePickMenu.height = self.view.frame.height
+            self.DatePickMenu.moved = -250
             
             let datepick = segue.destinationViewController as! AdvancedDateViewController
             datepick.transitioningDelegate = self.DatePickMenu
@@ -318,6 +320,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
         if(segue.identifier == "chooseEndDate"){
             
             self.DatePickMenu.height = self.view.frame.height
+            self.DatePickMenu.moved = -250
             
             let datepick = segue.destinationViewController as! AdvancedDateViewController
             datepick.transitioningDelegate = self.DatePickMenu

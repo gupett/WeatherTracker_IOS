@@ -7,46 +7,52 @@
 //
 
 import UIKit
-var weathers = DataContainer.sharedDataContainer.ResultAnnotations
+var weathers = DataContainer.sharedDataContainer.resultDic!["best"]
 
-var filterweathers = DataContainer.sharedDataContainer.ResultAnnotations
+var filterweathers = DataContainer.sharedDataContainer.resultDic
+var dates :[String] = NSArray(array:DataContainer.sharedDataContainer.Dates!
+, copyItems: true) as! [String]
 var firstTime = true
 
 
 class WeatherTableViewController: UITableViewController {
+    
     var SliderMenu = SlideMenu()
-    var dayfilter = ""
-    @IBAction func filter(segue:UIStoryboardSegue) {
-        weathers = filterweathers
+    var dayfilter:String = ""
+    @IBAction func goBack(segue:UIStoryboardSegue) {
         if(dayfilter != "totalt")
         {
-        
-       
-            //weathers = weathers!.filter { $0.weatherContainer.paramDictionary["Datum"] == dayfilter}
+
+            weathers = filterweathers![dayfilter]
             
+        }
+        else{
+            weathers = filterweathers!["best"]
         }
         tableView.reloadData()
     }
     override func viewDidAppear(animated: Bool) {
         //HIDE BACK BUTTON
         self.tabBarController?.navigationItem.hidesBackButton = true
-        weathers = DataContainer.sharedDataContainer.ResultAnnotations
-        filterweathers = DataContainer.sharedDataContainer.ResultAnnotations
+        weathers = DataContainer.sharedDataContainer.resultDic!["best"]
+        filterweathers = DataContainer.sharedDataContainer.resultDic
+
+        dates = NSArray(array:DataContainer.sharedDataContainer.Dates!
+            , copyItems: true) as! [String]
+        dates += ["totalt"]
+        
+
+        //filterweathers = DataContainer.sharedDataContainer.weathers
         print("tittade in")
         tableView.reloadData()
     }
     override func viewDidDisappear(animated: Bool) {
-        weathers?.removeAll()
-        print("försvann")
-        
-        tableView.reloadData()
         
     }
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -75,11 +81,14 @@ class WeatherTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "WeatherTableCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! WeatherTableCell
+        //cell.LabelStad.text = weathers![indexPath.row].title
+        cell.LabelDatum.text = weathers![indexPath.row].date
         
-        cell.LabelStad.text = weathers![indexPath.row].title
-        cell.LabelDatum.text = weathers![indexPath.row].weatherContainer.paramDictionary["Datum"] as? String
-        cell.WeatherImage.image = UIImage(named: "ic_sunny")!
         
+        
+        
+        //cell.WeatherImage = MapViewControlerViewController().imageForCallout(weathers![indexPath.row].weatherContainer.weatherSymbol)
+
         return cell
     }
     
@@ -87,36 +96,33 @@ class WeatherTableViewController: UITableViewController {
     
     
     // MARK: - Navigation
-/*
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if(segue.identifier == "slideMenu"){
-            if(firstTime){
-                self.SliderMenu.hight = self.tableView.contentSize.height + 44.0
+        if(segue.identifier == "filter"){
+            
+                let a = Double(dates.count)
+                self.SliderMenu.moved = CGFloat(44.0 * a)
+                self.SliderMenu.height = 0.0
                 firstTime = false
-            }
             
-            var veckodagar = [String]()
-            for value in filterweathers {
-                veckodagar += [value.day]
-            }
-            veckodagar = Array(Set(veckodagar))
             
-            veckodagar += ["totalt"]
             
+            
+         
             let tableView = segue.destinationViewController as! FilterTableViewController
             tableView.transitioningDelegate = self.SliderMenu
             
-            tableView.days = veckodagar
+            tableView.days = dates
             
         }
         if(segue.identifier == "DetaljeradVy"){
             let indexPath = self.tableView.indexPathForSelectedRow
             let currentCell = self.tableView.cellForRowAtIndexPath(indexPath!) as! WeatherTableCell!
-            let tableView = segue.destinationViewController as! DetaljeradTableViewController
-            tableView.temp = currentCell.tempLabel.text!
+            //let tableView = segue.destinationViewController as! DetaljeradTableViewController
+            //tableView.temp = currentCell.tempLabel.text!
         }
+
     }
- */
     
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zHv-zp-air">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="zHv-zp-air">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -34,12 +34,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="liJ-tN-L7f">
+                            <rect key="frame" x="0.0" y="154" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Filter"/>
+                            <connections>
+                                <segue destination="8oN-xa-a80" kind="modal" identifier="filter" id="jFP-g2-Zhv"/>
+                            </connections>
+                        </button>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeatherTableCell" rowHeight="126" id="QPB-pd-FgK" customClass="WeatherTableCell" customModule="WeatherTracker_IOS" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WeatherTableCell" rowHeight="126" id="QPB-pd-FgK" customClass="WeatherTableCell" customModule="WeatherTracker_IOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="320" height="126"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QPB-pd-FgK" id="TDI-dx-QQ9">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="125.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="125"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stad:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yyp-R3-xg0">
@@ -61,19 +69,19 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieX-HB-mTg" userLabel="LabelStad">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ieX-HB-mTg" userLabel="LabelStad">
                                             <rect key="frame" x="45" y="8" width="143" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIi-IV-0pR" userLabel="LabelDatum">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIi-IV-0pR" userLabel="LabelDatum">
                                             <rect key="frame" x="57" y="84" width="131" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="chq-EY-3KO">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="chq-EY-3KO">
                                             <rect key="frame" x="196" y="0.0" width="105" height="105"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="105" id="eTN-xX-43i"/>
@@ -103,6 +111,7 @@
                                     <outlet property="LabelDatum" destination="aIi-IV-0pR" id="9sM-qv-k5Z"/>
                                     <outlet property="LabelStad" destination="ieX-HB-mTg" id="BfQ-tC-ly8"/>
                                     <outlet property="WeatherImage" destination="chq-EY-3KO" id="Z7h-eW-qSv"/>
+                                    <segue destination="NVQ-CQ-MNo" kind="push" id="zZC-M0-Tuf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -115,7 +124,77 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o0D-dD-DEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2250" y="-1400"/>
+            <point key="canvasLocation" x="2235" y="-1318"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="S8D-gD-8C3">
+            <objects>
+                <tableViewController id="NVQ-CQ-MNo" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Myw-xf-oCh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LJG-Rd-eqU">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LJG-Rd-eqU" id="9x7-vo-eNQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="NVQ-CQ-MNo" id="ecU-E1-T6D"/>
+                            <outlet property="delegate" destination="NVQ-CQ-MNo" id="kbP-CT-Qd4"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="xBq-v2-T79"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uJl-wN-ktj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2704" y="-1318"/>
+        </scene>
+        <!--Filter Table View Controller-->
+        <scene sceneID="OBS-FP-xGE">
+            <objects>
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="8oN-xa-a80" customClass="FilterTableViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="60A-es-NG4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterTableCell" id="9j8-WI-0NR" customClass="FilterTableViewCell" customModule="WeatherTracker_IOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9j8-WI-0NR" id="2hK-XI-cXO">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BO-Ep-284">
+                                            <rect key="frame" x="21" y="7" width="177" height="30"/>
+                                            <state key="normal" title="Filter"/>
+                                        </button>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="DatumBtn" destination="7BO-Ep-284" id="ThB-Bh-hJu"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="8oN-xa-a80" id="2N7-Cz-lAz"/>
+                            <outlet property="delegate" destination="8oN-xa-a80" id="rTM-hI-5t0"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="8pr-1X-tgR" kind="unwind" identifier="goBack" unwindAction="goBack:" id="HhQ-U2-E5B"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KSF-wf-mkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="8pr-1X-tgR" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2250" y="-2018"/>
         </scene>
         <!--Title-->
         <scene sceneID="RC1-FR-m9E">
@@ -205,18 +284,18 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="77"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rc4-Om-zox" id="Dpy-m2-2Kw">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1fW-sl-ors">
-                                            <rect key="frame" x="15" y="22" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="15" y="21" width="32" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e35-7C-OPY">
-                                            <rect key="frame" x="15" y="41.5" width="40.5" height="13.5"/>
+                                            <rect key="frame" x="15" y="41" width="41" height="14"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -334,7 +413,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cGY-4p-68x">
-                                <rect key="frame" x="224" y="486" width="76" height="30"/>
+                                <rect key="frame" x="224" y="486" width="83" height="30"/>
                                 <state key="normal" title="Slut Datum"/>
                                 <connections>
                                     <segue destination="JFO-DE-V25" kind="modal" identifier="chooseEndDate" id="3dP-Xe-9BB"/>
@@ -657,8 +736,8 @@
                                             <segue destination="OWa-2p-uog" kind="modal" identifier="chooseStartDate" id="n5Z-ub-nEd"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfV-dW-zW6">
-                                        <rect key="frame" x="224" y="425" width="76" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfV-dW-zW6">
+                                        <rect key="frame" x="224" y="425" width="83" height="30"/>
                                         <state key="normal" title="Slut Datum"/>
                                         <connections>
                                             <segue destination="OWa-2p-uog" kind="modal" identifier="chooseEndDate" id="VT4-MZ-35c"/>
