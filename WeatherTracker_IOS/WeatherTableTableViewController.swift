@@ -78,11 +78,52 @@ class WeatherTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! WeatherTableCell
         
         cell.LabelStad.text = weathers![indexPath.row].title
-        cell.LabelDatum.text = weathers![indexPath.row].weatherContainer.paramDictionary["Datum"] as? String
-        cell.WeatherImage.image = UIImage(named: "ic_sunny")!
-        
+        let datum = weathers![indexPath.row].weatherContainer.date
+        cell.LabelDatum.text = datum
+        let imageNumber = weathers![indexPath.row].weatherContainer.weatherSymbol
+        cell.WeatherImage.image = imageForCallout(imageNumber)
         return cell
     }
+    
+    func imageForCallout(weatherSymbol: Double) -> UIImage?{
+        switch weatherSymbol {
+        case 1...2:
+            let image = UIImage(named: "ic_sunny")
+            return image
+        case 3...4:
+            let image = UIImage(named: "ic_mostly_cloudy")
+            return image
+        case 5...6:
+            let image = UIImage(named: "ic_cloudy")
+            return image
+        case 7:
+            let image = UIImage(named: "ic_haze")
+            return image
+        case 8:
+            let image = UIImage(named: "ic_slight_rain")
+            return image
+        case 9:
+            let image = UIImage(named: "ic_thunderstorms")
+            return image
+        case 10...11:
+            let image = UIImage(named: "ic_snow")
+            return image
+        case 12:
+            let image = UIImage(named: "ic_rain")
+            return image
+        case 13:
+            let image = UIImage(named: "ic_thunderstorms")
+            return image
+        case 14...15:
+            let image = UIImage(named: "ic_snow")
+            return image
+        default:
+            return nil
+        }
+
+    }
+}
+
     
     
     
@@ -120,4 +161,4 @@ class WeatherTableViewController: UITableViewController {
     }
  */
     
-}
+

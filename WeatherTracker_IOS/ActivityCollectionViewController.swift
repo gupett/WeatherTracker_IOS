@@ -25,6 +25,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     
     var mapView: MapViewControlerViewController? = nil
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
