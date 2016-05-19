@@ -5,7 +5,7 @@
 //  Created by Andreas on 2016-04-28.
 //  Copyright © 2016 Gustav. All rights reserved.
 //
-
+import MapKit
 import UIKit
 var weathers = DataContainer.sharedDataContainer.resultDic!["best"]
 
@@ -20,11 +20,9 @@ class WeatherTableViewController: UITableViewController {
     var SliderMenu = SlideMenu()
     var dayfilter:String = ""
     @IBAction func goBack(segue:UIStoryboardSegue) {
-        if(dayfilter != "totalt")
-        {
-
+        if(dayfilter != "totalt"){
             weathers = filterweathers![dayfilter]
-            
+            //sätt dayfilter i datacontainer för att kunna uppdatera resultanation utifrån det'
         }
         else{
             weathers = filterweathers!["best"]
@@ -33,6 +31,8 @@ class WeatherTableViewController: UITableViewController {
     }
     override func viewDidAppear(animated: Bool) {
         //HIDE BACK BUTTON
+        
+        
         self.tabBarController?.navigationItem.hidesBackButton = true
         weathers = DataContainer.sharedDataContainer.resultDic!["best"]
         filterweathers = DataContainer.sharedDataContainer.resultDic
@@ -41,7 +41,6 @@ class WeatherTableViewController: UITableViewController {
             , copyItems: true) as! [String]
         dates += ["totalt"]
         
-
         //filterweathers = DataContainer.sharedDataContainer.weathers
         print("tittade in")
         tableView.reloadData()
@@ -49,8 +48,6 @@ class WeatherTableViewController: UITableViewController {
     override func viewDidDisappear(animated: Bool) {
         
     }
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Uncomment the following line to preserve selection between presentations
@@ -83,18 +80,66 @@ class WeatherTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! WeatherTableCell
         //cell.LabelStad.text = weathers![indexPath.row].title
         cell.LabelDatum.text = weathers![indexPath.row].date
+        let showcity = CLLocation(latitude: weathers![indexPath.row].coordinate!.latitude, longitude: weathers![indexPath.row].coordinate!.longitude)
+        CLGeocoder().reverseGeocodeLocation(showcity){
+            (MyPlace, MyError) -> Void in
+            if(MyError != nil)
+            {
+                
+                //handle error
+            }
+            if let MyPlace = MyPlace?.first
+            {
+               cell.LabelStad.text = MyPlace.locality
+                
+            }
+        }
         
+        print(imageForCallout(weathers![indexPath.row].weatherSymbol))
         
+        cell.WeatherImage.image = imageForCallout(weathers![indexPath.row].weatherSymbol)
         
-        
-        //cell.WeatherImage = MapViewControlerViewController().imageForCallout(weathers![indexPath.row].weatherContainer.weatherSymbol)
-
         return cell
     }
     
     
     
-    
+    func imageForCallout(weatherSymbol: Double) -> UIImage?{
+        switch weatherSymbol {
+        case 1...2:
+            let image = UIImage(named: "ic_sunny")
+            return image
+        case 3...4:
+            let image = UIImage(named: "ic_mostly_cloudy")
+            return image
+        case 5...6:
+            let image = UIImage(named: "ic_cloudy")
+            return image
+        case 7:
+            let image = UIImage(named: "ic_haze")
+            return image
+        case 8:
+            let image = UIImage(named: "ic_slight_rain")
+            return image
+        case 9:
+            let image = UIImage(named: "ic_thunderstorms")
+            return image
+        case 10...11:
+            let image = UIImage(named: "ic_snow")
+            return image
+        case 12:
+            let image = UIImage(named: "ic_rain")
+            return image
+        case 13:
+            let image = UIImage(named: "ic_thunderstorms")
+            return image
+        case 14...15:
+            let image = UIImage(named: "ic_snow")
+            return image
+        default:
+            return nil
+        }
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

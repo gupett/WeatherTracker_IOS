@@ -8,11 +8,10 @@
 
 import Foundation
 import MapKit
-
-extension MapViewControlerViewController{
+ extension MapViewControlerViewController{
     
     // MARK: - The WeatherResultDelegate function
-    func returnResults(resultDic: [String : [WeatherContainer]]) {
+    internal func returnResults(resultDic: [String : [WeatherContainer]]) {
         print("return result from data handler")
         self.loadingMonitor.stopAnimating()
         self.map.superview?.bringSubviewToFront(map)
@@ -32,7 +31,7 @@ extension MapViewControlerViewController{
         
     }
     
-    func createResultAnnotations(listOfWCs: [WeatherContainer]){
+    internal func createResultAnnotations(listOfWCs: [WeatherContainer]){
       
         for wc in listOfWCs{
             guard let coordinate = wc.coordinate else{
@@ -71,7 +70,7 @@ extension MapViewControlerViewController{
         DataContainer.sharedDataContainer.ResultAnnotations = resultAnnotationsCurrentlyOnMap
     }
     
-    func imageForCallout(weatherSymbol: Double) -> UIImage?{
+     func imageForCallout(weatherSymbol: Double) -> UIImage?{
         switch weatherSymbol {
         case 1...2:
             let image = UIImage(named: "ic_sunny")

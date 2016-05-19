@@ -111,7 +111,7 @@
                                     <outlet property="LabelDatum" destination="aIi-IV-0pR" id="9sM-qv-k5Z"/>
                                     <outlet property="LabelStad" destination="ieX-HB-mTg" id="BfQ-tC-ly8"/>
                                     <outlet property="WeatherImage" destination="chq-EY-3KO" id="Z7h-eW-qSv"/>
-                                    <segue destination="NVQ-CQ-MNo" kind="push" id="zZC-M0-Tuf"/>
+                                    <segue destination="NVQ-CQ-MNo" kind="modal" id="zZC-M0-Tuf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -316,6 +316,102 @@
             </objects>
             <point key="canvasLocation" x="2214" y="-676"/>
         </scene>
+        <!--Date Picker Activity View Controller-->
+        <scene sceneID="WZE-OX-vEU">
+            <objects>
+                <viewController id="Vsa-SL-fwb" customClass="DatePickerActivityViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2aP-a6-65d"/>
+                        <viewControllerLayoutGuide type="bottom" id="gzp-v9-fUG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eS0-ZY-al1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="X3s-PE-MBc">
+                                <rect key="frame" x="0.0" y="352" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="485348532.98068798">
+                                    <!--2016-05-19 11:02:12 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="sv"/>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAs-me-jeo">
+                                <rect key="frame" x="20" y="314" width="30" height="30"/>
+                                <state key="normal" title="Välj"/>
+                                <connections>
+                                    <segue destination="Fb8-AM-4GO" kind="unwind" unwindAction="setDate:" id="gE7-Hg-2Yp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S0u-pz-JdZ">
+                                <rect key="frame" x="255" y="314" width="45" height="30"/>
+                                <state key="normal" title="Avbryt"/>
+                                <connections>
+                                    <segue destination="Fb8-AM-4GO" kind="unwind" unwindAction="abort:" id="QhI-j3-AzL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="X3s-PE-MBc" firstAttribute="top" secondItem="FAs-me-jeo" secondAttribute="bottom" constant="8" symbolic="YES" id="83x-jD-6m9"/>
+                            <constraint firstItem="S0u-pz-JdZ" firstAttribute="baseline" secondItem="FAs-me-jeo" secondAttribute="baseline" id="Czy-FC-Ib8"/>
+                            <constraint firstItem="X3s-PE-MBc" firstAttribute="leading" secondItem="eS0-ZY-al1" secondAttribute="leading" id="DEK-sr-YiJ"/>
+                            <constraint firstItem="FAs-me-jeo" firstAttribute="leading" secondItem="eS0-ZY-al1" secondAttribute="leadingMargin" constant="4" id="Kup-0Q-3d3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S0u-pz-JdZ" secondAttribute="trailing" constant="4" id="Mot-5B-gOE"/>
+                            <constraint firstItem="X3s-PE-MBc" firstAttribute="bottom" secondItem="gzp-v9-fUG" secondAttribute="top" id="ZDu-QJ-Djd"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nbo-y4-icj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Fb8-AM-4GO" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1825" y="-1972"/>
+        </scene>
+        <!--Activity Date View Controller-->
+        <scene sceneID="0Vh-U2-lUh">
+            <objects>
+                <viewController id="IRA-Y8-VJn" customClass="ActivityDateViewController" customModule="WeatherTracker_IOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CCe-Vn-PxG"/>
+                        <viewControllerLayoutGuide type="bottom" id="k1R-R0-mMZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="xVM-bd-MWZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nhu-V7-7Vd">
+                                <rect key="frame" x="121" y="518" width="79" height="30"/>
+                                <state key="normal" title="välj område"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k7l-di-uRI">
+                                <rect key="frame" x="20" y="491" width="140" height="30"/>
+                                <state key="normal" title="Start Datum"/>
+                                <connections>
+                                    <segue destination="Vsa-SL-fwb" kind="modal" identifier="startDate" id="GH8-Fa-MtI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TXi-S2-bkG">
+                                <rect key="frame" x="128" y="28" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qBd-Lv-EEN">
+                                <rect key="frame" x="174" y="491" width="126" height="30"/>
+                                <state key="normal" title="Slut Datum"/>
+                                <connections>
+                                    <segue destination="Vsa-SL-fwb" kind="modal" identifier="endDate" id="q3z-jT-6tE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="endDateBtn" destination="qBd-Lv-EEN" id="Rr7-dG-xKC"/>
+                        <outlet property="startDateBtn" destination="k7l-di-uRI" id="Ebv-xR-qmL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yN9-mF-EI9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1279" y="-1910"/>
+        </scene>
         <!--Favoriter-->
         <scene sceneID="lvs-ob-wvL">
             <objects>
@@ -364,6 +460,9 @@
                                     <constraint firstItem="40g-5F-k7h" firstAttribute="leading" secondItem="FhE-TD-C68" secondAttribute="leading" id="bnK-ge-Ofs"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="8mi-wE-Nw8" secondAttribute="bottom" constant="21" id="rWS-xM-sLp"/>
                                 </constraints>
+                                <connections>
+                                    <segue destination="IRA-Y8-VJn" kind="modal" identifier="pickDate" id="eIj-nH-Tte"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -861,5 +960,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="VT4-MZ-35c"/>
         <segue reference="3dP-Xe-9BB"/>
+        <segue reference="q3z-jT-6tE"/>
     </inferredMetricsTieBreakers>
 </document>

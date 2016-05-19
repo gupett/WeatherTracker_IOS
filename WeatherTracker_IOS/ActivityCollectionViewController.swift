@@ -11,7 +11,8 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class ActivityCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
-    
+    var DatePickMenu = SlideMenu()
+
     //Definera datan som skall finnas i varje cell. Väder kopplas till parametrar i sista inputparameter
     var activities: [Activity] =
         [Activity(_image: UIImage(named: "ic_sunny")!, _name: "Sol, Klar Himmel",_param: ["t" : 20, "tcc_mean" : 0]),
@@ -149,6 +150,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     
     // MARK: UICollectionViewDelegate
     // will be called if cell is selected
+    /*
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         //Get the reference to the NavigationController which holds a reference to the map
@@ -178,7 +180,7 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
         
         self.navigationController?.pushViewController(navController.resView!, animated: true)
     }
-    
+    */
     /*
      // Uncomment this method to specify if the specified item should be highlighted during tracking
      override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -207,5 +209,17 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
      
      }
      */
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if(segue.identifier == "pickDate"){
+            
+            self.DatePickMenu.height = self.view.frame.height
+            self.DatePickMenu.moved = -100
+            let datepick = segue.destinationViewController as! ActivityDateViewController
+            datepick.transitioningDelegate = self.DatePickMenu
+            
+            
+        }
+                
+    }
     
 }
