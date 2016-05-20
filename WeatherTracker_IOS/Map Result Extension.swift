@@ -16,6 +16,7 @@ extension MapViewControlerViewController{
         print("return result from data handler")
         self.loadingMonitor.stopAnimating()
         self.map.superview?.bringSubviewToFront(map)
+        self.showDrawView.superview?.bringSubviewToFront(showDrawView)
         self.resultDictionary = resultDic
         
         //Add annotations for day one in mapView

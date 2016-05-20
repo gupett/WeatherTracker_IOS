@@ -151,32 +151,15 @@ class ActivityCollectionViewController: UICollectionViewController, UICollection
     // will be called if cell is selected
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        //Get the reference to the NavigationController which holds a reference to the map
-        guard let navController: NavigationController = self.view.window?.rootViewController as? NavigationController else{
-            print ("jag fick ingen navigation controller")
-            return
-        }
         
-        
-        //if top navigationController does not have a reference to a map then a new map will be created
-        // else the current reference to a map will be used
-        if navController.resView == nil{
-            print("reference = nil")
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            
-            navController.resView = storyBoard.instantiateViewControllerWithIdentifier("ResView") as? CustomTabControllerViewController
-        }
         
         /*
         navController.mapView!.searchParams = self.activities[indexPath.row].param
         */
         DataContainer.sharedDataContainer.Parameters = self.activities[indexPath.row].param
-        DataContainer.sharedDataContainer.Dates = ["2016-05-18"]
+        
         DataContainer.sharedDataContainer.show = false
-        navController.resView?.ShowHide()
         
-        
-        self.navigationController?.pushViewController(navController.resView!, animated: true)
     }
     
     /*

@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import MapKit
 
 class CustomTabControllerViewController: UITabBarController {
 
     @IBOutlet weak var TabBar: UITabBar!
+    
+    var mapController: MapViewControlerViewController? = nil
     
     //reference to the searchbar
     var resultSearchController: UISearchController? = nil
@@ -22,10 +25,16 @@ class CustomTabControllerViewController: UITabBarController {
 
         // Do any additional setup after loading the view.
     }
+    override func viewWillDisappear(animated: Bool) {
+        print("försvinner")
+        DataContainer.sharedDataContainer.show = false
+    }
+    
     override func viewDidAppear(animated: Bool)
     {
-        resultSearchController?.navigationItem.backBarButtonItem?.title = "Bakåt"
+        
     }
+
     
 
     override func didReceiveMemoryWarning() {
@@ -39,6 +48,7 @@ class CustomTabControllerViewController: UITabBarController {
             
             resultSearchController?.navigationItem.title = "Resultat"
             resultSearchController?.searchBar.hidden = true
+            self.navigationItem.title = "Resultat"
             TabBar.hidden = false
         }
         else
@@ -47,8 +57,6 @@ class CustomTabControllerViewController: UITabBarController {
             resultSearchController?.searchBar.hidden = false
             TabBar.hidden = true
         }
-
-        
     }
     func createSearchBar(){
         //Set up the search bar and corresponding tableview
@@ -56,6 +64,7 @@ class CustomTabControllerViewController: UITabBarController {
         
         let map = storyboard!.instantiateViewControllerWithIdentifier("MapView") as! MapViewControlerViewController
         let mapView = map.map
+        self.mapController = map
         let resultSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
         resultSearchController = UISearchController(searchResultsController: resultSearchTable)
         resultSearchController?.searchResultsUpdater = resultSearchTable

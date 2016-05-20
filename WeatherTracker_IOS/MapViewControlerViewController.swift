@@ -24,6 +24,10 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     
     @IBOutlet weak var loadingBackground: UIView!
     
+    var removeAnnotations = false
+    
+    
+    
     /*
     //reference to the searchbar
     var resultSearchController: UISearchController? = nil
@@ -39,6 +43,8 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     var searchDates: [String] = []
     
     var navController: NavigationController!
+    
+    var firstTime = true
     
     
     //Nytt för algoritmen
@@ -94,9 +100,51 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
         self.navigationController?.navigationBar.backgroundColor = UIColor(colorLiteralRed: 25/256, green: 118/256, blue: 210/256, alpha: 1)
     }
     
+    func back(sender: UIBarButtonItem) {
+        deleteAnnotations()
+        self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    
+    //När kartvyn försvinner och om vi inte är inne i resultatvyn så rensar vi kartan
+    override func viewDidDisappear(animated: Bool) {
+        if (DataContainer.sharedDataContainer.show == false)
+        {
+            print("removing everything")
+            
+            deleteAnnotations()
+        }
+    }
+    
+    func deleteAnnotations(){
+       
+        for annotation in self.map.annotations{
+            self.map.removeAnnotation(annotation)
+        }
+        for button in buttonList {
+            map.removeOverlay(button.polygon)
+        }
+        buttonList.removeAll()
+        
+
+    }
+    
     override func viewDidAppear(animated: Bool) {
-        //För att se Back button
+        //Gör en egen back button
         self.tabBarController?.navigationItem.hidesBackButton = false
+        
+        print("\(removeAnnotations) remove annotations är vad jag är")
+        
+        if removeAnnotations {
+            for annotation in map.annotations{
+                map.removeAnnotation(annotation)
+            }
+        }
+        
+        self.tabBarController?.navigationItem.hidesBackButton = false
+        //let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action: "back:")
+        //self.tabBarController?.navigationItem.leftBarButtonItem = newBackButton;
+        
         //zoom in to location every time map opens, maby change?
         if let coordinate: CLLocationCoordinate2D = searchCoordinate
         {
@@ -154,7 +202,10 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
     // MARK: - Search weather
     @IBAction func searchWeather(sender: AnyObject) {
         
-        
+        for button in buttonList{
+            self.map.removeOverlay(button.polygon)
+            self.map.removeAnnotation(button)
+        }
         
         //Do some changes with the appearance of the mapview
         self.map.superview?.bringSubviewToFront(map)
@@ -230,6 +281,9 @@ class MapViewControlerViewController: UIViewController, MKMapViewDelegate, CLLoc
             numberOFSearchCoordinates += coordinatesForPolygon.count
             coordinatesToSearchList.append(coordinatesForPolygon)
         }
+        
+        //töm button list för att förbereda för nya sökningar
+        buttonList.removeAll()
 
         //print("Antalet intressanta polygoner är: \(coordinatesToSearchList.count) och coordinater är \(numberOFSearchCoordinates)  Text")
         

@@ -34,14 +34,12 @@
 		6FEB75BA1CBB837400C80EBB /* WeatherTracker_IOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB75B91CBB837400C80EBB /* WeatherTracker_IOSUITests.swift */; };
 		6FEB75C81CBBD15400C80EBB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FEB75C71CBBD15400C80EBB /* MapKit.framework */; };
 		6FEB75CA1CBBD5E400C80EBB /* MapViewControlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEB75C91CBBD5E400C80EBB /* MapViewControlerViewController.swift */; };
+		6FFE55A71CEE04AE004B73E0 /* DatePickActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFE55A61CEE04AE004B73E0 /* DatePickActivityViewController.swift */; };
 		6FFED5081CD0A83C00C76E00 /* ContainsCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFED5071CD0A83C00C76E00 /* ContainsCoordinate.swift */; };
 		D5731A9E1CEAFCC6007C437F /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5731A9D1CEAFCC6007C437F /* DataContainer.swift */; };
 		D5731AA01CEB0950007C437F /* CustomTabControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5731A9F1CEB0950007C437F /* CustomTabControllerViewController.swift */; };
 		D5731AA31CEB5819007C437F /* WeatherTableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5731AA21CEB5819007C437F /* WeatherTableTableViewController.swift */; };
 		D5731AA51CEB58CE007C437F /* WeatherTableCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5731AA41CEB58CE007C437F /* WeatherTableCellTableViewCell.swift */; };
-		E14216591CD783230017B5CA /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14216581CD783230017B5CA /* DateViewController.swift */; };
-		E142165B1CD7840B0017B5CA /* SlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = E142165A1CD7840B0017B5CA /* SlideMenu.swift */; };
-		E1C153CD1CDA08DF00255663 /* AdvancedDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C153CC1CDA08DF00255663 /* AdvancedDateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,14 +93,12 @@
 		6FEB75BB1CBB837400C80EBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FEB75C71CBBD15400C80EBB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6FEB75C91CBBD5E400C80EBB /* MapViewControlerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewControlerViewController.swift; sourceTree = "<group>"; };
+		6FFE55A61CEE04AE004B73E0 /* DatePickActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickActivityViewController.swift; sourceTree = "<group>"; };
 		6FFED5071CD0A83C00C76E00 /* ContainsCoordinate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainsCoordinate.swift; sourceTree = "<group>"; };
 		D5731A9D1CEAFCC6007C437F /* DataContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
 		D5731A9F1CEB0950007C437F /* CustomTabControllerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabControllerViewController.swift; sourceTree = "<group>"; };
 		D5731AA21CEB5819007C437F /* WeatherTableTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableTableViewController.swift; sourceTree = "<group>"; };
 		D5731AA41CEB58CE007C437F /* WeatherTableCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherTableCellTableViewCell.swift; sourceTree = "<group>"; };
-		E14216581CD783230017B5CA /* DateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
-		E142165A1CD7840B0017B5CA /* SlideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideMenu.swift; sourceTree = "<group>"; };
-		E1C153CC1CDA08DF00255663 /* AdvancedDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedDateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +204,7 @@
 			children = (
 				6FCAE8681CC8FE55009F2D6A /* ActivityCollectionViewController.swift */,
 				6FCAE86B1CC903B0009F2D6A /* Activity.swift */,
+				6FFE55A61CEE04AE004B73E0 /* DatePickActivityViewController.swift */,
 			);
 			name = ActivityView;
 			sourceTree = "<group>";
@@ -216,8 +213,6 @@
 			isa = PBXGroup;
 			children = (
 				6FCFFD551CD38340003E6509 /* SimpleController.swift */,
-				E142165A1CD7840B0017B5CA /* SlideMenu.swift */,
-				E14216581CD783230017B5CA /* DateViewController.swift */,
 			);
 			name = "Enkel View";
 			sourceTree = "<group>";
@@ -226,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				6FCFFD531CD38327003E6509 /* AdvancedController.swift */,
-				E1C153CC1CDA08DF00255663 /* AdvancedDateViewController.swift */,
 			);
 			name = "Avancerad View";
 			sourceTree = "<group>";
@@ -390,7 +384,7 @@
 				TargetAttributes = {
 					6FEB75951CBB837400C80EBB = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = XNNG56MPHN;
+						DevelopmentTeam = AQTTH8AH3D;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -465,7 +459,6 @@
 				6FA808B91CDF13D7002DAEFF /* Map Result Extension.swift in Sources */,
 				6FA808BB1CDF15E4002DAEFF /* Map Draw Extension.swift in Sources */,
 				6FCFFD541CD38327003E6509 /* AdvancedController.swift in Sources */,
-				E14216591CD783230017B5CA /* DateViewController.swift in Sources */,
 				6FCAE8691CC8FE55009F2D6A /* ActivityCollectionViewController.swift in Sources */,
 				6FADA8B21CD111FA0005E1C0 /* CornerAnnotation.swift in Sources */,
 				6FEB759A1CBB837400C80EBB /* AppDelegate.swift in Sources */,
@@ -473,12 +466,12 @@
 				6F7ACA961CDC8C41007DCA94 /* DataHandler.swift in Sources */,
 				6FE811A01CC6212D00E23D3A /* DeleteAnnotation.swift in Sources */,
 				6FFED5081CD0A83C00C76E00 /* ContainsCoordinate.swift in Sources */,
+				6FFE55A71CEE04AE004B73E0 /* DatePickActivityViewController.swift in Sources */,
 				6FCFFD561CD38340003E6509 /* SimpleController.swift in Sources */,
 				D5731AA31CEB5819007C437F /* WeatherTableTableViewController.swift in Sources */,
 				6F7ACA9C1CDC8D2C007DCA94 /* ScoringSystem.swift in Sources */,
 				6FE811A21CC660CC00E23D3A /* DeleteAnnotationView.swift in Sources */,
 				6FCAE86C1CC903B0009F2D6A /* Activity.swift in Sources */,
-				E1C153CD1CDA08DF00255663 /* AdvancedDateViewController.swift in Sources */,
 				D5731A9E1CEAFCC6007C437F /* DataContainer.swift in Sources */,
 				6F7ACA9A1CDC8D0C007DCA94 /* WeatherContainer.swift in Sources */,
 				6F8A8A4A1CBCF35A004F9EC0 /* LocationSearchTable.swift in Sources */,
@@ -487,7 +480,6 @@
 				D5731AA01CEB0950007C437F /* CustomTabControllerViewController.swift in Sources */,
 				D5731AA51CEB58CE007C437F /* WeatherTableCellTableViewCell.swift in Sources */,
 				6FA808BE1CDF1721002DAEFF /* Map Test Extension.swift in Sources */,
-				E142165B1CD7840B0017B5CA /* SlideMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

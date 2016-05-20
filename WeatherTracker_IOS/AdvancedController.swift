@@ -9,7 +9,6 @@
 import UIKit
 
 class AdvancedController: UIViewController,UITextFieldDelegate {
-    var DatePickMenu = SlideMenu()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.WindDirFrom.delegate = self;
@@ -208,77 +207,10 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
             
         }
     }
-    var startDate:NSDate = NSDate()
-    var endDate:NSDate = NSDate()
-    var startOrEnd = ""
-    
-    
-    @IBOutlet weak var endDateBtn: UIButton!
-    @IBOutlet weak var startDateBtn: UIButton!
-    @IBAction func chooseAdvDate(segue:UIStoryboardSegue) {
-        let DateString = NSDateFormatter()
-        DateString.dateFormat = "yyyy-MM-dd"
-        if(startOrEnd == "start"){
-            let dateStr = DateString.stringFromDate(startDate)
-            startDateBtn.setTitle(dateStr, forState: .Normal)
-        }
-        else{
-            let dateStr = DateString.stringFromDate(endDate)
-            endDateBtn.setTitle(dateStr, forState: .Normal)
-        }
-    }
-    @IBAction func abortAdvDate(segue:UIStoryboardSegue) {
-        
-    }
+
     
     
     @IBAction func search(sender: AnyObject) {
-        //skapar lista för datum och formaterar datum till sträng
-        var days: [String] = []
-        let DateString = NSDateFormatter()
-        DateString.dateFormat = "yyyy-MM-dd"
-        var tempDate = startDate
-        let calender = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let endDatestr = DateString.stringFromDate(endDate)
-        var startDatestr = DateString.stringFromDate(startDate)
-        //om start är efter slut datum gå ej vidare
-        if (startDate.compare(endDate) == NSComparisonResult.OrderedDescending){
-            print("no")
-        }
-            //om man inte har valet ett värde på datum gå ej vidare och knapp blinkar
-        else if(startDateBtn.titleLabel?.text == "Start Datum"){
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.startDateBtn!.alpha = 0.0
-                }, completion: nil)
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.startDateBtn!.alpha = 1.0
-                }, completion: nil)
-        }
-        else if(endDateBtn.titleLabel?.text == "Slut Datum"){
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.endDateBtn!.alpha = 0.0
-                }, completion: nil)
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.endDateBtn!.alpha = 1.0
-                }, completion: nil)
-        }
-            
-        else{
-            // gå igenom alla datum jämför strängarna
-            while endDatestr != startDatestr {
-                
-                days.append(DateString.stringFromDate(tempDate))
-                tempDate = (calender?.dateByAddingUnit(.Day, value: 1, toDate: tempDate, options: []))!
-                startDatestr = DateString.stringFromDate(tempDate)
-                
-            }
-            //behöver lägga till sista datumet eftersom vi avbryter när datum blir lika
-            days.append(DateString.stringFromDate(tempDate))
-            print(days)
             var paramters: [String: Double] = [String: Double]()
             //lägger in värden ifrån slides till paramters dictionary
             if(TempSwitch.on ){
@@ -290,43 +222,20 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
             if(cloudSwitch.on){
                 paramters["tcc_mean"] = Double(cloudSlide.value)
             }
+            DataContainer.sharedDataContainer.Parameters = paramters
             
-            showMapHiddenResults(paramters, days: days)
+            DataContainer.sharedDataContainer.show = false
             print(paramters)
-            print(days)
 
             //anropa funktion med days lista av dagar och paramteras som är key value pairs
-            
-            
-        
-            
-        }
     }
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if(segue.identifier == "chooseStartDate"){
-            
-            self.DatePickMenu.height = self.view.frame.height
-            
-            let datepick = segue.destinationViewController as! AdvancedDateViewController
-            datepick.transitioningDelegate = self.DatePickMenu
-            datepick.startOrEnd = "start"
-            
-        }
-        if(segue.identifier == "chooseEndDate"){
-            
-            self.DatePickMenu.height = self.view.frame.height
-            
-            let datepick = segue.destinationViewController as! AdvancedDateViewController
-            datepick.transitioningDelegate = self.DatePickMenu
-            datepick.startOrEnd = "end"
-            //datepick.dateRst = endDate
-            
-        }
-    }
-    func showMapHiddenResults(parameters: [String: Double], days: [String])
+
+    
+    
+    /*func showMapHiddenResults(parameters: [String: Double], days: [String])
     {
     //Get the reference to the NavigationController which holds a reference to the map
     guard let navController: NavigationController = self.view.window?.rootViewController as? NavigationController else{
@@ -354,6 +263,7 @@ class AdvancedController: UIViewController,UITextFieldDelegate {
     self.navigationController?.pushViewController(navController.resView!, animated: true)
     
     }
+ */
 
     
     

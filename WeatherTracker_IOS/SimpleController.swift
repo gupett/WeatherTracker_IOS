@@ -9,7 +9,6 @@
 import UIKit
 
 class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDelegate {
-    var DatePickMenu = SlideMenu()
     
     //Referens till vår PickerView (alternativ extra label)
     @IBOutlet weak var PickerView: UIPickerView!
@@ -205,81 +204,13 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
         
     }
     
-    
-    var startDate:NSDate = NSDate()
-    var endDate:NSDate = NSDate()
-    var startOrEnd = ""
-    @IBOutlet weak var startDateBtn: UIButton!
-    
-    @IBOutlet weak var endDateBtn: UIButton!
-    @IBAction func start(segue:UIStoryboardSegue) {
-        let DateString = NSDateFormatter()
-        DateString.dateFormat = "yyyy-MM-dd"
-        if(startOrEnd == "start"){
-            let dateStr = DateString.stringFromDate(startDate)
-            startDateBtn.setTitle(dateStr, forState: .Normal)
-        }
-        else{
-            let dateStr = DateString.stringFromDate(endDate)
-            endDateBtn.setTitle(dateStr, forState: .Normal)
-        }
-      
 
-    }
-    
-    //avbryt knapp för välj datum
-    @IBAction func abortDate(segue:UIStoryboardSegue) {
-        
-    }
     
     //sökknapp trycks
     
     @IBAction func search(sender: AnyObject) {
         //skapar lista för datum och formaterar datum till sträng
-        var days: [String] = []
-        let DateString = NSDateFormatter()
-        DateString.dateFormat = "yyyy-MM-dd"
-        var tempDate = startDate
-        let calender = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-       let endDatestr = DateString.stringFromDate(endDate)
-        var startDatestr = DateString.stringFromDate(startDate)
-        //om start är efter slut datum gå ej vidare
-        if (startDate.compare(endDate) == NSComparisonResult.OrderedDescending){
-            print("no")
-        }
-        //om man inte har valet ett värde på datum gå ej vidare och knapp blinkar
-        else if(startDateBtn.titleLabel?.text == "Start Datum"){
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.startDateBtn!.alpha = 0.0
-                }, completion: nil)
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.startDateBtn!.alpha = 1.0
-                }, completion: nil)
-        }
-        else if(endDateBtn.titleLabel?.text == "Slut Datum"){
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.endDateBtn!.alpha = 0.0
-                }, completion: nil)
-            UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.CurveEaseOut, animations: {
-                
-                self.endDateBtn!.alpha = 1.0
-                }, completion: nil)
-        }
-            
-        else{
-            // gå igenom alla datum jämför strängarna
-            while endDatestr != startDatestr {
-                
-                days.append(DateString.stringFromDate(tempDate))
-                tempDate = (calender?.dateByAddingUnit(.Day, value: 1, toDate: tempDate, options: []))!
-                startDatestr = DateString.stringFromDate(tempDate)
 
-            }
-            //behöver lägga till sista datumet eftersom vi avbryter när datum blir lika
-            days.append(DateString.stringFromDate(tempDate))
             var paramters: [String: Double] = [String: Double]()
             //lägger in värden ifrån slides till paramters dictionary
             
@@ -322,66 +253,18 @@ class SimpleController: UIViewController,UIPickerViewDataSource,UIPickerViewDele
             //anropa funktion med days lista av dagar och paramteras som är key value pairs
             
             
-            //Get the reference to the NavigationController which holds a reference to the map
-            guard let navController: NavigationController = self.view.window?.rootViewController as? NavigationController else{
-                print ("jag fick ingen navigation controller")
-                return
-            }
-            
-            
-            //if top navigationController does not have a reference to a map then a new map will be created
-            // else the current reference to a map will be used
-            if navController.resView == nil{
-                print("reference = nil")
-                let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-                
-                navController.resView = storyBoard.instantiateViewControllerWithIdentifier("ResView") as? CustomTabControllerViewController
-                
-            }
-            
-            /*
-            navController.mapView!.searchParams = paramters
-            navController.mapView!.searchDates = days
-            */
+  
             DataContainer.sharedDataContainer.Parameters = paramters
-            DataContainer.sharedDataContainer.Dates = days
-            DataContainer.sharedDataContainer.show = false
-            navController.resView!.ShowHide()
+
             
             
-            self.navigationController?.pushViewController(navController.resView!, animated: true)
 
 
-        }
+        
     }
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        //startar slide menyn och skickar över om vi vill ha start eller slut datum
-        if(segue.identifier == "chooseStartDate"){
-           
-            self.DatePickMenu.height = self.view.frame.height
-            
-            let datepick = segue.destinationViewController as! DateViewController
-            datepick.transitioningDelegate = self.DatePickMenu
-            datepick.startOrEnd = "start"
-            
-        }
-        if(segue.identifier == "chooseEndDate"){
-            
-            self.DatePickMenu.height = self.view.frame.height
-            
-            let datepick = segue.destinationViewController as! DateViewController
-            datepick.transitioningDelegate = self.DatePickMenu
-            datepick.startOrEnd = "end"
-            //datepick.dateRst = endDate
-            
-        }
-        
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+
 
 
 }
